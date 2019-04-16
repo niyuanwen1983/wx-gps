@@ -1,25 +1,118 @@
 /**index.wxss**/
-.userinfo {
+
+page{
+  height:100%;
+}
+
+.wrap {
+  display: -webkit-flex;
   display: flex;
+  width: 100%;
+  height: 100%;
+  background-color: #f8f8f8;
   flex-direction: column;
-  align-items: center;
+  margin: 0 0 100rpx 0;
 }
 
-.userinfo-avatar {
-  width: 1rem;
-  height: 1rem;
-  margin: 2rem;
-  border-radius: 50%;
+.content {
+  background-color: #fff;
+  /*flex: 1;*/
+  overflow-y: scroll;
+  margin: 20rpx 28rpx;
+  /*padding: 20rpx 28rpx;*/
 }
 
-.userinfo-nickname {
-  color: #aaa;
+.header {
+  width: 100%;
+  height: 88rpx;
+  background: #465ffd;
+  font-size: 28rpx;
+  color: #fff;
+  line-height: 88rpx;
+  text-align: center;
 }
 
-.usermotto {
-  margin-top: 200px;
+.content ul li {
+  background: #fff;
+  margin: 20rpx 0 0 0;
 }
 
-.test1{
-  color:red;
+.content ul li .top {
+  font-size: 28rpx;
+  font-weight: 500;
+  padding-bottom: 32rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.content ul li .bottom {
+  font-size: 0;
+}
+
+.content ul li .bottom li {
+  padding: 0;
+  font-size: 0;
+}
+
+.content ul li .bottom li:nth-child(1) {
+  display: inline-block;
+  width: 50%;
+}
+
+.content ul li .bottom li:nth-child(2) {
+  display: inline-block;
+  width: 50%;
+  text-align: right;
+}
+
+.content ul li .bottom li:last-child {
+  margin-bottom: 0;
+  text-align: right;
+}
+
+.content ul li .bottom .tit {
+  display: inline-block;
+  font-size: 26rpx;
+  color: #999;
+}
+
+.content ul li .bottom .des {
+  display: inline-block;
+  font-size: 26rpx;
+  color: #666;
+}
+
+.content ul li .bottom li a {
+  display: inline-block;
+  width: 104rpx;
+  height: 44rpx;
+  font-size: 24rpx;
+  border: 1rpx solid #445dfd;
+  border-radius: 4rpx;
+  text-align: center;
+  line-height: 44rpx;
+}
+
+.content ul li .bottom li a.abandonBtn {
+  color: #445dfd;
+}
+
+.content ul li .bottom li a.confirmBtn {
+  color: #fff;
+  background-color: #445dfd;
+  margin-left: 48rpx;
+}
+
+.li-wrap {
+  padding: 20rpx 28rpx;
+}
+
+.view-row{
+  margin:48rpx 0 0 0;
+}
+
+.bottom-bar {
+  width: 100%;
+  height: 20rpx;
+  background-color: #f8f8f8;
+  margin-top: 20rpx;
 }
