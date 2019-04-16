@@ -2,42 +2,48 @@
 <import src="../../template/template.wxml" />
 
 <view class="wrap">
-		<view class="header">
-			<p class="title">我的</p>
-		</view>
-		<view class="content">
-			<view class="top">
-				<view class="income">
-					<span class="money">52860.93</span>
-					<span>本月收入（元）</span>
-					<i class="white_arrow"></i>
-				</view>
-			</view>
-			<view class="middle clearfix">
-				<view class="left" bindtap="gotoIncome">
-					<span class="num">1,000</span>
-					<span class="wrd">待收入（元）</span>
-				</view>
-				<view class="right">
-					<span class="num">5</span>
-					<span class="wrd">数量（台）</span>
-				</view>
-			</view>
-			<view class="bottom">
-					<view class="clearfix">
-						<i class="icon1"></i>
-						<p>我的账单<image src="/imgs/arrow.png" alt="" class="arrow"></image></p>
-					</view>
-					<view class="clearfix">
-						<i class="icon2"></i>
-						<p>消息中心<image src="/imgs/arrow.png" alt="" class="arrow"></image></p>
-					</view>
-					<view class="clearfix">
-						<i class="icon3"></i>
-						<p>设置<image src="/imgs/arrow.png" alt="" class="arrow"></image></p>
-					</view>
-			</view>
-		</view>
-	</view>
+  <view class="header">
+    <p class="title">我的</p>
+  </view>
+  <view class="content">
+    <view class="top">
+      <view class="income">
+        <span class="money">52860.93</span>
+        <span>本月收入（元）</span>
+        <i class="white_arrow"></i>
+      </view>
+    </view>
+    <view class="middle clearfix">
+      <view class="left" bindtap="gotoIncome">
+        <span class="num">1,000</span>
+        <span class="wrd">待收入（元）</span>
+      </view>
+      <view class="right">
+        <span class="num">5</span>
+        <span class="wrd">数量（台）</span>
+      </view>
+    </view>
+    <view class="bottom">
+      <view class="clearfix">
+        <i class="icon1"></i>
+        <p>我的账单
+          <image src="/imgs/arrow.png" alt="" class="arrow"></image>
+        </p>
+      </view>
+      <view class="clearfix" bindtap="gotoMessages">
+        <i class="icon2"></i>
+        <p>消息中心
+          <image src="/imgs/arrow.png" alt="" class="arrow"></image>
+        </p>
+      </view>
+      <view class="clearfix">
+        <i class="icon3"></i>
+        <p>设置
+          <image src="/imgs/arrow.png" alt="" class="arrow"></image>
+        </p>
+      </view>
+    </view>
+  </view>
+</view>
 
 <template is="tabBar" data="{{tabBar:bindData.tabBar}}" />
