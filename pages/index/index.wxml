@@ -1,9 +1,6 @@
 <!--index.wxml-->
 <import src="../../template/template.wxml" />
 
-
-
-
 <view class="wrap">
   <view class="header">
     <p class="title">首页</p>
@@ -124,19 +121,5 @@
     </ul>
   </view>
 </view>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <template is="tabBar" data="{{tabBar:bindData.tabBar}}" />

@@ -19,7 +19,7 @@ function tabbarinit() {
     },
     {
       "current": 0,
-      "pagePath": "/pages/category/category",
+      "pagePath": "/pages/me/me",
       "iconPath": "/imgs/me_unselected.png",
       "selectedIconPath": "/imgs/me_selected.png",
       "text": "我的"
