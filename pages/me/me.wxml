@@ -14,7 +14,7 @@
 				</view>
 			</view>
 			<view class="middle clearfix">
-				<view class="left">
+				<view class="left" bindtap="gotoIncome">
 					<span class="num">1,000</span>
 					<span class="wrd">待收入（元）</span>
 				</view>

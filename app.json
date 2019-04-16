@@ -3,6 +3,7 @@
     "pages/me/me",
     "pages/index/index",
     "pages/login/login",
+    "pages/income/income",
     "pages/logs/logs"
   ],
   "window":{
