@@ -1,0 +1,22 @@
+<view class="wrap">
+  <view class="header">
+    <p class="title">消息中心</p>
+  </view>
+  <view class="content messages">
+    <view class="messages-row">
+      <view class="messages-left">
+        <view>
+          <p class="messages-content">
+            <view class="messages-dot"></view>
+            系统已更新，请及时升级！
+          </p>
+        </view>
+        <view>
+          <p class="date-time">
+            2018 - 04 - 28 10：00：00
+          </p>
+        </view>
+      </view>
+    </view>    
+  </view>
+</view>
