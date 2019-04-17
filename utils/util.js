@@ -47,6 +47,10 @@ const showToast = (title) => {
  * @failFunction 失败的回调方法
  */
 const doApi = (url, params, successFunction, failFunction) => {
+  wx.showLoading({
+    title: '加载中......',
+  })
+  
   wx.request({
     url: url,
     data: params,
@@ -54,11 +58,13 @@ const doApi = (url, params, successFunction, failFunction) => {
       'content-type': 'application/json'
     },
     success: function(res) {
+      wx.hideLoading()
       if (typeof successFunction == "function") {
         successFunction(res);
       }
     },
     fail: function(res) {
+      wx.hideLoading()
       if (typeof failFunction == "function") {
         failFunction(res);
       }
