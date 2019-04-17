@@ -27,5 +27,13 @@ Page({
     wx.navigateTo({
       url: '/pages/me/messages/messages'
     })
+  },
+  /**
+   * 跳转到待消息中心页面
+   */
+  gotoMyincome: function () {
+    wx.navigateTo({
+      url: '/pages/me/myincome/myincome'
+    })
   }
 })

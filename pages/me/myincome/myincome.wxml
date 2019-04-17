@@ -1,0 +1,50 @@
+<view class="wrap">
+  <view class="header">
+    <p class="title">我的收入</p>
+  </view>
+  <view class="content myIncome">
+    <view class="range-select">
+      <view class="range-date">
+        <picker class="date-picker" mode="date" value="{{date}}" fields="month" start="2015-09" bindchange="bindDateChange">
+          <view class="picker">
+            选择年月：{{date}}
+          </view>
+        </picker>
+      </view>
+      <view class="range-money">
+        <p class="income-title">收入（元）：333,029.00</p>
+      </view>
+    </view>
+    <view class="content income">
+      <view class="income-row">
+        <view class="income-left">
+          <view>
+            <p class="money">
+              3,200
+            </p>
+          </view>
+          <view>
+            <p class="row-title">
+              安装收入
+            </p>
+          </view>
+        </view>
+        <view class="income-center">
+          <view>
+            <p class="num">
+              4台
+            </p>
+          </view>
+          <view>
+            <p class="row-title">
+              安装台数
+            </p>
+          </view>
+        </view>
+        <view class="income-right">
+          <image src="/imgs/arrow.png" alt="" class="arrow"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -24,7 +24,7 @@
       </view>
     </view>
     <view class="bottom">
-      <view class="clearfix">
+      <view class="clearfix" bindtap="gotoMyincome">
         <i class="icon1"></i>
         <p>我的账单
           <image src="/imgs/arrow.png" alt="" class="arrow"></image>

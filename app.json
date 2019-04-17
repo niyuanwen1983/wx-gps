@@ -2,6 +2,7 @@
   "pages":[
     "pages/me/me",
     "pages/me/messages/messages",
+    "pages/me/myincome/myincome",
     "pages/index/index",
     "pages/login/login",
     "pages/income/income",
