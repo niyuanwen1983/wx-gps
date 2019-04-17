@@ -11,7 +11,7 @@ function tabbarinit() {
     },
     {
       "current": 0,
-      "pagePath": "/pages/news/news",
+      "pagePath": "/pages/task/task",
       "iconPath": "/imgs/task_unselected.png",
       "selectedIconPath": "/imgs/task_selected.png",
       "text": "工单"

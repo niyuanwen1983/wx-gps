@@ -1,0 +1,214 @@
+<import src="../../template/template.wxml" />
+
+<view class="wrap">
+  <view class="header">
+    <p class="title">我的工单</p>
+  </view>
+  <view class="swiper-tab">
+    <view class="swiper-tab-item {{currentTab==0?'active':''}}" data-current="0" bindtap="clickTab">
+      未完成
+      <view class="{{currentTab==0?'selected-bar':''}}"></view>
+    </view>
+    <view class="swiper-tab-item {{currentTab==1?'active':''}}" data-current="1" bindtap="clickTab">审核中
+      <view class="{{currentTab==1?'selected-bar':''}}"></view>
+    </view>
+    <view class="swiper-tab-item {{currentTab==2?'active':''}}" data-current="2" bindtap="clickTab">审核不通过
+      <view class="{{currentTab==2?'selected-bar':''}}"></view>
+    </view>
+    <view class="swiper-tab-item {{currentTab==3?'active':''}}" data-current="3" bindtap="clickTab">已完成
+      <view class="{{currentTab==3?'selected-bar':''}}"></view>
+    </view>
+    <view class="swiper-tab-item {{currentTab==4?'active':''}}" data-current="4" bindtap="clickTab">超时
+      <view class="{{currentTab==4?'selected-bar':''}}"></view>
+    </view>
+  </view>
+  <view class="content" style="display:block;">
+    <ul>
+      <!--未完成-->
+      <li>
+        <view class="li-wrap">
+          <view class="top">
+            <p>类型：拆机</p>
+            <p class="uncompleted">未完成</p>
+          </view>
+          <ol class="bottom">
+            <li>
+              <span class="tit">客户姓名：</span>
+              <span class="des">王大锤</span>
+            </li>
+            <li>
+              <span class="tit">车牌号码：</span>
+              <span class="des">沪ATF888</span>
+            </li>
+            <li>
+              <view class="view-row">
+                <span class="tit">车辆型号：</span>
+                <span class="des">2018款 奥迪A8 2.0T 自动舒适型</span>
+              </view>
+            </li>
+            <li>
+              <view class="view-row">
+                <span class="tit">期望安装时间：</span>
+                <span class="des">2018-04-18 09:09</span>
+              </view>
+            </li>
+            <li>
+              <view class="view-row">
+                <a href="javascript:;" class="abandonBtn">取消</a>
+                <a href="javascript:;" class="confirmBtn">拆机</a>
+              </view>
+            </li>
+          </ol>
+        </view>
+        <view class="bottom-bar"></view>
+      </li>
+      <!--审核中-->
+      <li>
+        <view class="li-wrap">
+          <view class="top">
+            <p>类型：拆机</p>
+            <p class="auditing">审核中</p>
+          </view>
+          <ol class="bottom">
+            <li>
+              <span class="tit">客户姓名：</span>
+              <span class="des">王大锤</span>
+            </li>
+            <li>
+              <span class="tit">车牌号码：</span>
+              <span class="des">沪ATF888</span>
+            </li>
+            <li>
+              <view class="view-row">
+                <span class="tit">车辆型号：</span>
+                <span class="des">2018款 奥迪A8 2.0T 自动舒适型</span>
+              </view>
+            </li>
+            <li>
+              <view class="view-row">
+                <span class="tit">期望安装时间：</span>
+                <span class="des">2018-04-18 09:09</span>
+              </view>
+            </li>
+            <li>
+              <view class="view-row" style="display:none;">
+              </view>
+            </li>
+          </ol>
+        </view>
+        <view class="bottom-bar"></view>
+      </li>
+      <!--审核不通过-->
+      <li>
+        <view class="li-wrap">
+          <view class="top">
+            <p>类型：拆机</p>
+            <p class="failed">审核不通过</p>
+          </view>
+          <ol class="bottom">
+            <li>
+              <span class="tit">客户姓名：</span>
+              <span class="des">王大锤</span>
+            </li>
+            <li>
+              <span class="tit">车牌号码：</span>
+              <span class="des">沪ATF888</span>
+            </li>
+            <li>
+              <view class="view-row">
+                <span class="tit">车辆型号：</span>
+                <span class="des">2018款 奥迪A8 2.0T 自动舒适型</span>
+              </view>
+            </li>
+            <li>
+              <view class="view-row">
+                <span class="tit">期望安装时间：</span>
+                <span class="des">2018-04-18 09:09</span>
+              </view>
+            </li>
+            <li>
+              <view class="view-row">
+                <a href="javascript:;" class="redoBtn">重新处理</a>
+              </view>
+            </li>
+          </ol>
+        </view>
+        <view class="bottom-bar"></view>
+      </li>
+      <!--审核中-->
+      <li>
+        <view class="li-wrap">
+          <view class="top">
+            <p>类型：拆机</p>
+            <p class="completed">已完成</p>
+          </view>
+          <ol class="bottom">
+            <li>
+              <span class="tit">客户姓名：</span>
+              <span class="des">王大锤</span>
+            </li>
+            <li>
+              <span class="tit">车牌号码：</span>
+              <span class="des">沪ATF888</span>
+            </li>
+            <li>
+              <view class="view-row">
+                <span class="tit">车辆型号：</span>
+                <span class="des">2018款 奥迪A8 2.0T 自动舒适型</span>
+              </view>
+            </li>
+            <li>
+              <view class="view-row">
+                <span class="tit">期望安装时间：</span>
+                <span class="des">2018-04-18 09:09</span>
+              </view>
+            </li>
+            <li>
+              <view class="view-row" style="display:none;">
+              </view>
+            </li>
+          </ol>
+        </view>
+        <view class="bottom-bar"></view>
+      </li>
+      <!--超时-->
+      <li>
+        <view class="li-wrap">
+          <view class="top">
+            <p>类型：拆机</p>
+            <p class="timeouted">超时</p>
+          </view>
+          <ol class="bottom">
+            <li>
+              <span class="tit">客户姓名：</span>
+              <span class="des">王大锤</span>
+            </li>
+            <li>
+              <span class="tit">车牌号码：</span>
+              <span class="des">沪ATF888</span>
+            </li>
+            <li>
+              <view class="view-row">
+                <span class="tit">车辆型号：</span>
+                <span class="des">2018款 奥迪A8 2.0T 自动舒适型</span>
+              </view>
+            </li>
+            <li>
+              <view class="view-row">
+                <span class="tit">期望安装时间：</span>
+                <span class="des">2018-04-18 09:09</span>
+              </view>
+            </li>
+            <li>
+              <view class="view-row" style="display:none;">
+              </view>
+            </li>
+          </ol>
+        </view>
+        <view class="bottom-bar"></view>
+      </li>
+    </ul>
+  </view>
+</view>
+
+<template is="tabBar" data="{{tabBar:bindData.tabBar}}" />

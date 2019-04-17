@@ -1,5 +1,6 @@
 {
   "pages":[
+    "pages/task/task",
     "pages/me/me",
     "pages/me/messages/messages",
     "pages/me/myincome/myincome",
