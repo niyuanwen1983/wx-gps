@@ -179,7 +179,7 @@ page {
 
 .swiper-tab-item {
   color: #999;
-  display:inline-block;
+  display: inline-block;
   font-size: 28rpx;
   height: 88rpx;
   width: 20%;
@@ -213,4 +213,50 @@ page {
 
 .hidden {
   display: none;
+}
+
+.search {
+  height: 28rpx;
+  margin: 32rpx 32rpx 0 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 28rpx;
+}
+
+.search-view {
+  background: #fff;
+  border-radius: 32rpx;
+  margin: 16rpx;
+  width: 600rpx;
+}
+
+.search-left {
+  float: left;
+  height: 28rpx;
+  margin: 12rpx 0 0 18rpx;
+  width: 28rpx;
+}
+
+.search-input {
+  color: #000;
+  height: 44rpx;
+  margin: 0 0 0 64rpx;
+  text-align: left;
+  width: 540rpx;
+}
+
+.search-cancel {
+  background: #445dfd;
+  border: none;
+  color: #fff;
+  float: right;
+  font-size: 30rpx;
+  height: 28rpx;
+  margin: -54rpx 0 0 0;
+  width: 100rpx;
+}
+
+.search-cancel:after {
+  border: none;
 }
