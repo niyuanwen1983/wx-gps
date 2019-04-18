@@ -1,0 +1,66 @@
+<view class="wrap" style="background-color:#fff;">
+  <view class="header">
+    <p class="back">
+      <image src="/imgs/white_arrow.png" alt=""></image>
+    </p>
+    <p class="title">设备确认</p>
+    <p class="subTitle"></p>
+  </view>
+  <view class="content equipInfo">
+    <view class="customerInfo">
+      <h1>客户信息确认</h1>
+      <view style="visibility:hidden;">&nbsp;</view>
+      <ul>
+        <li style="display:inline-block;width:50%;">
+          <span class="tit">客户姓名：</span>
+          <span class="des">王大锤</span>
+        </li>
+        <li style="display:inline-block;width:50%;">
+          <span class="tit">车牌号码：</span>
+          <span class="des">沪ATF888</span>
+        </li>
+        <li>
+          <span class="tit">车架号码：</span>
+          <span class="des">ZF11425433</span>
+        </li>
+      </ul>
+    </view>
+    <view style="height:0.27rem;background-color:#f8f8f8;"></view>
+    <view class="deviceInfo">
+      <h1>设备信息确认</h1>
+      <view style="margin-top:48rpx;"></view>
+      <h2>设备1：</h2>
+      <view></view>
+      <ul>
+        <li>
+          <span class="tit">网络类型：</span>
+          <span class="des">无线</span>
+          <view></view>
+        </li>
+        <li>
+          <span class="tit">SIM卡号：</span>
+          <span class="des">1345646566464</span>
+          <view></view>
+        </li>
+      </ul>
+      <view style="visibility:hidden;">&nbsp;</view>
+      <h2>设备2：</h2>
+      <view></view>
+      <ul>
+        <li>
+          <span class="tit">网络类型：</span>
+          <span class="des">无线</span>
+          <view></view>
+        </li>
+        <li>
+          <span class="tit">SIM卡号：</span>
+          <span class="des">1345646566464</span>
+          <view></view>
+        </li>
+      </ul>
+      <view class="warning">注：安装前请您确认您的客户信息和设备信息是否正确，以免安装审核不通过！</view>
+    </view>
+    <button class="confirmBtn">确认</button>
+    <button class="removeBtn">取消</button>
+  </view>
+</view>
