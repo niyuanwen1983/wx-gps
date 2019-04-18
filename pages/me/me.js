@@ -16,7 +16,10 @@ Page({
    * 跳转到待收入页面
    */
   gotoIncome: function() {
-    wx.navigateTo({
+    /*wx.navigateTo({
+      url: '/pages/income/income'
+    })*/
+    wx.redirectTo({
       url: '/pages/income/income'
     })
   },
@@ -25,7 +28,7 @@ Page({
    */
   gotoMessages: function () {
     wx.navigateTo({
-      url: '/pages/me/messages/messages'
+      url: '/pages/me/messages/messages?a=1'
     })
   },
   /**
