@@ -1,7 +1,8 @@
 {
   "pages":[
-    "pages/task/deviceconfirm/deviceconfirm",
+    "pages/task/installlocation/installlocation",
     "pages/task/task",
+    "pages/task/deviceconfirm/deviceconfirm",
     "pages/me/me",
     "pages/me/messages/messages",
     "pages/me/myincome/myincome",
