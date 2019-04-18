@@ -1,0 +1,129 @@
+<!--pages/task/installdevice/installdevice.wxml-->
+<view class="wrap" style="background-color:#fff;">
+		<view class="header">
+			<p class="back"><image src="/imgs/white_arrow.png" alt=""></image></p>
+			<p class="title">安装详情</p>
+			<p class="subTitle"></p>
+		</view>
+		<view class="content buildInfo">
+			<!-- 基本信息 -->
+			<view class="basisInfo">
+				<h1>基本信息</h1>
+				<ul>
+					<li style="display:inline-block;width:50%;">
+						<span class="tit">客户姓名：</span>
+						<span class="des">王大锤</span>
+					</li>
+					<li style="display:inline-block;width:50%;">
+						<span class="tit">车牌号码：</span>
+						<span class="des">沪ATF888</span>
+					</li>
+					<li>
+						<span class="tit">车架号码：</span>
+						<span class="des">ZF11425433</span>
+					</li>
+					<li>
+						<span class="tit">发起时间：</span>
+						<span class="des">2018-04-18 09:09</span>
+					</li>
+					<li>
+						<span class="tit">车辆型号：</span>
+						<span class="des">2018款 奥迪A8 2.0T 自动舒适型</span>
+					</li>
+					<li>
+						<span class="tit">期望安装时间：</span>
+						<span class="des">2018-04-18 09:09</span>
+					</li>
+          <li>
+						<span class="tit">安装时间：</span>
+						<span class="des">2018-04-18&nbsp;&nbsp;09:09</span>
+					</li>
+					<li>
+						<span class="tit">安装地址：</span>
+						<span class="des">上海市宝山区殷高西路101号高景国际大厦103室</span>
+					</li>
+          <li>
+						<span class="tit">退回原因：</span>
+						<span class="des">安装不符要求</span>
+					</li>
+					<li>
+						<span class="tit">附件信息：</span>
+						<span class="pic clearfix">
+							<i></i>
+							<i></i>
+							<i></i>
+						</span>
+					</li>
+				</ul>
+			</view>
+			<!-- border -->
+			<view style="height:20rpx;background-color:#f8f8f8;"></view>
+			<!-- 安装信息 -->
+			<view class="installationInfo">
+				<h1>安装信息</h1>
+				<ul>
+					<li>
+						<span class="tit">网络类型：</span>
+						<span class="des">
+							<label><image src="/imgs/check.png" alt=""></image>有线</label>
+							<label><image src="/imgs/uncheck.png" alt=""></image>无线</label>
+						</span>
+					</li>
+					<li>
+						<span class="tit">SIM卡号：</span>
+						<span class="des">1345646566464</span>
+					</li>
+          <li>
+						<span class="tit">安装位置：</span>
+						<span class="des">15.右三角板<a href="javascript:;" onclick="imgChange15()">查看安装位置示意图</a></span>
+					</li>
+					<li>
+						<span class="tit">安装位置：</span>
+						<span class="des">请输入安装位置序列号</span>
+					</li>
+					<li>
+						<span class="tit">安装照片：</span>
+						<span class="pic clearfix">
+							<view class="item"><i><image src="/imgs/cammera.png" alt=""></image><span class='cls'>x</span></i>安装位置</view>
+							<view class="item"><i><image src="/imgs/cammera.png" alt=""></image><span class='cls'>x</span></i>人车合影</view>
+							<view class="item"><i><image src="/imgs/cammera.png" alt=""></image><span class='cls'>x</span></i>设备车架号合影</view>
+							<view class="item"><i><image src="/imgs/jia.png" alt=""></image><span class='cls'>x</span></i>其他</view>
+						</span>
+					</li>
+					<li>
+						<span class="tit">网络类型：</span>
+						<span class="des">
+							<label><image src="/imgs/uncheck.png" alt=""></image>有线</label>
+							<label><image src="/imgs/check.png" alt=""></image>无线</label>
+						</span>
+					</li>
+					<li>
+						<span class="tit">SIM卡号：</span>
+						<span class="des">1345646566464</span>
+					</li>
+          <li>
+						<span class="tit">安装位置：</span>
+						<span class="des">15.右三角板<a href="javascript:;" onclick="imgChange15()">查看安装位置示意图</a></span>
+					</li>
+					<li>
+						<span class="tit">安装位置：</span>
+						<span class="des">请输入安装位置序列号</span>
+					</li>
+					<li>
+						<span class="tit">安装照片：</span>
+						<span class="pic clearfix">
+							<view class="item"><i><image src="/imgs/cammera.png" alt=""></image><span class='cls'>x</span></i>安装位置</view>
+							<view class="item"><i><image src="/imgs/cammera.png" alt=""></image><span class='cls'>x</span></i>人车合影</view>
+							<view class="item"><i><image src="/imgs/cammera.png" alt=""></image><span class='cls'>x</span></i>设备车架号合影</view>
+							<view class="item"><i><image src="/imgs/jia.png" alt=""></image><span class='cls'>x</span></i>其他</view>
+						</span>
+					</li>
+					<li>
+						<span class="tit">安装地址：</span>
+						<span class="des">上海市宝山区殷高西路101号高景国际大厦</span>
+					</li>
+				</ul>
+			</view>
+			<button class="submitBtn">提交</button>
+		</view>
+	</view>
