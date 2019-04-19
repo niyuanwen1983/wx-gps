@@ -1,0 +1,112 @@
+<view class="wrap" style="background-color:#fff;">
+  <view class="header">
+    <!--<p class="back"><image src="/imgs/white_arrow.png" alt=""></image></p>-->
+    <p class="title">安装位置</p>
+    <!--<p class="subTitle"></p>-->
+  </view>
+  <view class="content site">
+    <image src="/imgs/1.jpg" alt="" class="{{items[0]==0?'hide':''}}"></image>
+    <image src="/imgs/2.jpg" alt="" class="{{items[1]==0?'hide':''}}"></image>
+    <image src="/imgs/3.jpg" alt="" class="{{items[2]==0?'hide':''}}"></image>
+    <image src="/imgs/4.jpg" alt="" class="{{items[3]==0?'hide':''}}"></image>
+    <image src="/imgs/5.jpg" alt="" class="{{items[4]==0?'hide':''}}"></image>
+    <image src="/imgs/6.jpg" alt="" class="{{items[5]==0?'hide':''}}"></image>
+    <image src="/imgs/7.jpg" alt="" class="{{items[6]==0?'hide':''}}"></image>
+    <image src="/imgs/8.jpg" alt="" class="{{items[7]==0?'hide':''}}"></image>
+    <image src="/imgs/9.jpg" alt="" class="{{items[8]==0?'hide':''}}"></image>
+    <image src="/imgs/10.jpg" alt="" class="{{items[9]==0?'hide':''}}"></image>
+    <image src="/imgs/11.jpg" alt="" class="{{items[10]==0?'hide':''}}"></image>
+    <image src="/imgs/12.jpg" alt="" class="{{items[11]==0?'hide':''}}"></image>
+    <image src="/imgs/13.jpg" alt="" class="{{items[12]==0?'hide':''}}"></image>
+    <image src="/imgs/14.jpg" alt="" class="{{items[13]==0?'hide':''}}"></image>
+    <image src="/imgs/15.jpg" alt="" class="{{items[14]==0?'hide':''}}"></image>
+    <image src="/imgs/16.jpg" alt="" class="{{items[15]==0?'hide':''}}"></image>
+    <image src="/imgs/17.jpg" alt="" class="{{items[16]==0?'hide':''}}"></image>
+    <image src="/imgs/18.jpg" alt="" class="{{items[17]==0?'hide':''}}"></image>
+    <image src="/imgs/19.jpg" alt="" class="{{items[18]==0?'hide':''}}"></image>
+    <ul class="clearfix">
+      <li bindtap="checkItem" data-index="0">
+        <image src="{{items[0]==0?'/imgs/uncheck.png':'/imgs/check.png'}}"></image>
+        <label>1.前仪表盘</label>
+      </li>
+      <li bindtap="checkItem" data-index="1">
+        <image src="{{items[1]==0?'/imgs/uncheck.png':'/imgs/check.png'}}"></image>
+        <label>2.导航后</label>
+      </li>
+      <li bindtap="checkItem" data-index="2">
+        <image src="{{items[2]==0?'/imgs/uncheck.png':'/imgs/check.png'}}"></image>
+        <label>3.左（右）三角板</label>
+      </li>
+      <li bindtap="checkItem" data-index="3">
+        <image src="{{items[3]==0?'/imgs/uncheck.png':'/imgs/check.png'}}"></image>
+        <label>4.前门左（右）边压条</label>
+      </li>
+      <li bindtap="checkItem" data-index="4">
+        <image src="{{items[4]==0?'/imgs/uncheck.png':'/imgs/check.png'}}"></image>
+        <label>5.OBD</label>
+      </li>
+      <li bindtap="checkItem" data-index="5">
+        <image src="{{items[5]==0?'/imgs/uncheck.png':'/imgs/check.png'}}"></image>
+        <label>6.左（右）升降开关</label>
+      </li>
+      <li bindtap="checkItem" data-index="6">
+        <image src="{{items[6]==0?'/imgs/uncheck.png':'/imgs/check.png'}}"></image>
+        <label>7.档板</label>
+      </li>
+      <li bindtap="checkItem" data-index="7">
+        <image src="{{items[7]==0?'/imgs/uncheck.png':'/imgs/check.png'}}"></image>
+        <label>8.左（右）B柱</label>
+      </li>
+      <li bindtap="checkItem" data-index="8">
+        <image src="{{items[8]==0?'/imgs/uncheck.png':'/imgs/check.png'}}"></image>
+        <label>9.后门左（右）压条</label>
+      </li>
+      <li bindtap="checkItem" data-index="9">
+        <image src="{{items[9]==0?'/imgs/uncheck.png':'/imgs/check.png'}}"></image>
+        <label>10.座椅海绵内</label>
+      </li>
+      <li bindtap="checkItem" data-index="10">
+        <image src="{{items[10]==0?'/imgs/uncheck.png':'/imgs/check.png'}}"></image>
+        <label>11.左（右）C柱</label>
+      </li>
+      <li bindtap="checkItem" data-index="11">
+        <image src="{{items[11]==0?'/imgs/uncheck.png':'/imgs/check.png'}}"></image>
+        <label>12.左（右）后叶子板</label>
+      </li>
+      <li bindtap="checkItem" data-index="12">
+        <image src="{{items[12]==0?'/imgs/uncheck.png':'/imgs/check.png'}}"></image>
+        <label>13.后杠骨架</label>
+      </li>
+      <li bindtap="checkItem" data-index="13">
+        <image src="{{items[13]==0?'/imgs/uncheck.png':'/imgs/check.png'}}"></image>
+        <label>14.油箱上方</label>
+      </li>
+      <li bindtap="checkItem" data-index="14">
+        <image src="{{items[14]==0?'/imgs/uncheck.png':'/imgs/check.png'}}"></image>
+        <label>15.车顶篷</label>
+      </li>
+      <li bindtap="checkItem" data-index="15">
+        <image src="{{items[15]==0?'/imgs/uncheck.png':'/imgs/check.png'}}"></image>
+        <label>16.顶灯</label>
+      </li>
+      <li bindtap="checkItem" data-index="16">
+        <image src="{{items[16]==0?'/imgs/uncheck.png':'/imgs/check.png'}}"></image>
+        <label>17.地胶内</label>
+      </li>
+      <li bindtap="checkItem" data-index="17">
+        <image src="{{items[17]==0?'/imgs/uncheck.png':'/imgs/check.png'}}"></image>
+        <label>18.杂物箱后</label>
+      </li>
+      <li bindtap="checkItem" data-index="18">
+        <image src="{{items[18]==0?'/imgs/uncheck.png':'/imgs/check.png'}}"></image>
+        <label>19.空调管道</label>
+      </li>
+    </ul>
+    <button class="finishBtn" bindtap="showModalHtml">完成</button>
+    <modal title="安装位置" hidden="{{modalHidden}}" bindconfirm="modalConfirm" no-cancel="true" confirm-text="关闭">
+      <view>
+        <image class="image" src="/imgs/1.jpg" style="width:572rpx;height:448rpx;"></image>
+      </view>
+    </modal>
+  </view>
+</view>

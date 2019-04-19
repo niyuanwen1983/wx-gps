@@ -7,8 +7,14 @@ Page({
   //事件处理函数
   bindViewTap: function () {
   },
-  onLoad: function () {
+  onLoad: function (options) {
+    console.log(options)
   },
   getUserInfo: function (e) {
+  },
+  test:function(){
+    wx.redirectTo({
+      url: '/pages/me/me?b=2'
+    })
   }
 })

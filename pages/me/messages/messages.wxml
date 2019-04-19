@@ -1,6 +1,6 @@
 <view class="wrap">
   <view class="header">
-    <p class="title">消息中心</p>
+    <p class="title" bindtap="test">消息中心</p>
   </view>
   <view class="content messages">
     <view class="messages-row">
