@@ -1,5 +1,5 @@
-//获取应用实例
-const app = getApp()
+//导入通用方法js
+const util = require('../../../utils/util.js')
 
 Page({
   data: {
@@ -9,8 +9,14 @@ Page({
   },
   onLoad: function (options) {
     console.log(options)
+
+    let dataJson = {}
+    let dataString = '{}'
+
+    util.doApi('/api/gps/config.do', dataString, this.successMessage)
   },
-  getUserInfo: function (e) {
+  successMessage:function(res){
+
   },
   test:function(){
     wx.redirectTo({
