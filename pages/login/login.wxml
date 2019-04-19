@@ -14,7 +14,7 @@
       <view class="inputBox clearfix">
         <i class="icon2"></i>
         <input type="number" placeholder="请输入验证码" name="smscode" bindinput='smscodeInput'></input>
-        <input type="button" value="获取验证码" name="getcode" class="getcode" bindtap="sendSms"></input>
+        <button type="button" name="getcode" class="getcode" bindtap="sendSms">{{countdownText}}</button>
       </view>
       <button class="loginBtn" bindtap='login'>立即登录</button>
     </view>

@@ -7,7 +7,10 @@ const app = getApp()
 Page({
   data: {
     'mobileno': '',
-    'smscode': ''
+    'smscode': '',
+    'countdown': 40,
+    'countdownText': '获取验证码',
+    'cansend':true
   },
   onLoad: function() {},
   //获取用户输入的手机号
@@ -50,9 +53,42 @@ Page({
    * 发送验证码
    */
   sendSms: function() {
+    if (!this.data.cansend) {
+      return false
+    }
+
+    this.setData({
+      cansend:false
+    })
+
     if (util.isEmpty(this.data.mobileno)) {
       util.showToast('请输入手机号！')
     } else {
+      let countdown = 40
+      let countdownText = '重新获取' + countdown + 'S'
+      this.setData({
+        countdown: countdown,
+        countdownText: countdownText
+      })
+
+      let cansend = false
+      let id = setInterval(() => {
+        if (countdown > 1) {
+          countdown--
+          countdownText = '重新获取' + countdown + 'S'
+        } else {
+          clearInterval(id)
+          countdownText = '获取验证码'
+          cansend = true
+        }
+
+        this.setData({
+          countdown: countdown,
+          countdownText: countdownText,
+          cansend: cansend
+        })
+      }, 1000)      
+
       let dataJson = {
         "mobile": this.data.mobileno
       }
