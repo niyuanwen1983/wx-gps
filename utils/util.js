@@ -14,6 +14,10 @@ const baseUrl = 'http://127.0.0.1:8080'
 const apiLogin = '/api/gps/login.do'
 //发送验证码接口
 const apiSendSms = '/api/gps/sendSms.do'
+//消息中心接口
+const apiMessage = '/api/erp/getMassage.do'
+//详情接口
+const apiConfig = '/api/gps/config.do'
 
 const md5 = require('../assets/js/md5/md5.js')
 /**
@@ -142,6 +146,8 @@ const showToast = (title) => {
 module.exports = {
   apiLogin: apiLogin,
   apiSendSms: apiSendSms,
+  apiMessage: apiMessage,
+  apiConfig: apiConfig,
   isEmpty: isEmpty,
   showToast: showToast,
   doApi: doApi

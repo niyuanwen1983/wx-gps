@@ -92,7 +92,7 @@
   -moz-appearance: none;
   -webkit-appearance: none;
   margin: 32rpx 40rpx 0 0;
-  width: 140rpx;
+  width: 180rpx;
 }
 
 .getcode:after{

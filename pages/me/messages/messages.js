@@ -13,7 +13,7 @@ Page({
     let dataJson = {}
     let dataString = '{}'
 
-    util.doApi('/api/gps/config.do', dataString, this.successMessage)
+    util.doApi(util.apiMessage, dataString, this.successMessage)
   },
   successMessage:function(res){
 
