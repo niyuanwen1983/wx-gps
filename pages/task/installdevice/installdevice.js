@@ -10,13 +10,10 @@ Page({
     src1_1: '/imgs/cammera.png',
     src1_2: '/imgs/cammera.png',
     src1_3: '/imgs/cammera.png',
-    srcArrFix1: ['/imgs/cammera.png', '/imgs/cammera.png', '/imgs/cammera.png'],
-    srcArrFix2: [],
-    srcArrFix3: [],
-    srcArrDyn1: ['/imgs/jia.png'],
-    srcArrDyn2: [],
-    srcArrDyn3: [],
-    currentIndex1: -1
+    srcArrFix1: ['/imgs/cammera.png', '/imgs/cammera.png', '/imgs/cammera.png', '/imgs/jia.png'],
+    currentIndex1: -1,
+    locationId: '',
+    locationName: ''
   },
 
   /**
@@ -45,6 +42,13 @@ Page({
     //util.doApi('/api/gps/queryReport.do',dataString,this.successConfig)
   },
 
+  onShow: function(options) {
+    this.setData({
+      locationId: getApp().globalData.locationId,
+      locationName: getApp().globalData.locationName
+    })
+  },
+
   successConfig: function(res) {
     console.log(res)
 
@@ -59,7 +63,7 @@ Page({
       currentIndex1: index
     })
 
-    if (this.data.srcArrFix1[index] == '/imgs/cammera.png') {
+    if (this.data.srcArrFix1[index] == '/imgs/cammera.png' || this.data.srcArrFix1[index] == '/imgs/jia.png') {
       this.setData({
         isShow: true
       })
@@ -92,6 +96,10 @@ Page({
       success: (res) => {
         that.data.srcArrFix1[that.data.currentIndex1] = res.tempImagePath
 
+        if (that.data.currentIndex1 > 2 && that.data.currentIndex1 < 7) {
+          that.data.srcArrFix1.push('/imgs/jia.png')
+        }
+
         this.setData({
           srcArrFix1: that.data.srcArrFix1,
           isShow: false
@@ -102,7 +110,7 @@ Page({
   /**
    * 删除图片
    */
-  deletePhoto: function() {
+  deletePhoto: function(e) {
     let that = this
 
     wx.showModal({
@@ -110,13 +118,28 @@ Page({
       content: '确认删除这张照片？',
       success(res) {
         if (res.confirm) {
-          that.data.srcArrFix1[that.data.currentIndex1] = '/imgs/cammera.png'
+
+          if (e.currentTarget.dataset.id < 3) {
+            that.data.srcArrFix1[e.currentTarget.dataset.id] = '/imgs/cammera.png'
+          } else {
+            that.data.srcArrFix1.splice(e.currentTarget.dataset.id, 1)
+            that.data.srcArrFix1.push('/imgs/jia.png')
+          }
 
           that.setData({
             srcArrFix1: that.data.srcArrFix1
           })
         }
       }
+    })
+  },
+
+  gotoLocation: function() {
+    /*wx.redirectTo({
+      url: '/pages/task/installlocation/installlocation'
+    })*/
+    wx.navigateTo({
+      url: '/pages/task/installlocation/installlocation'
     })
   }
 })

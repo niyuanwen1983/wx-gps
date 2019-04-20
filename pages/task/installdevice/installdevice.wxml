@@ -85,31 +85,22 @@
         </li>
         <li>
           <span class="tit">安装位置：</span>
-          <span class="des">请输入安装位置序列号</span>
+          <span class="des" bindtap="gotoLocation">{{locationId==''?'请点击选择安装位置序列号':locationName}}</span>
         </li>
         <li>
           <span class="tit">安装照片：</span>
           <span class="pic clearfix">
-            <view class="item">
-              <i data-id="0" bindtap="showCamera">
-                <image src="{{srcArrFix1[0]}}" alt="" class="{{srcArrFix1[0]=='/imgs/cammera.png'?'carema':'photo'}}"></image>
-                <span class='cls' catchtap="deletePhoto" wx:if="{{srcArrFix1[0]!='/imgs/cammera.png'}}">x</span>
-              </i>安装位置</view>
-            <view class="item">
-              <i data-id="1" bindtap="showCamera">
-                <image src="{{srcArrFix1[1]}}" alt="" class="{{srcArrFix1[1]=='/imgs/cammera.png'?'carema':'photo'}}"></image>
-                <span class='cls' catchtap="deletePhoto" wx:if="{{srcArrFix1[1]!='/imgs/cammera.png'}}">x</span>
-              </i>人车合影</view>
-            <view class="item">
-              <i data-id="2" bindtap="showCamera">
-                <image src="{{srcArrFix1[2]}}" alt="" class="{{srcArrFix1[2]=='/imgs/cammera.png'?'carema':'photo'}}"></image>
-                <span class='cls' catchtap="deletePhoto" wx:if="{{srcArrFix1[2]!='/imgs/cammera.png'}}">x</span>
-              </i>设备车架号合影</view>
-            <view class="item" wx:for="{{srcArrDyn1}}">
+            <view class="item" wx:for="{{srcArrFix1}}">
               <i data-id="{{index}}" bindtap="showCamera">
-                <image src="{{item}}" alt="" class="{{item=='/imgs/jia.png'?'carema':'photo'}}"></image>
-                <span class='cls' catchtap="deletePhoto" wx:if="{{item!='/imgs/jia.png'}}">x</span>
-              </i>其他</view>
+                <image wx:if="{{index<3}}" src="{{item}}" alt="" class="{{item=='/imgs/cammera.png'?'carema':'photo'}}"></image>
+                <image wx:else src="{{item}}" alt="" class="{{item=='/imgs/jia.png'?'carema':'photo'}}"></image>
+                <span data-id="{{index}}" class='cls' catchtap="deletePhoto" wx:if="{{item!='/imgs/cammera.png' && item!='/imgs/jia.png'}}">x</span>
+              </i>
+              <text wx:if="{{index==0}}">安装位置</text>
+              <text wx:elif="{{index==1}}">人车合影</text>
+              <text wx:elif="{{index==2}}">设备车架号合影</text>
+              <text wx:else>其他{{index-2}}</text>
+            </view>
           </span>
         </li>
         <li>

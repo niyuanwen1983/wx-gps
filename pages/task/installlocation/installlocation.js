@@ -1,18 +1,31 @@
-// pages/task/installlocation/installlocation.js
+//导入通用方法js
+const util = require('../../../utils/util.js')
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    items: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    modalHidden: true
+    modalHidden: true,
+    locationArr: [],
+    checkedItem: ''
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    let dataString = '{}'
+    util.doApi(util.apiConfig, dataString, this.successConfig)
+  },
 
+
+  successConfig: function(res) {
+    console.log(res)
+
+    this.setData({
+      locationArr: res.data.respData.instLocs
+    })
   },
   /**
    * 点击项目
@@ -23,34 +36,50 @@ Page({
     //点击的序号
     let selectedIndex = e.currentTarget.dataset.index
 
+    this.setData({
+      checkedItem: this.data.locationArr[selectedIndex]
+    })
+
     //选中/取消
-    let changed = this.data.items[selectedIndex] == 0 ? 1 : 0
+    let changed = this.data.locationArr[selectedIndex].selected == 0 ? 1 : 0
 
     let arr = [];
 
     //重置数组
-    for (let i = 0; i < this.data.items.length; i++) {
-      if (i == selectedIndex) {
-        arr.push(changed)
-      } else {
-        arr.push(0)
+    for (let i = 0; i < this.data.locationArr.length; i++) {
+      let obj = {
+        'code': this.data.locationArr[i].code,
+        'name': this.data.locationArr[i].name,
+        'imageUrl': this.data.locationArr[i].imageUrl,
+        'selected': 0
       }
+      if (i == selectedIndex) {
+        obj.selected = 1
+      }
+
+      arr.push(obj)
     }
 
     //绑定新数组
     this.setData({
-      items: arr
+      locationArr: arr
     })
   },
 
   showModalHtml: function() {
-    /*this.setData({
-      modalHidden: false
-    })*/
+    let that = this
 
-    wx.previewImage({
-      current: '', // 当前显示图片的http链接
-      urls: ['https://zfduatappfilesever.zhifubank.com.cn/ErpAttachedPic/%5c%e5%ae%9e%e5%9c%b0%e5%8d%95%5c%5cspot00003001/ed1eba98-9dd4-4e2a-8ee9-a5a961fa8b0c', 'https://zfduatappfilesever.zhifubank.com.cn/ErpAttachedPic/%5c%e5%ae%9e%e5%9c%b0%e5%8d%95%5c%5cspot00003001/ed1eba98-9dd4-4e2a-8ee9-a5a961fa8b0c'] // 需要预览的图片http链接列表
+    getApp().globalData.locationId = this.data.checkedItem.code
+    getApp().globalData.locationName = this.data.checkedItem.name
+
+    wx.showModal({
+      title: '提示',
+      content: '确定选择该位置进行安装？',
+      success: function() {
+        wx.navigateBack({
+          delta:1
+        })
+      }
     })
   },
   modalConfirm: function() {
