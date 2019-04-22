@@ -37,12 +37,12 @@ page {
 }
 
 .income-left {
-  width: 520rpx;
+  width: 500rpx;
 }
 
 .income-right {
-  text-align: center;
-  width: 180rpx;
+  text-align: right;
+  width: 200rpx;
 }
 
 .plate-number {

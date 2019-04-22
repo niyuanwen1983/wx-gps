@@ -1,9 +1,12 @@
+<!--金额格式化-->
+<wxs src="../../filter/moneyFormat.wxs" module="moneyFormat" />
+
 <view class="wrap">
   <view class="header">
     <p class="title">待收入</p>
   </view>
   <view class="content income">
-    <view class="income-row" wx:for="{{incomeArr}}">
+    <view class="income-row" wx:for="{{incomeArr}}" wx:key="{{index}}">
       <view class="income-left">
         <view>
           <p class="plate-number">
@@ -17,7 +20,7 @@
         </view>
       </view>
       <view class="income-right">
-        <p class="money">+{{item.money}}元</p>
+        <p class="money">+{{moneyFormat.thousandMark(item.money)}}元</p>
       </view>
     </view>
   </view>

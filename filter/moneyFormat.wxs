@@ -1,0 +1,22 @@
+var moneyFormat = {
+  /**
+   * 千分符
+   * @money 金额
+   */
+  thousandMark: function(money) {
+    var money = (money || 0).toString();
+    var result = '';
+    while (money.length > 3) {
+      result = ',' + money.slice(-3) + result;
+      money = money.slice(0, money.length - 3);
+    }
+    if (money) {
+      result = money + result;
+    }
+    return result
+  }
+}
+
+module.exports = {
+  thousandMark: moneyFormat.thousandMark
+}
