@@ -8,18 +8,19 @@ const _aesKey = '8n64jliKdUfZb0Ar4HzlCnYgGW1FuXS9'
 const _iv = '0102030405060708'
 
 //调试接口地址
-const baseUrl = 'http://127.0.0.1:8080'
+const baseUrl = 'http://www.zhifubank.com.cn:8099/mogo'
 
 //登录接口
 const apiLogin = '/api/gps/login.do'
 //发送验证码接口
 const apiSendSms = '/api/gps/sendSms.do'
 //消息中心接口
-const apiMessage = '/api/erp/getMassage.do'
+const apiMessage = '/api/gps/getMassage.do'
 //详情接口
 const apiConfig = '/api/gps/config.do'
 
 const md5 = require('../assets/js/md5/md5.js')
+
 /**
  * 请求api
  * @url 请求地址
@@ -34,10 +35,13 @@ const doApi = (url, param, successFunction, failFunction) => {
 
   //获取openid（obj.openid）
   let obj = wx.getStorageSync('user');
+  //获取手机型号
+  let device = wx.getStorageSync('device');
   //获取时间
   let timeM = new Date()
+  let timeParam = timeM.getTime()
   //sign
-  let sign = md5.hexMD5(param + signKey + timeM.getTime())
+  let sign = md5.hexMD5(param + signKey + timeParam)
   //参数值
   var paramData = Encrypt(param)
 
@@ -46,8 +50,8 @@ const doApi = (url, param, successFunction, failFunction) => {
     "token": obj.openid,
     "sign": sign,
     "data": paramData,
-    "deviceId": "",
-    "time": timeM.getTime()
+    "deviceId": device,
+    "time": timeParam
   }
 
   wx.request({
@@ -74,6 +78,50 @@ const doApi = (url, param, successFunction, failFunction) => {
       }
     },
     fail: function(res) {
+      wx.hideLoading()
+      if (typeof failFunction == "function") {
+        failFunction(res);
+      }
+    }
+  })
+}
+
+/**
+ * 请求apiMock
+ * @url 请求地址
+ * @params 请求参数
+ * @successFunction 成功的回调方法
+ * @failFunction 失败的回调方法
+ */
+const doApiMock = (url, param, successFunction, failFunction) => {
+  wx.showLoading({
+    title: '加载中......',
+  })
+
+  wx.request({
+    url: url,
+    method: 'GET',
+    data: {},
+    header: {
+      'content-type': 'application/json'
+    },
+    success: function (res) {
+      wx.hideLoading()
+
+      //成功
+      if (res.data.respCode == 1) {
+        if (typeof successFunction == "function") {
+          successFunction(res);
+        }
+      } else { //失败
+        if (isEmpty(res.data.respMsg)) {
+          showToast('请求失败，请重试！')
+        } else {
+          showToast(res.data.respMsg)
+        }
+      }
+    },
+    fail: function (res) {
       wx.hideLoading()
       if (typeof failFunction == "function") {
         failFunction(res);
@@ -150,5 +198,6 @@ module.exports = {
   apiConfig: apiConfig,
   isEmpty: isEmpty,
   showToast: showToast,
-  doApi: doApi
+  doApi: doApi,
+  doApiMock: doApiMock
 }

@@ -32,7 +32,7 @@ Page({
     })
   },
   /**
-   * 跳转到待消息中心页面
+   * 跳转到待收入页面
    */
   gotoMyincome: function () {
     wx.navigateTo({

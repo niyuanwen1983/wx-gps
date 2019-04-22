@@ -3,20 +3,20 @@
     <p class="title" bindtap="test">消息中心</p>
   </view>
   <view class="content messages">
-    <view class="messages-row">
+    <view class="messages-row" wx:for="{{messageArr}}">
       <view class="messages-left">
         <view>
           <p class="messages-content">
             <view class="messages-dot"></view>
-            系统已更新，请及时升级！
+            {{item.name}}
           </p>
         </view>
         <view>
           <p class="date-time">
-            2018 - 04 - 28 10：00：00
+            {{item.datetime}}
           </p>
         </view>
       </view>
-    </view>    
+    </view>
   </view>
 </view>

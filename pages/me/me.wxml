@@ -36,12 +36,6 @@
           <image src="/imgs/arrow.png" alt="" class="arrow"></image>
         </p>
       </view>
-      <view class="clearfix">
-        <i class="icon3"></i>
-        <p>设置
-          <image src="/imgs/arrow.png" alt="" class="arrow"></image>
-        </p>
-      </view>
     </view>
   </view>
 </view>

@@ -6,6 +6,12 @@ App({
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
 
+    wx.getSystemInfo({
+      success: function (res) {
+        wx.setStorageSync('device', res.model); 
+      }
+    })
+
     // 登录
     wx.login({
       success: res => {

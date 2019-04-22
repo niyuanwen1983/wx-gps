@@ -3,55 +3,21 @@
     <p class="title">待收入</p>
   </view>
   <view class="content income">
-    <view class="income-row">
+    <view class="income-row" wx:for="{{incomeArr}}">
       <view class="income-left">
         <view>
           <p class="plate-number">
-            沪A BT888 2018款 奥迪A8 2.0Tdfdsfdfdsffdsfds
+           {{item.name}}
           </p>
         </view>
         <view>
           <p class="date-time">
-            2018 - 04 - 28 10：00：00
+            {{item.datetime}}
           </p>
         </view>
       </view>
       <view class="income-right">
-        <p class="money">+500元</p>
-      </view>
-    </view>
-    <view class="income-row">
-      <view class="income-left">
-        <view>
-          <p class="plate-number">
-            沪A BT888 2018款 奥迪A8 2.0Tdfdsfdfdsffdsfds
-          </p>
-        </view>
-        <view>
-          <p class="date-time">
-            2018 - 04 - 28 10：00：00
-          </p>
-        </view>
-      </view>
-      <view class="income-right">
-        <p class="money">+500元</p>
-      </view>
-    </view>
-    <view class="income-row">
-      <view class="income-left">
-        <view>
-          <p class="plate-number">
-            沪A BT888 2018款 奥迪A8 2.0Tdfdsfdfdsffdsfds
-          </p>
-        </view>
-        <view>
-          <p class="date-time">
-            2018 - 04 - 28 10：00：00
-          </p>
-        </view>
-      </view>
-      <view class="income-right">
-        <p class="money">+500元</p>
+        <p class="money">+{{item.money}}元</p>
       </view>
     </view>
   </view>
