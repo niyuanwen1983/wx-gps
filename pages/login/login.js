@@ -44,10 +44,8 @@ Page({
    * 登录成功回调方法
    */
   successLogin: function(res) {
-    console.log(res)
   },
   failLogin: function(res) {
-    console.log(res)
   },
   /**
    * 发送验证码

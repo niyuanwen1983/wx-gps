@@ -4,8 +4,9 @@ var moneyFormat = {
    * @money 金额
    */
   thousandMark: function(money) {
-    var money = (money || 0).toString();
-    var result = '';
+    console.log('a')
+    let money = (money || 0).toString();
+    let result = '';
     while (money.length > 3) {
       result = ',' + money.slice(-3) + result;
       money = money.slice(0, money.length - 3);

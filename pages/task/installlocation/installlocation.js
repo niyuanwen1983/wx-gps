@@ -21,7 +21,6 @@ Page({
 
 
   successConfig: function(res) {
-    console.log(res)
 
     this.setData({
       locationArr: res.data.respData.instLocs
@@ -31,7 +30,6 @@ Page({
    * 点击项目
    */
   checkItem: function(e) {
-    console.log(e)
 
     //点击的序号
     let selectedIndex = e.currentTarget.dataset.index

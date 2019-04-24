@@ -50,7 +50,7 @@ Page({
   },
 
   successConfig: function(res) {
-    console.log(res)
+
 
 
   },

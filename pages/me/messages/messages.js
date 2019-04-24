@@ -9,18 +9,15 @@ Page({
   bindViewTap: function () {
   },
   onLoad: function (options) {
-    console.log(options)
-
     let dataJson = {}
     let dataString = '{}'
 
-    util.doApiMock('https://www.easy-mock.com/mock/5c6c15b5ab815c130b4720c7/example/gpsmessage', dataString, this.successMessage)
+    //util.doApiMock('https://www.easy-mock.com/mock/5c6c15b5ab815c130b4720c7/example/gpsmessage', dataString, this.successMessage)
+    util.doApi(util.apiMessage, dataString, this.successMessage)
   },
   successMessage:function(res){
-    console.log(res)
-
     this.setData({
-      messageArr: res.data.respData.imageCodes
+      messageArr: res.data.respData
     })
   },
   test:function(){

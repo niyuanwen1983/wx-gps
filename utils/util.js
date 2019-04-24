@@ -157,11 +157,10 @@ function Encrypt(word) {
   });
   var hexStr = encrypted.ciphertext.toString().toUpperCase();
 
-  console.log('hexStr->' + hexStr);
   var oldHexStr = CryptoJS.enc.Hex.parse(hexStr);
   // 将密文转为Base64的字符串
   var base64Str = CryptoJS.enc.Base64.stringify(oldHexStr);
-  console.log('base64Str->' + base64Str);
+
   //这里根据需求返回 base64Str 或 hexStr(解密时有小小差别)
   return base64Str;
 }

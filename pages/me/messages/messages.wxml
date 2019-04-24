@@ -8,12 +8,12 @@
         <view>
           <p class="messages-content">
             <view class="messages-dot"></view>
-            {{item.name}}
+            {{item.msgtitile}}
           </p>
         </view>
         <view>
           <p class="date-time">
-            {{item.datetime}}
+            {{item.msendtime}}
           </p>
         </view>
       </view>
