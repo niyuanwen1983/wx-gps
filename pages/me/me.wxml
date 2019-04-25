@@ -8,18 +8,18 @@
   <view class="content">
     <view class="top">
       <view class="income">
-        <span class="money">52860.93</span>
+        <span class="money">{{incomed}}</span>
         <span>本月收入（元）</span>
         <i class="white_arrow"></i>
       </view>
     </view>
     <view class="middle clearfix">
       <view class="left" bindtap="gotoIncome">
-        <span class="num">1,000</span>
+        <span class="num">{{income}}</span>
         <span class="wrd">待收入（元）</span>
       </view>
       <view class="right">
-        <span class="num">5</span>
+        <span class="num">{{tasks}}</span>
         <span class="wrd">数量（台）</span>
       </view>
     </view>

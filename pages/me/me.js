@@ -4,12 +4,22 @@ const util = require('../../utils/util.js')
 var template = require('../../template/template.js')
 
 Page({
-  data: {},
+  data: {
+    incomed: 0, //本月收入
+    income: 0, //待收入
+    tasks: 0 //数量
+  },
   //事件处理函数
   bindViewTap: function() {},
   onLoad: function() {
     template.tabbar("tabBar", 2, this)
+  },
 
+  onShow: function() {
+    this.initData()
+  },
+
+  initData: function(res) {
     let currentYearMonth = new Date()
     let dateParam = currentYearMonth.getFullYear() + '-' + (currentYearMonth.getMonth() + 1 >= 10 ? currentYearMonth.getMonth() + 1 : '0' + (currentYearMonth.getMonth() + 1))
     let dataJson = {
@@ -21,9 +31,26 @@ Page({
   },
 
   successMe: function(res) {
-    console.log(res)
+    let totalMoney = 0 //本月收入
+    let totalTask = 0 //台数
+
+    res.data.respData.forEach((item, index) => {
+      if (item.srlx == 0) {
+        this.setData({
+          income: item.fje
+        })
+      } else {
+        totalMoney += item.fje
+        totalTask += item.its
+      }
+    })
+
+    this.setData({
+      incomed: totalMoney,
+      tasks: totalTask
+    })
   },
-  /**
+  /**srlx 
    * 跳转到待收入页面
    */
   gotoIncome: function() {
