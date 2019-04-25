@@ -1,4 +1,6 @@
-//index.js
+//导入通用方法js
+const util = require('../../utils/util.js')
+
 //获取应用实例
 const app = getApp()
 
@@ -9,7 +11,8 @@ Page({
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    taskList:[]
   },
   //事件处理函数
   bindViewTap: function() {
@@ -46,6 +49,32 @@ Page({
       })
     }
   },
+  /**
+   * 显示
+   */
+  onShow:function(){
+    this.initData()
+  },
+  /**
+   * 初始化
+   */
+  initData:function(){
+    let aspzt = '1'//未完工
+
+    let dataString = '{"aspzt":"' + aspzt + '"}'
+
+    util.doApi(util.apiTaskList, dataString, this.initDataCallback)
+  },
+  /**
+   * 初始化回调方法
+   * @param res 返回结果
+   */
+  initDataCallback:function(res){
+    this.setData({
+      taskList:res.data.respData
+    })
+  },
+
   getUserInfo: function(e) {
     app.globalData.userInfo = e.detail.userInfo
     this.setData({

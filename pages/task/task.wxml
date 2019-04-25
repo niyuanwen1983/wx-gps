@@ -31,182 +31,35 @@
   <view class="content" style="display:block;">
     <ul>
       <!--未完成-->
-      <li>
+      <li wx:for="{{taskList}}" wx:key="{{index}}">
         <view class="li-wrap">
           <view class="top">
-            <p>类型：拆机</p>
-            <p class="uncompleted">未完成</p>
+            <p>类型：{{item.asqlx==1?'安装':'拆机'}}</p>
+            <p wx:if="{{aspzt==1}}" class="uncompleted">未完成</p>
+            <p wx:if="{{aspzt==5}}" class="auditing">审核中</p>
+            <p wx:if="{{aspzt==3}}" class="failed">审核不通过</p>
+            <p wx:if="{{aspzt==2}}" class="completed">已完成</p>
+            <p wx:if="{{aspzt==6}}" class="timeouted">超时</p>
           </view>
           <ol class="bottom">
             <li>
               <span class="tit">客户姓名：</span>
-              <span class="des">王大锤</span>
+              <span class="des">{{item.axm}}</span>
             </li>
             <li>
               <span class="tit">车牌号码：</span>
-              <span class="des">沪ATF888</span>
-            </li>
-            <li>
-              <view class="view-row">
-                <span class="tit">车辆型号：</span>
-                <span class="des">2018款 奥迪A8 2.0T 自动舒适型</span>
-              </view>
+              <span class="des">{{item.acp==null?'无':item.acp}}</span>
             </li>
             <li>
               <view class="view-row">
                 <span class="tit">期望安装时间：</span>
-                <span class="des">2018-04-18 09:09</span>
+                <span class="des">{{item.dqwazsj==null?'无':item.dqwazsj}}</span>
               </view>
             </li>
             <li>
               <view class="view-row">
                 <a href="javascript:;" class="abandonBtn">取消</a>
                 <a href="javascript:;" class="confirmBtn">拆机</a>
-              </view>
-            </li>
-          </ol>
-        </view>
-        <view class="bottom-bar"></view>
-      </li>
-      <!--审核中-->
-      <li>
-        <view class="li-wrap">
-          <view class="top">
-            <p>类型：拆机</p>
-            <p class="auditing">审核中</p>
-          </view>
-          <ol class="bottom">
-            <li>
-              <span class="tit">客户姓名：</span>
-              <span class="des">王大锤</span>
-            </li>
-            <li>
-              <span class="tit">车牌号码：</span>
-              <span class="des">沪ATF888</span>
-            </li>
-            <li>
-              <view class="view-row">
-                <span class="tit">车辆型号：</span>
-                <span class="des">2018款 奥迪A8 2.0T 自动舒适型</span>
-              </view>
-            </li>
-            <li>
-              <view class="view-row">
-                <span class="tit">期望安装时间：</span>
-                <span class="des">2018-04-18 09:09</span>
-              </view>
-            </li>
-            <li>
-              <view class="view-row" style="display:none;">
-              </view>
-            </li>
-          </ol>
-        </view>
-        <view class="bottom-bar"></view>
-      </li>
-      <!--审核不通过-->
-      <li>
-        <view class="li-wrap">
-          <view class="top">
-            <p>类型：拆机</p>
-            <p class="failed">审核不通过</p>
-          </view>
-          <ol class="bottom">
-            <li>
-              <span class="tit">客户姓名：</span>
-              <span class="des">王大锤</span>
-            </li>
-            <li>
-              <span class="tit">车牌号码：</span>
-              <span class="des">沪ATF888</span>
-            </li>
-            <li>
-              <view class="view-row">
-                <span class="tit">车辆型号：</span>
-                <span class="des">2018款 奥迪A8 2.0T 自动舒适型</span>
-              </view>
-            </li>
-            <li>
-              <view class="view-row">
-                <span class="tit">期望安装时间：</span>
-                <span class="des">2018-04-18 09:09</span>
-              </view>
-            </li>
-            <li>
-              <view class="view-row">
-                <a href="javascript:;" class="redoBtn">重新处理</a>
-              </view>
-            </li>
-          </ol>
-        </view>
-        <view class="bottom-bar"></view>
-      </li>
-      <!--审核中-->
-      <li>
-        <view class="li-wrap">
-          <view class="top">
-            <p>类型：拆机</p>
-            <p class="completed">已完成</p>
-          </view>
-          <ol class="bottom">
-            <li>
-              <span class="tit">客户姓名：</span>
-              <span class="des">王大锤</span>
-            </li>
-            <li>
-              <span class="tit">车牌号码：</span>
-              <span class="des">沪ATF888</span>
-            </li>
-            <li>
-              <view class="view-row">
-                <span class="tit">车辆型号：</span>
-                <span class="des">2018款 奥迪A8 2.0T 自动舒适型</span>
-              </view>
-            </li>
-            <li>
-              <view class="view-row">
-                <span class="tit">期望安装时间：</span>
-                <span class="des">2018-04-18 09:09</span>
-              </view>
-            </li>
-            <li>
-              <view class="view-row" style="display:none;">
-              </view>
-            </li>
-          </ol>
-        </view>
-        <view class="bottom-bar"></view>
-      </li>
-      <!--超时-->
-      <li>
-        <view class="li-wrap">
-          <view class="top">
-            <p>类型：拆机</p>
-            <p class="timeouted">超时</p>
-          </view>
-          <ol class="bottom">
-            <li>
-              <span class="tit">客户姓名：</span>
-              <span class="des">王大锤</span>
-            </li>
-            <li>
-              <span class="tit">车牌号码：</span>
-              <span class="des">沪ATF888</span>
-            </li>
-            <li>
-              <view class="view-row">
-                <span class="tit">车辆型号：</span>
-                <span class="des">2018款 奥迪A8 2.0T 自动舒适型</span>
-              </view>
-            </li>
-            <li>
-              <view class="view-row">
-                <span class="tit">期望安装时间：</span>
-                <span class="des">2018-04-18 09:09</span>
-              </view>
-            </li>
-            <li>
-              <view class="view-row" style="display:none;">
               </view>
             </li>
           </ol>

@@ -18,6 +18,10 @@ const apiSendSms = '/api/gps/sendSms.do'
 const apiMessage = '/api/gps/getMassage.do'
 //详情接口
 const apiConfig = '/api/gps/config.do'
+//我的首页
+const apiMe = '/api/gps/queryReport.do'
+//工单首页
+const apiTaskList = '/api/gps/workOrderList.do'
 
 const md5 = require('../assets/js/md5/md5.js')
 
@@ -105,7 +109,7 @@ const doApiMock = (url, param, successFunction, failFunction) => {
     header: {
       'content-type': 'application/json'
     },
-    success: function (res) {
+    success: function(res) {
       wx.hideLoading()
 
       //成功
@@ -121,7 +125,7 @@ const doApiMock = (url, param, successFunction, failFunction) => {
         }
       }
     },
-    fail: function (res) {
+    fail: function(res) {
       wx.hideLoading()
       if (typeof failFunction == "function") {
         failFunction(res);
@@ -195,6 +199,8 @@ module.exports = {
   apiSendSms: apiSendSms,
   apiMessage: apiMessage,
   apiConfig: apiConfig,
+  apiMe: apiMe,
+  apiTaskList: apiTaskList,
   isEmpty: isEmpty,
   showToast: showToast,
   doApi: doApi,
