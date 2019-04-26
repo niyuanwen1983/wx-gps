@@ -18,10 +18,14 @@ const apiSendSms = '/api/gps/sendSms.do'
 const apiMessage = '/api/gps/getMassage.do'
 //详情接口
 const apiConfig = '/api/gps/config.do'
-//我的首页
+//我的首页接口
 const apiMe = '/api/gps/queryReport.do'
-//工单首页
+//工单首页接口
 const apiTaskList = '/api/gps/workOrderList.do'
+//接单状态更新接口
+const apiTaskUpdate = '/api/gps/updateOrderStatus.do'
+//工单详情接口
+const apiTaskDetail = '/api/gps/workOrderInfo.do'
 
 const md5 = require('../assets/js/md5/md5.js')
 
@@ -182,6 +186,13 @@ const isEmpty = obj => {
 }
 
 /**
+ * 判断是否是闰年
+ */
+const isLeapYear = year => {
+  return (year % 4 == 0) && (year % 100 != 0 || year % 400 == 0)
+}
+
+/**
  * 显示toast
  * @title 显示内容
  */
@@ -193,6 +204,25 @@ const showToast = (title) => {
   })
 }
 
+/**
+ * 显示确认框
+ * @param content 显示内容
+ * @param okCallback 确认回调方法
+ */
+const showConfirm = (content, okCallback) => {
+  wx.showModal({
+    title: '提示',
+    content: content,
+    success: function(sm) {
+      if (sm.confirm) {
+        if (typeof okCallback == "function") {
+          okCallback()
+        }
+      }
+    }
+  })
+}
+
 //模块导出部分-----------------------------------------------------------------------
 module.exports = {
   apiLogin: apiLogin,
@@ -201,8 +231,12 @@ module.exports = {
   apiConfig: apiConfig,
   apiMe: apiMe,
   apiTaskList: apiTaskList,
+  apiTaskUpdate: apiTaskUpdate,
+  apiTaskDetail: apiTaskDetail,
   isEmpty: isEmpty,
+  isLeapYear: isLeapYear,
   showToast: showToast,
+  showConfirm: showConfirm,
   doApi: doApi,
   doApiMock: doApiMock
 }

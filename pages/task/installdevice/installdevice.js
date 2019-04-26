@@ -15,42 +15,37 @@ Page({
     locationId: '',
     locationName: ''
   },
-
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
     this.ctx = wx.createCameraContext()
 
-
-    let dataString = '{}'
-    util.doApi(util.apiConfig, dataString, this.successConfig)
-
-    //let dataString = '{"id":"8a81a01166280653016628194e690002"}'
-    //util.doApi('/api/gps/workOrderInfo.do', dataString, this.successConfig)
-
-    //let dataString = '{"aspzt":"1,2,3,5,6"}'
-    //util.doApi('/api/erp/workOrderList.do',dataString,this.successConfig)
-
-    /*let a = '8a81a01166280653016628194e690002'
-    let b = '0'
-    let c = 'abc'
-    let dataString = '{"asqid":"' + a + '","astatus":"' + b + '","acjbz":"' + c + '"}'
-    util.doApi('/api/erp/updateOrderStatus.do',dataString,this.successConfig)*/
-
-    //let dataString = '{"date":"2019-03"}'
-    //util.doApi('/api/gps/queryReport.do',dataString,this.successConfig)
+    this.initData(options.id)
   },
 
   onShow: function(options) {
-    this.setData({
-      locationId: getApp().globalData.locationId,
-      locationName: getApp().globalData.locationName
-    })
+    if (!util.isEmpty(getApp().globalData.locationId) && !!util.isEmpty(getApp().globalData.locationName)) {
+      this.setData({
+        locationId: getApp().globalData.locationId,
+        locationName: getApp().globalData.locationName
+      })
+    }
   },
-
-  successConfig: function(res) {
-
+  /**
+   * 初始化
+   * @param id 工单id
+   */
+  initData:function(id){
+    let dataString = '{"id":"' + id + '"}'
+    util.doApi(util.apiTaskDetail, dataString, this.initDataSuccess)
+  },
+  /**
+   * 初始化回调方法
+   * @param res 返回结果
+   */
+  initDataSuccess: function(res) {
+    console.log(res)
 
 
   },

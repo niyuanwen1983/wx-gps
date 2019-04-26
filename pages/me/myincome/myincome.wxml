@@ -1,3 +1,6 @@
+<!--金额格式化-->
+<wxs src="../../../filter/moneyFormat.wxs" module="moneyFormat" />
+
 <view class="wrap">
   <view class="header">
     <p class="title">我的收入</p>
@@ -12,36 +15,48 @@
         </picker>
       </view>
       <view class="range-money">
-        <p class="income-title">收入（元）：333,029.00</p>
+        <p class="income-title">收入（元）：{{moneyFormat.thousandMark(incomed)}}</p>
       </view>
     </view>
     <view class="content income">
-      <view class="income-row">
+      <view wx:for="{{taskList}}" class="income-row" wx:key="{{index}}">
         <view class="income-left">
           <view>
             <p class="money">
-              3,200
+              {{moneyFormat.thousandMark(item.fje)}}
             </p>
           </view>
           <view>
-            <p class="row-title">
+            <p wx:if="{{item.srlx==1}}" class="row-title">
               安装收入
+            </p>
+            <p wx:elif="{{item.srlx==2}}" class="row-title">
+              拆机收入
+            </p>
+            <p wx:elif="{{item.srlx==0}}" class="row-title">
+              待收入
             </p>
           </view>
         </view>
         <view class="income-center">
           <view>
             <p class="num">
-              4台
+              {{item.its}}台
             </p>
           </view>
           <view>
-            <p class="row-title">
+            <p wx:if="{{item.srlx==1}}" class="row-title">
               安装台数
+            </p>
+            <p wx:elif="{{item.srlx==2}}" class="row-title">
+              拆机台数
+            </p>
+            <p wx:elif="{{item.srlx==0}}" class="row-title">
+              数量
             </p>
           </view>
         </view>
-        <view class="income-right">
+        <view class="income-right" data-srlx="{{item.srlx}}" bindtap="gotoIncomeDetail">
           <image src="/imgs/arrow.png" alt="" class="arrow"></image>
         </view>
       </view>

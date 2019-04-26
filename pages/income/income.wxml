@@ -3,24 +3,24 @@
 
 <view class="wrap">
   <view class="header">
-    <p class="title">待收入</p>
+    <p class="title">{{title}}</p>
   </view>
   <view class="content income">
     <view class="income-row" wx:for="{{incomeArr}}" wx:key="{{index}}">
       <view class="income-left">
         <view>
           <p class="plate-number">
-           {{item.name}}
+           {{item.acp}}
           </p>
         </view>
         <view>
           <p class="date-time">
-            {{item.datetime}}
+            {{item.dqwazsj }}
           </p>
         </view>
       </view>
       <view class="income-right">
-        <p class="money">+{{moneyFormat.thousandMark(item.money)}}元</p>
+        <p class="money">+{{moneyFormat.thousandMark(item.fazfy)}}元</p>
       </view>
     </view>
   </view>

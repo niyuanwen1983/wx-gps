@@ -69,5 +69,11 @@ Page({
 
       this.initData()
     }
+  },
+
+  gotoDetail: function(e) {
+    wx.navigateTo({
+      url: '/pages/task/installdevice/installdevice?id=' + e.currentTarget.dataset.id
+    })
   }
 })

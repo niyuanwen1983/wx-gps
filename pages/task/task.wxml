@@ -36,10 +36,10 @@
           <view class="top">
             <p>类型：{{item.asqlx==1?'安装':'拆机'}}</p>
             <p wx:if="{{aspzt==1}}" class="uncompleted">未完成</p>
-            <p wx:if="{{aspzt==5}}" class="auditing">审核中</p>
-            <p wx:if="{{aspzt==3}}" class="failed">审核不通过</p>
-            <p wx:if="{{aspzt==2}}" class="completed">已完成</p>
-            <p wx:if="{{aspzt==6}}" class="timeouted">超时</p>
+            <p wx:elif="{{aspzt==5}}" class="auditing">审核中</p>
+            <p wx:elif="{{aspzt==3}}" class="failed">审核不通过</p>
+            <p wx:elif="{{aspzt==2}}" class="completed">已完成</p>
+            <p wx:elif="{{aspzt==6}}" class="timeouted">超时</p>
           </view>
           <ol class="bottom">
             <li>
@@ -57,9 +57,14 @@
               </view>
             </li>
             <li>
-              <view class="view-row">
-                <a href="javascript:;" class="abandonBtn">取消</a>
-                <a href="javascript:;" class="confirmBtn">拆机</a>
+              <view wx:if="{{aspzt==1}}" class="view-row">
+                <a href="javascript:;" class="abandonBtn" bindtap="abandon">取消</a>
+                <a href="javascript:;" class="confirmBtn" bindtap="gotoDetail" data-id="{{item.id}}">{{item.asqlx==1?'装机':'拆机'}}</a>
+              </view>
+              <view wx:elif="{{aspzt==5 || aspzt==2 || aspzt== 6}}" class="view-row" style="display:none;">
+              </view>
+              <view wx:elif="{{aspzt==3}}" class="view-row">
+                <a href="javascript:;" class="redoBtn">重新处理</a>
               </view>
             </li>
           </ol>

@@ -59,7 +59,7 @@ Page({
    * 初始化
    */
   initData:function(){
-    let aspzt = '1'//未完工
+    let aspzt = '0'//未接单
 
     let dataString = '{"aspzt":"' + aspzt + '"}'
 
@@ -80,6 +80,33 @@ Page({
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
+    })
+  },
+  /**
+   * 放弃接单
+   */
+  abandon:function(e){
+    util.showConfirm('确认放弃接单？',()=>{
+      let dataString = '{"asqid":"' + e.currentTarget.dataset.id + '","astatus":"0"}'
+
+      util.doApi(util.apiTaskUpdate, dataString, this.initDataCallback)
+    })
+  },
+  /**
+   * 放弃成功回调方法
+   * @param res 返回结果
+   */
+  abandonSuccess:function(res){
+    util.showToast('操作成功！')
+
+    this.initData()
+  },
+  /**
+   * 确认接单
+   */
+  receive:function(e){
+    util.showConfirm('确认接单？',()=>{
+
     })
   }
 })
