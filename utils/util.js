@@ -51,7 +51,7 @@ const doApi = (url, param, successFunction, failFunction) => {
   //sign
   let sign = md5.hexMD5(param + signKey + timeParam)
   //参数值
-  var paramData = Encrypt(param)
+  let paramData = Encrypt(param)
 
   let params = {
     "source": 2,
@@ -81,7 +81,11 @@ const doApi = (url, param, successFunction, failFunction) => {
         if (isEmpty(res.data.respMsg)) {
           showToast('请求失败，请重试！')
         } else {
-          showToast(res.data.respMsg)
+          if (typeof failFunction == "function") {
+            failFunction(res);
+          } else {
+            showToast(res.data.respMsg)
+          }
         }
       }
     },

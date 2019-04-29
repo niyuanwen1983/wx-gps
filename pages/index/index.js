@@ -12,7 +12,7 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    taskList:[]
+    taskList: []
   },
   //事件处理函数
   bindViewTap: function() {
@@ -20,14 +20,14 @@ Page({
       url: '../logs/logs'
     })
   },
-  onLoad: function () {
+  onLoad: function() {
     template.tabbar("tabBar", 0, this)
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true
       })
-    } else if (this.data.canIUse){
+    } else if (this.data.canIUse) {
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
       app.userInfoReadyCallback = res => {
@@ -52,27 +52,36 @@ Page({
   /**
    * 显示
    */
-  onShow:function(){
+  onShow: function() {
     this.initData()
   },
   /**
    * 初始化
    */
-  initData:function(){
-    let aspzt = '0'//未接单
+  initData: function() {
+    let aspzt = '0' //未接单
 
     let dataString = '{"aspzt":"' + aspzt + '"}'
 
-    util.doApi(util.apiTaskList, dataString, this.initDataCallback)
+    util.doApi(util.apiTaskList, dataString, this.initDataCallback, this.initDataFailback)
   },
   /**
    * 初始化回调方法
    * @param res 返回结果
    */
-  initDataCallback:function(res){
-    this.setData({
-      taskList:res.data.respData
-    })
+  initDataCallback: function(res) {
+      this.setData({
+        taskList: res.data.respData
+      })
+  },
+
+  initDataFailback:function(res){
+    //第一次进入
+    if (res.data.respMsg.indexOf('CODE:2') > -1) {
+      wx.redirectTo({
+        url: '/pages/login/login',
+      })
+    }
   },
 
   getUserInfo: function(e) {
@@ -85,8 +94,8 @@ Page({
   /**
    * 放弃接单
    */
-  abandon:function(e){
-    util.showConfirm('确认放弃接单？',()=>{
+  abandon: function(e) {
+    util.showConfirm('确认放弃接单？', () => {
       let dataString = '{"asqid":"' + e.currentTarget.dataset.id + '","astatus":"0"}'
 
       util.doApi(util.apiTaskUpdate, dataString, this.initDataCallback)
@@ -96,7 +105,7 @@ Page({
    * 放弃成功回调方法
    * @param res 返回结果
    */
-  abandonSuccess:function(res){
+  abandonSuccess: function(res) {
     util.showToast('操作成功！')
 
     this.initData()
@@ -104,8 +113,8 @@ Page({
   /**
    * 确认接单
    */
-  receive:function(e){
-    util.showConfirm('确认接单？',()=>{
+  receive: function(e) {
+    util.showConfirm('确认接单？', () => {
 
     })
   }
