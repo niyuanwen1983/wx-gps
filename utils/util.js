@@ -28,6 +28,8 @@ const apiTaskUpdate = '/api/gps/updateOrderStatus.do'
 const apiTaskDetail = '/api/gps/workOrderInfo.do'
 //文件上传接口
 const apiFileUpload = '/api/gps/uploadFile.do'
+//保存gps信息
+const apiGpsSave = '/api/gps/saveGpsInfo.do'
 
 const md5 = require('../assets/js/md5/md5.js')
 
@@ -72,6 +74,7 @@ const doApi = (url, param, successFunction, failFunction) => {
       'content-type': 'application/json'
     },
     success: function(res) {
+      showToast('a')
       wx.hideLoading()
 
       //成功
@@ -92,6 +95,7 @@ const doApi = (url, param, successFunction, failFunction) => {
       }
     },
     fail: function(res) {
+      showToast('b')
       wx.hideLoading()
       if (typeof failFunction == "function") {
         failFunction(res);
@@ -240,6 +244,7 @@ module.exports = {
   apiTaskUpdate: apiTaskUpdate,
   apiTaskDetail: apiTaskDetail,
   apiFileUpload: apiFileUpload,
+  apiGpsSave: apiGpsSave,
   isEmpty: isEmpty,
   isLeapYear: isLeapYear,
   showToast: showToast,

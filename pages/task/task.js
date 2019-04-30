@@ -158,7 +158,7 @@ Page({
    */
   gotoDetail: function(e) {
     wx.navigateTo({
-      url: '/pages/task/installdevice/installdevice?id=' + e.currentTarget.dataset.id
+      url: '/pages/task/deviceconfirm/deviceconfirm?id=' + e.currentTarget.dataset.id
     })
   },
   /**

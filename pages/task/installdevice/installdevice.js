@@ -1,6 +1,10 @@
 //导入通用方法js
 const util = require('../../../utils/util.js')
 
+// 引入SDK核心类
+var QQMapWX = require('../../../assets/js/qqmap/qqmap-wx-jssdk.js')
+var qqmapsdk
+
 Page({
   /**
    * 页面的初始数据
@@ -23,9 +27,56 @@ Page({
     this.ctx = wx.createCameraContext()
 
     this.initData(options.id)
+
+    // 实例化API核心类
+    qqmapsdk = new QQMapWX({
+      key: 'UTLBZ-TMJ6W-EUUR6-RLEJC-PJCME-VDFF5'
+    });
   },
 
   onShow: function(options) {
+    wx.getLocation({
+      type: 'gcj02',
+      success(res) {
+        const latitude = res.latitude
+        const longitude = res.longitude
+        const speed = res.speed
+        const accuracy = res.accuracy
+
+        qqmapsdk.reverseGeocoder({
+          location:{
+            latitude: latitude,
+            longitude: longitude
+          },
+          success:function(res){
+            wx.showToast({
+              title: res.result.address
+            })
+            console.log(res)
+          },
+          fail:function(res){
+            wx.showToast({
+              title: 'a'
+            })
+            console.log(res)
+          },
+          complete:function(res){
+            wx.showModal({
+              title: res.result.address,
+              content: res.result.address,
+              success: function (sm) {
+                
+              }
+            })
+            console.log(res)
+          }
+        })
+
+
+
+
+      }
+    })
     if (!util.isEmpty(getApp().globalData.locationId) && !!util.isEmpty(getApp().globalData.locationName)) {
       this.setData({
         locationId: getApp().globalData.locationId,
@@ -88,7 +139,7 @@ Page({
     let that = this
 
     this.ctx.takePhoto({
-      quality: 'high',
+      quality: 'low',
       success: (res) => {
         that.data.srcArrFix1[that.data.currentIndex1] = res.tempImagePath
 
@@ -100,9 +151,34 @@ Page({
           srcArrFix1: that.data.srcArrFix1,
           isShow: false
         })
+
+        wx.showLoading({
+          title: '加载中......',
+        })
+
+        wx.getFileSystemManager().readFile({
+          filePath: res.tempImagePath, //选择图片返回的相对路径
+          encoding: 'base64', //编码格式
+          success: res => { //成功的回调
+            that.data.srcArrFixBase64[0] = res.data
+
+            let dataString = '{"id":"8a82c8a6679b6fc401679bee68b5001d","asqlx":"1","atplx":"1001","dimageData":"' + that.data.srcArrFixBase64[0] + '","fileName":"abcd.jpg","fileSuffix":"jpg"}'
+
+            util.doApi(util.apiFileUpload, dataString, that.successFileUpload, that.failFileUpload)
+          }
+        })
       }
     })
   },
+
+  successFileUpload: function(res) {
+    console.log(res)
+  },
+
+  failFileUpload: function() {
+    console.log('上传失败！')
+  },
+
   /**
    * 删除图片
    */
@@ -138,7 +214,9 @@ Page({
       url: '/pages/task/installlocation/installlocation'
     })
   },
-
+  /**
+   * 提交
+   */
   firstCommit: function() {
     //let dataString = '{"aspzt":"' + this.data.aspzt + '"}'
     //id 申请单id "8a82c8a6679b6fc401679bee68b5001d"
@@ -146,7 +224,7 @@ Page({
     //atplx 图片类型 1001 安装位置 1002 人车合影 1003 设备车架号合影 1004 其他 1005 拆机图片
     //dimageData 图片内
 
-    let that = this
+    /*let that = this
 
     wx.showLoading({
       title: '加载中......',
@@ -166,10 +244,33 @@ Page({
 
         util.doApi(util.apiFileUpload, dataString, that.successFileUpload)
       }
+    })*/
+
+    let dataString = '{"id":"8a82c8a6679b6fc401679bee68b5001d","asqlx":"1","aazwz":"1001"}'
+
+    util.doApi(util.apiGpsSave, dataString, this.successGpsSave, this.failGpsSave)
+  },
+  /**
+   * 提交成功回调方法
+   * @param res 返回结果
+   */
+  successGpsSave: function(res) {
+    util.showToast('提交成功！')
+
+    wx.navigateBack({
+      delta: 2
     })
   },
+  /**
+   * 提交成功回调方法
+   * @param res 返回结果
+   */
+  failGpsSave: function(res) {
+    util.showToast('提交失败！')
 
-  successFileUpload: function(res) {
-    console.log(res)
+    //返回到工单首页
+    wx.navigateBack({
+      delta: 2
+    })
   }
 })
