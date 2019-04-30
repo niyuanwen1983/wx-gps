@@ -98,7 +98,7 @@ Page({
     util.showConfirm('确认放弃接单？', () => {
       let dataString = '{"asqid":"' + e.currentTarget.dataset.id + '","astatus":"0"}'
 
-      util.doApi(util.apiTaskUpdate, dataString, this.initDataCallback)
+      util.doApi(util.apiTaskUpdate, dataString, this.abandonSuccess)
     })
   },
   /**
@@ -106,7 +106,7 @@ Page({
    * @param res 返回结果
    */
   abandonSuccess: function(res) {
-    util.showToast('操作成功！')
+    util.showToast('放弃接单成功！')
 
     this.initData()
   },
@@ -115,7 +115,18 @@ Page({
    */
   receive: function(e) {
     util.showConfirm('确认接单？', () => {
+      let dataString = '{"asqid":"' + e.currentTarget.dataset.id + '","astatus":"1"}'
 
+      util.doApi(util.apiTaskUpdate, dataString, this.receiveSuccess)
     })
+  },
+  /**
+   * 确认接单成功回调方法
+   * @param res 返回结果
+   */
+  receiveSuccess: function (res) {
+    util.showToast('接单成功！')
+
+    this.initData()
   }
 })

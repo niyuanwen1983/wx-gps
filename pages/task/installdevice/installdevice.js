@@ -11,6 +11,7 @@ Page({
     src1_2: '/imgs/cammera.png',
     src1_3: '/imgs/cammera.png',
     srcArrFix1: ['/imgs/cammera.png', '/imgs/cammera.png', '/imgs/cammera.png', '/imgs/jia.png'],
+    srcArrFixBase64: ['', '', '', ''],
     currentIndex1: -1,
     locationId: '',
     locationName: ''
@@ -36,7 +37,7 @@ Page({
    * 初始化
    * @param id 工单id
    */
-  initData:function(id){
+  initData: function(id) {
     let dataString = '{"id":"' + id + '"}'
     util.doApi(util.apiTaskDetail, dataString, this.initDataSuccess)
   },
@@ -136,5 +137,39 @@ Page({
     wx.navigateTo({
       url: '/pages/task/installlocation/installlocation'
     })
+  },
+
+  firstCommit: function() {
+    //let dataString = '{"aspzt":"' + this.data.aspzt + '"}'
+    //id 申请单id "8a82c8a6679b6fc401679bee68b5001d"
+    //asqlx 申请类型 1 安装申请 2 悔贷拆机申请
+    //atplx 图片类型 1001 安装位置 1002 人车合影 1003 设备车架号合影 1004 其他 1005 拆机图片
+    //dimageData 图片内
+
+    let that = this
+
+    wx.showLoading({
+      title: '加载中......',
+    })
+
+    wx.getFileSystemManager().readFile({
+      filePath: that.data.srcArrFix1[0], //选择图片返回的相对路径
+      encoding: 'base64', //编码格式
+      success: res => { //成功的回调
+        //console.log('data:image/png;base64,' + res.data)
+        that.data.srcArrFixBase64[0] = 'data:image/jpg;base64,' + res.data
+        that.setData({
+          srcArrFixBase64: that.data.srcArrFixBase64
+        })
+
+        let dataString = '{"id":"8a82c8a6679b6fc401679bee68b5001d","asqlx":"1","atplx":"1001","dimageData":"' + that.data.srcArrFixBase64[0] + '","fileName":"a","fileSuffix":"jpg"}'
+
+        util.doApi(util.apiFileUpload, dataString, that.successFileUpload)
+      }
+    })
+  },
+
+  successFileUpload: function(res) {
+    console.log(res)
   }
 })

@@ -26,6 +26,8 @@ const apiTaskList = '/api/gps/workOrderList.do'
 const apiTaskUpdate = '/api/gps/updateOrderStatus.do'
 //工单详情接口
 const apiTaskDetail = '/api/gps/workOrderInfo.do'
+//文件上传接口
+const apiFileUpload = '/api/gps/uploadFile.do'
 
 const md5 = require('../assets/js/md5/md5.js')
 
@@ -237,6 +239,7 @@ module.exports = {
   apiTaskList: apiTaskList,
   apiTaskUpdate: apiTaskUpdate,
   apiTaskDetail: apiTaskDetail,
+  apiFileUpload: apiFileUpload,
   isEmpty: isEmpty,
   isLeapYear: isLeapYear,
   showToast: showToast,

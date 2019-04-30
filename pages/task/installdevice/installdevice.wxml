@@ -157,7 +157,7 @@
         </li>
       </ul>
     </view>
-    <button class="submitBtn">提交</button>
+    <button class="submitBtn" bindtap="firstCommit">提交</button>
   </view>
 </view>
 <view wx:else>
