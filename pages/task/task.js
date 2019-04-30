@@ -6,7 +6,7 @@ var template = require('../../template/template.js')
 Page({
   data: {
     currentTab: 0,
-    aspzt: 1, //状态
+    aspzt: '1', //状态
     taskList: []
   },
   //事件处理函数
@@ -50,15 +50,15 @@ Page({
     if (this.data.currentTab === e.target.dataset.current) {
       return false;
     } else {
-      let selectedStatus = 1
-      if (e.target.dataset.current == 1) {
-        selectedStatus = 5
-      } else if (e.target.dataset.current == 2) {
-        selectedStatus = 3
-      } else if (e.target.dataset.current == 3) {
-        selectedStatus = 2
-      } else if (e.target.dataset.current == 4) {
-        selectedStatus = 6
+      let selectedStatus = '1'
+      if (e.target.dataset.current == '3,4') {
+        selectedStatus = '3,4'
+      } else if (e.target.dataset.current == '5') {
+        selectedStatus = '5'
+      } else if (e.target.dataset.current == '2') {
+        selectedStatus = '2'
+      } else if (e.target.dataset.current == '6') {
+        selectedStatus = '6'
       }
 
       that.setData({
@@ -70,10 +70,31 @@ Page({
       this.initData()
     }
   },
-
+  /**
+   * 跳转到工单详情页面
+   */
   gotoDetail: function(e) {
     wx.navigateTo({
       url: '/pages/task/installdevice/installdevice?id=' + e.currentTarget.dataset.id
     })
+  },
+  /**
+   * 放弃接单
+   */
+  abandon: function(e) {
+    util.showConfirm('确认放弃接单？', () => {
+      let dataString = '{"asqid":"' + e.currentTarget.dataset.id + '","astatus":"0"}'
+
+      util.doApi(util.apiTaskUpdate, dataString, this.abandonSuccess)
+    })
+  },
+  /**
+   * 放弃成功回调方法
+   * @param res 返回结果
+   */
+  abandonSuccess: function(res) {
+    util.showToast('放弃接单成功！')
+
+    this.initData()
   }
 })
