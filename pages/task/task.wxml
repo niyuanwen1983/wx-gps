@@ -2,13 +2,13 @@
 
 <view class="wrap">
   <view class="header">
-    <p class="title">我的工单</p>
+    <p class="title" style="display:none;">我的工单</p>
     <image class="search" src="/imgs/icon_search.png" style="display:none;"></image>
-    <view class="search-view" style="display:none;">
+    <view class="search-view">
       <image class="search-left" src="/imgs/icon_search.png"></image>
       <input class="search-input"></input>
     </view>
-    <button class="search-cancel" style="display:none;">取消</button>
+    <button class="search-cancel">取消</button>
   </view>
   <view class="swiper-tab">
     <view class="swiper-tab-item {{currentTab=='0'?'active':''}}" data-current="0" bindtap="clickTab">
