@@ -260,3 +260,39 @@ page {
 .search-cancel:after {
   border: none;
 }
+
+.fShow {
+  display: block;
+}
+
+.fHide {
+  display: none;
+}
+
+.iShow {
+  display: block;
+}
+
+.iHide {
+  display: none;
+}
+
+.search-wrap {
+  background-color: #fff;
+  width:100%;
+  position:absolute;
+  top:88rpx;
+  left:0;
+}
+
+.search-wrap .search-main {
+  padding:0 30rpx;
+}
+
+.search-wrap .search-item {
+  padding:25rpx 0;
+  font-size:28rpx;
+  color:#666;
+  border-bottom:1px solid #EEF1FF;
+  text-align:left;
+}

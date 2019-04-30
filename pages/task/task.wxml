@@ -2,13 +2,20 @@
 
 <view class="wrap">
   <view class="header">
-    <p class="title" style="display:none;">我的工单</p>
-    <image class="search" src="/imgs/icon_search.png" style="display:none;"></image>
-    <view class="search-view">
-      <image class="search-left" src="/imgs/icon_search.png"></image>
-      <input class="search-input"></input>
+    <p class="title {{showTrue?'iShow':'iHide'}}">我的工单</p>
+    <image class="search {{showTrue?'iShow':'iHide'}}" src="/imgs/icon_search.png" bindtap="clickShow"></image>
+    <view class="{{showFlag?'fShow':'fHide'}}">
+      <view class="search-view">
+        <image class="search-left" src="/imgs/icon_search.png"></image>
+        <input class="search-input" type="text" bindinput="bindKeyInput" value="{{inputValue}}" data-statu="open"></input>
+      </view>
+      <button class="search-cancel" bindtap="clickCancel">取消</button>
     </view>
-    <button class="search-cancel">取消</button>
+    <view class="search-wrap" bindtap="bindKeyInput" data-statu="close" wx:if="{{showInputStatus}}">
+      <view class="search-main">
+        <view class="search-item" wx:for="{{bindSource}}" id="{{item}}" bindtap="itemtap" data-statu="close" wx:if="{{showInputStatus}}">{{item}}</view>
+      </view>
+    </view>
   </view>
   <view class="swiper-tab">
     <view class="swiper-tab-item {{currentTab=='0'?'active':''}}" data-current="0" bindtap="clickTab">
