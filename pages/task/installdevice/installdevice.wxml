@@ -1,9 +1,9 @@
 <!--pages/task/installdevice/installdevice.wxml-->
 <view class="wrap" style="background-color:#fff;" wx:if="{{!isShow}}">
   <view class="header">
-    <p class="back">
+    <!--<p class="back">
       <image src="/imgs/white_arrow.png" alt=""></image>
-    </p>
+    </p>-->
     <p class="title">安装详情</p>
     <p class="subTitle"></p>
   </view>
@@ -14,35 +14,31 @@
       <ul>
         <li style="display:inline-block;width:50%;">
           <span class="tit">客户姓名：</span>
-          <span class="des">王大锤</span>
+          <span class="des">{{axm}}</span>
         </li>
         <li style="display:inline-block;width:50%;">
           <span class="tit">车牌号码：</span>
-          <span class="des">沪ATF888</span>
+          <span class="des">{{acp}}</span>
         </li>
         <li>
           <span class="tit">车架号码：</span>
-          <span class="des">ZF11425433</span>
+          <span class="des">{{acjh}}</span>
         </li>
         <li>
           <span class="tit">发起时间：</span>
-          <span class="des">2018-04-18 09:09</span>
-        </li>
-        <li>
-          <span class="tit">车辆型号：</span>
-          <span class="des">2018款 奥迪A8 2.0T 自动舒适型</span>
+          <span class="des">{{tsqsj}}</span>
         </li>
         <li>
           <span class="tit">期望安装时间：</span>
-          <span class="des">2018-04-18 09:09</span>
+          <span class="des">{{dqwazsj}}</span>
         </li>
         <li>
           <span class="tit">安装时间：</span>
-          <span class="des">2018-04-18&nbsp;&nbsp;09:09</span>
+          <span class="des">?</span>
         </li>
         <li>
           <span class="tit">安装地址：</span>
-          <span class="des">上海市宝山区殷高西路101号高景国际大厦103室</span>
+          <span class="des">{{aazdz}}</span>
         </li>
         <li>
           <span class="tit">退回原因：</span>
@@ -51,9 +47,7 @@
         <li>
           <span class="tit">附件信息：</span>
           <span class="pic clearfix">
-            <i></i>
-            <i></i>
-            <i></i>
+            <image wx:for="{{afjxx}}" wx:key="{{index}}" src="{{item}}" bindtap="prevImage" data-url="{{item}}"></image>
           </span>
         </li>
       </ul>

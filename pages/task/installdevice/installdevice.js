@@ -19,7 +19,17 @@ Page({
     currentIndex1: -1,
     locationId: '',
     locationName: '',
-    gpsLocation:''
+    gpsLocation: '',
+
+    axm: '', //姓名
+    acp: '', //车牌号码
+    acjh: '', //车架号
+    tsqsj: '', //发起时间
+    dqwazsj: '', //期望安装时间
+    aazsj: '', //安装时间
+    aazdz: '', //安装地址
+    afjxx: [] //附件信息
+
   },
   /**
    * 生命周期函数--监听页面加载
@@ -27,7 +37,8 @@ Page({
   onLoad: function(options) {
     this.ctx = wx.createCameraContext()
 
-    this.initData(options.id)
+    //this.initData(options.id)
+    this.initData('1556267499660-239f')
 
     // 实例化API核心类
     qqmapsdk = new QQMapWX({
@@ -48,30 +59,26 @@ Page({
         const accuracy = res.accuracy
 
         qqmapsdk.reverseGeocoder({
-          location:{
+          location: {
             latitude: latitude,
             longitude: longitude
           },
-          success:function(res) {
-            
+          success: function(res) {
+
           },
-          fail:function(res){
+          fail: function(res) {
             wx.showToast({
               title: 'gps地位失败！'
             })
             console.log(res)
           },
-          complete:function(res){
+          complete: function(res) {
             console.log(res)
             that.setData({
               gpsLocation: res.result.address
             })
           }
         })
-
-
-
-
       }
     })
     if (!util.isEmpty(getApp().globalData.locationId) && !!util.isEmpty(getApp().globalData.locationName)) {
@@ -96,7 +103,27 @@ Page({
   initDataSuccess: function(res) {
     console.log(res)
 
-
+    this.setData({
+      axm: res.data.respData.axm,
+      acp: res.data.respData.acp,
+      acjh: res.data.respData.acjh,
+      tsqsj: res.data.respData.tsqsj,
+      dqwazsj: res.data.respData.dqwazsj,
+      aazdz: res.data.respData.aazdz,
+      afjxx: res.data.respData.afjxx
+    })
+  },
+  /**
+   * 放大显示附件图片
+   */
+  prevImage: function(e) {
+    wx.previewImage({
+      current: [e.currentTarget.dataset.url], //当前图片地址
+      urls: [e.currentTarget.dataset.url], //所有要预览的图片的地址集合 数组形式
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
+    })
   },
   /**
    * 显示照相机
