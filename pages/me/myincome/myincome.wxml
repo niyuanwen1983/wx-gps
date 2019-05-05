@@ -41,7 +41,7 @@
         <view class="income-center">
           <view>
             <p class="num">
-              {{item.its}}台
+              {{item.its}}辆
             </p>
           </view>
           <view>

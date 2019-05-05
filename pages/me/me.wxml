@@ -20,7 +20,7 @@
       </view>
       <view class="right">
         <span class="num">{{tasks}}</span>
-        <span class="wrd">数量（台）</span>
+        <span class="wrd">数量（辆）</span>
       </view>
     </view>
     <view class="bottom">

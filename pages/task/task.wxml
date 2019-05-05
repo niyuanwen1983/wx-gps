@@ -2,18 +2,20 @@
 
 <view class="wrap">
   <view class="header">
-    <p class="title {{showTrue?'iShow':'iHide'}}">我的工单</p>
-    <image class="search {{showTrue?'iShow':'iHide'}}" src="/imgs/icon_search.png" bindtap="clickShow"></image>
+    <view class="{{showTrue?'iShow':'iHide'}}">
+      <p class="title">我的工单</p>
+      <image class="search" src="/imgs/icon_search.png" bindtap="clickShow"></image>
+    </view>
     <view class="{{showFlag?'fShow':'fHide'}}">
       <view class="search-view">
         <image class="search-left" src="/imgs/icon_search.png"></image>
-        <input class="search-input" type="text" bindinput="bindKeyInput" value="{{inputValue}}" data-statu="open"></input>
+        <input class="search-input" type="text" placeholder="车牌号/车架号" bindinput="bindKeyInput" value="{{inputValue}}" data-statu="open"></input>
       </view>
       <button class="search-cancel" bindtap="clickCancel">取消</button>
     </view>
-    <view class="search-wrap" bindtap="bindKeyInput" data-statu="close" wx:if="{{showInputStatus}}">
+    <view class="search-wrap" bindtap="bindKeyInput" wx:if="{{showInputStatus}}" data-statu="close">
       <view class="search-main">
-        <view class="search-item" wx:for="{{bindSource}}" id="{{item}}" bindtap="itemtap" data-statu="close" wx:if="{{showInputStatus}}">{{item}}</view>
+        <view class="search-item" wx:for="{{searchList}}" bindtap="itemtap">{{item.acp}}-{{item.acjh}}</view>
       </view>
     </view>
   </view>

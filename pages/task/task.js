@@ -8,6 +8,7 @@ Page({
     currentTab: 0,
     aspzt: '1', //状态
     taskList: [],
+    searchList:[],
     showFlag:false,
     showTrue:true,
     showInputStatus: false,
@@ -95,21 +96,33 @@ Page({
         showTrue: true
       })
     }
+
+    that.setData({
+      inputValue: "",
+      showInputStatus: false
+    });
+
   },
   //搜索
   bindKeyInput: function (e) {
     var currentInputStatu = e.currentTarget.dataset.statu;
-    var prefix = e.detail.value//用户实时输入值
-    var newSource = []//匹配的结果
+    var prefix = e.detail.value;//用户实时输入值
+    var newSource = [];//匹配的结果
+
     if (prefix != "") {
-      this.data.adapterSource.forEach(function (e) {
-        if (e.indexOf(prefix) != -1) {//返回某个指定的字符串值在字符串中首次出现的位置,如果要检索的字符串值没有出现，则该方法返回 -1
-          newSource.push(e)
+      let dataString = '{"aspzt":"' + this.data.aspzt + '","aname":"' + prefix + '"}'
+
+      util.doApi(util.apiTaskList, dataString, this.successSearchList)
+
+      /*this.data.adapterSource.forEach(function (i) {
+        if (i.indexOf(prefix) != -1) {//返回某个指定的字符串值在字符串中首次出现的位置,如果要检索的字符串值没有出现，则该方法返回 -1
+          newSource.push(i)
         }
-      })
+      })*/
     } else {
       currentInputStatu = "close";
     }
+
     if (newSource.length != 0) {
       this.setData({
         bindSource: newSource
@@ -133,9 +146,19 @@ Page({
       });
     }
   },
+  /**
+   * 检索回调方法
+   * @param res 返回结果
+   */
+  successSearchList: function (res) {
+    this.setData({
+      searchList: res.data.respData
+    })
+  },
   //点击选型确定input值
   itemtap: function (e) {
     var currentInputStatu = e.currentTarget.dataset.statu;
+
     this.setData({
       inputValue: e.target.id,
       bindSource: []
