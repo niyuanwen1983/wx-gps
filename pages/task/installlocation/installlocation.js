@@ -9,12 +9,17 @@ Page({
   data: {
     modalHidden: true,
     locationArr: [],
-    checkedItem: ''
+    checkedItem: '',
+    locationIndex:0
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    this.setData({
+      locationIndex:options.index
+    })
+
     let dataString = '{}'
     util.doApi(util.apiConfig, dataString, this.successConfig)
   },
@@ -67,6 +72,7 @@ Page({
   showModalHtml: function() {
     let that = this
 
+    getApp().globalData.locationIndex = this.data.locationIndex
     getApp().globalData.locationId = this.data.checkedItem.code
     getApp().globalData.locationName = this.data.checkedItem.name
 

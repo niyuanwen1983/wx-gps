@@ -21,6 +21,9 @@ Page({
     locationName: '',
     gpsLocation: '',
 
+    selectedLocationId: [], //安装位置id
+    selectedLocationValue: [], //安装位置名称
+
     axm: '', //姓名
     acp: '', //车牌号码
     acjh: '', //车架号
@@ -28,8 +31,8 @@ Page({
     dqwazsj: '', //期望安装时间
     aazsj: '', //安装时间
     aazdz: '', //安装地址
-    afjxx: [] //附件信息
-
+    afjxx: [], //附件信息
+    asfxx: [] //设备列表
   },
   /**
    * 生命周期函数--监听页面加载
@@ -38,6 +41,7 @@ Page({
     this.ctx = wx.createCameraContext()
 
     //this.initData(options.id)
+    //todo
     this.initData('1556267499660-239f')
 
     // 实例化API核心类
@@ -68,7 +72,7 @@ Page({
           },
           fail: function(res) {
             wx.showToast({
-              title: 'gps地位失败！'
+              title: 'gps定位失败！'
             })
             console.log(res)
           },
@@ -81,10 +85,17 @@ Page({
         })
       }
     })
-    if (!util.isEmpty(getApp().globalData.locationId) && !!util.isEmpty(getApp().globalData.locationName)) {
+    if (!util.isEmpty(getApp().globalData.locationId) && !util.isEmpty(getApp().globalData.locationName)) {
+      let tempIdArr = this.data.selectedLocationId
+      tempIdArr[getApp().globalData.locationIndex] = getApp().globalData.locationId
+      let tempValueArr = this.data.selectedLocationValue
+      tempValueArr[getApp().globalData.locationIndex] = getApp().globalData.locationName
+
       this.setData({
         locationId: getApp().globalData.locationId,
-        locationName: getApp().globalData.locationName
+        locationName: getApp().globalData.locationName,
+        selectedLocationId: tempIdArr,
+        selectedLocationValue: tempValueArr
       })
     }
   },
@@ -110,7 +121,19 @@ Page({
       tsqsj: res.data.respData.tsqsj,
       dqwazsj: res.data.respData.dqwazsj,
       aazdz: res.data.respData.aazdz,
-      afjxx: res.data.respData.afjxx
+      afjxx: res.data.respData.afjxx,
+      asfxx: res.data.respData.asfxx
+    })
+
+    var selectedLocationIdTemp = []
+    var selectedLocationValueTemp = []
+    for (let i = 0; i < res.data.respData.asfxx.length; i++) {
+      selectedLocationIdTemp.push('')
+      selectedLocationValueTemp.push('')
+    }
+    this.setData({
+      selectedLocationId: selectedLocationIdTemp,
+      selectedLocationValue: selectedLocationValueTemp
     })
   },
   /**
@@ -229,13 +252,15 @@ Page({
       }
     })
   },
-
-  gotoLocation: function() {
+  /**
+   * 跳转到安装位置选择画面
+   */
+  gotoLocation: function(e) {
     /*wx.redirectTo({
       url: '/pages/task/installlocation/installlocation'
     })*/
     wx.navigateTo({
-      url: '/pages/task/installlocation/installlocation'
+      url: '/pages/task/installlocation/installlocation?index=' + e.currentTarget.dataset.index
     })
   },
   /**

@@ -1,6 +1,5 @@
 <view class="wrap" style="background-color:#fff;">
   <view class="header">
-    <!--<p class="back"><image src="/imgs/white_arrow.png" alt=""></image></p>-->
     <p class="title">安装位置</p>
     <!--<p class="subTitle"></p>-->
   </view>

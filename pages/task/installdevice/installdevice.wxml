@@ -1,9 +1,9 @@
 <!--pages/task/installdevice/installdevice.wxml-->
 <view class="wrap" style="background-color:#fff;" wx:if="{{!isShow}}">
   <view class="header">
-    <!--<p class="back">
-      <image src="/imgs/white_arrow.png" alt=""></image>
-    </p>-->
+    <p class="back">
+      <image src="/imgs/white_arrow.png" alt="" style="visibility:hidden;"></image>
+    </p>
     <p class="title">安装详情</p>
     <p class="subTitle"></p>
   </view>
@@ -57,29 +57,23 @@
     <!-- 安装信息 -->
     <view class="installationInfo">
       <h1>安装信息</h1>
-      <ul>
+      <ul wx:for="{{asfxx}}" wx:key="{{index}}">
         <li>
           <span class="tit">网络类型：</span>
           <span class="des">
-            <label>
-              <image src="/imgs/check.png" alt=""></image>有线</label>
-            <label>
-              <image src="/imgs/uncheck.png" alt=""></image>无线</label>
+            <label wx:if="{{item.iwllx==1}}">
+              有线</label>
+            <label wx:elif="{{item.iwllx==0}}">
+              无线</label>
           </span>
         </li>
         <li>
           <span class="tit">SIM卡号：</span>
-          <span class="des">1345646566464</span>
+          <span class="des">{{item.asimbh}}</span>
         </li>
-        <!--<li wx:if="{{locationId!=''}}">
-          <span class="tit">安装位置：</span>
-          <span class="des">15.右三角板
-            <a href="javascript:;" onclick="imgChange15()">查看安装位置示意图</a>
-          </span>
-        </li>-->
         <li>
           <span class="tit">安装位置：</span>
-          <span class="des" bindtap="gotoLocation">{{locationId==''?'请点击选择安装位置序列号':locationName}}</span>
+          <span class="des" bindtap="gotoLocation" data-index="{{index}}">{{selectedLocationId[index]==''?'请点击选择安装位置序列号':selectedLocationValue[index]}}</span>
         </li>
         <li>
           <span class="tit">安装照片：</span>
@@ -97,6 +91,12 @@
             </view>
           </span>
         </li>
+        <li>
+          <view style="height:24rpx;"></view>
+        </li>
+      </ul>
+      <view style="height:36rpx;"></view>
+      <ul>
         <li>
           <span class="tit">安装地址：</span>
           <span class="des">{{gpsLocation}}</span>
