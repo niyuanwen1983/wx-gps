@@ -106,6 +106,37 @@ const doApi = (url, param, successFunction, failFunction) => {
 }
 
 /**
+ * 请求api
+ * @url 请求地址
+ * @params 请求参数
+ * @successFunction 成功的回调方法
+ * @failFunction 失败的回调方法
+ */
+const doUpload = (url, filePath, param, successFunction, failFunction) => {
+  //获取openid（obj.openid）
+  let obj = wx.getStorageSync('user');
+  //获取手机型号
+  let device = wx.getStorageSync('device');
+
+  param["source"] = 2;
+  param["token"] = obj.openid;
+  param["deviceId"] = device;
+  
+  wx.uploadFile({
+    url: baseUrl + apiFileUpload, //仅为示例，非真实的接口地址 
+    filePath: filePath,
+    name: 'file',
+    formData: param,
+    success: function(res) {
+
+    },
+    fail: function(res) {
+
+    }
+  })
+}
+
+/**
  * 请求apiMock
  * @url 请求地址
  * @params 请求参数
@@ -237,6 +268,7 @@ const showConfirm = (content, okCallback) => {
 //模块导出部分-----------------------------------------------------------------------
 module.exports = {
   QQKey: QQKey,
+  baseUrl: baseUrl,
   apiLogin: apiLogin,
   apiSendSms: apiSendSms,
   apiMessage: apiMessage,
@@ -252,5 +284,6 @@ module.exports = {
   showToast: showToast,
   showConfirm: showConfirm,
   doApi: doApi,
+  doUpload: doUpload,
   doApiMock: doApiMock
 }

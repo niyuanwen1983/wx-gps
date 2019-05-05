@@ -9,10 +9,11 @@
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
-		"autoAudits": false
+		"autoAudits": false,
+		"checkInvalidKey": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.0.4",
+	"libVersion": "2.6.6",
 	"appid": "wx3064ba115a84fcc6",
 	"projectname": "zhianzhuang",
 	"debugOptions": {

@@ -203,7 +203,16 @@ Page({
           title: '加载中......',
         })
 
-        wx.getFileSystemManager().readFile({
+        //let dataString = '{"id":"8a82cc9d65ccc8130165ccccdeb20044","asqlx":"1","atplx":"1001"}'
+        let dataString = {
+          "id": "8a82cc9d65ccc8130165ccccdeb20044", 
+          "asqlx": "1", 
+          "atplx": "1001"
+        }
+
+        util.doUpload(util.apiFileUpload, res.tempImagePath, dataString, that.successFileUpload, that.failFileUpload)
+
+        /*wx.getFileSystemManager().readFile({
           filePath: res.tempImagePath, //选择图片返回的相对路径
           encoding: 'base64', //编码格式
           success: res => { //成功的回调
@@ -213,7 +222,7 @@ Page({
 
             util.doApi(util.apiFileUpload, dataString, that.successFileUpload, that.failFileUpload)
           }
-        })
+        })*/
       }
     })
   },
