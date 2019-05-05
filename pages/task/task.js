@@ -151,6 +151,11 @@ Page({
    * @param res 返回结果
    */
   successSearchList: function (res) {
+    if(res.data.respData.length > 0){
+      this.setData({
+        showInputStatus: true
+      })
+    }
     this.setData({
       searchList: res.data.respData
     })
