@@ -1,5 +1,8 @@
 //通用js
 
+//qq的gps定位key
+const QQKey = 'ZHFBZ-5GRWV-T66PL-UDEEL-NYNQJ-FMFQI'
+
 //md5加密用
 const signKey = 'Vfd5Eh8HPvHIqpyno1OX'
 
@@ -74,7 +77,6 @@ const doApi = (url, param, successFunction, failFunction) => {
       'content-type': 'application/json'
     },
     success: function(res) {
-      showToast('a')
       wx.hideLoading()
 
       //成功
@@ -95,7 +97,6 @@ const doApi = (url, param, successFunction, failFunction) => {
       }
     },
     fail: function(res) {
-      showToast('b')
       wx.hideLoading()
       if (typeof failFunction == "function") {
         failFunction(res);
@@ -235,6 +236,7 @@ const showConfirm = (content, okCallback) => {
 
 //模块导出部分-----------------------------------------------------------------------
 module.exports = {
+  QQKey: QQKey,
   apiLogin: apiLogin,
   apiSendSms: apiSendSms,
   apiMessage: apiMessage,

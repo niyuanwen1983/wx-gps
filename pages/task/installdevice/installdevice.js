@@ -18,7 +18,8 @@ Page({
     srcArrFixBase64: ['', '', '', ''],
     currentIndex1: -1,
     locationId: '',
-    locationName: ''
+    locationName: '',
+    gpsLocation:''
   },
   /**
    * 生命周期函数--监听页面加载
@@ -30,11 +31,14 @@ Page({
 
     // 实例化API核心类
     qqmapsdk = new QQMapWX({
-      key: 'UTLBZ-TMJ6W-EUUR6-RLEJC-PJCME-VDFF5'
+      key: util.QQKey
     });
   },
 
   onShow: function(options) {
+    let that = this
+
+    //获取当前位置
     wx.getLocation({
       type: 'gcj02',
       success(res) {
@@ -48,27 +52,20 @@ Page({
             latitude: latitude,
             longitude: longitude
           },
-          success:function(res){
-            wx.showToast({
-              title: res.result.address
-            })
-            console.log(res)
+          success:function(res) {
+            
           },
           fail:function(res){
             wx.showToast({
-              title: 'a'
+              title: 'gps地位失败！'
             })
             console.log(res)
           },
           complete:function(res){
-            wx.showModal({
-              title: res.result.address,
-              content: res.result.address,
-              success: function (sm) {
-                
-              }
-            })
             console.log(res)
+            that.setData({
+              gpsLocation: res.result.address
+            })
           }
         })
 
