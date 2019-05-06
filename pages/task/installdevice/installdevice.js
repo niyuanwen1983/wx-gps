@@ -11,11 +11,6 @@ Page({
    */
   data: {
     isShow: false,
-    src1_1: '/imgs/cammera.png',
-    src1_2: '/imgs/cammera.png',
-    src1_3: '/imgs/cammera.png',
-    srcArrFix1: ['/imgs/cammera.png', '/imgs/cammera.png', '/imgs/cammera.png', '/imgs/jia.png'],
-    srcArrFixBase64: ['', '', '', ''],
     currentIndex1: -1,
     locationId: '',
     locationName: '',
@@ -295,10 +290,9 @@ Page({
       content: '确认删除这张照片？',
       success(res) {
         if (res.confirm) {
-          if(util.isEmpty(id)){
+          if (util.isEmpty(id)) {
 
-          }
-          else{
+          } else {
             let dataString = '{"id":"' + id + '"}'
             util.doApi(util.apiDelFile, dataString, that.deleteSuccess)
           }
@@ -327,35 +321,28 @@ Page({
    * 提交
    */
   firstCommit: function() {
-    //let dataString = '{"aspzt":"' + this.data.aspzt + '"}'
-    //id 申请单id "8a82c8a6679b6fc401679bee68b5001d"
-    //asqlx 申请类型 1 安装申请 2 悔贷拆机申请
-    //atplx 图片类型 1001 安装位置 1002 人车合影 1003 设备车架号合影 1004 其他 1005 拆机图片
-    //dimageData 图片内
+    /*asqid 申请id
 
-    /*let that = this
+    asqlx 申请类型 1 安装申请 2 悔贷拆机申请(必填)
 
-    wx.showLoading({
-      title: '加载中......',
-    })
+    aazdz 安装地址 / 拆机备注
 
-    wx.getFileSystemManager().readFile({
-      filePath: that.data.srcArrFix1[0], //选择图片返回的相对路径
-      encoding: 'base64', //编码格式
-      success: res => { //成功的回调
-        //console.log('data:image/png;base64,' + res.data)
-        that.data.srcArrFixBase64[0] = 'data:image/jpg;base64,' + res.data
-        that.setData({
-          srcArrFixBase64: that.data.srcArrFixBase64
-        })
+    gpslist gps设备更新（集合）
 
-        let dataString = '{"id":"8a82c8a6679b6fc401679bee68b5001d","asqlx":"1","atplx":"1001","dimageData":"' + that.data.srcArrFixBase64[0] + '","fileName":"a","fileSuffix":"jpg"}'
+    --> gpsid gps设备id
 
-        util.doApi(util.apiFileUpload, dataString, that.successFileUpload)
-      }
-    })*/
+    --> acjqk 拆机情况 1001 拆机成功 1002 拆机失败
 
-    let dataString = '{"id":"8a82c8a6679b6fc401679bee68b5001d","asqlx":"1","aazwz":"1001"}'
+    --> aazwz 安装位置(参考配置接口安装位置)*/
+
+    let temp = '['
+    for (let i = 0; i < this.data.asfxx.length; i++) {
+      temp += '{"gpsid":"' + this.data.asfxx[i].id + '","aazwz":"' + this.data.selectedLocationId[i] + '"},'
+    }
+    temp = temp.substr(0, temp.length - 1)
+    temp += ']'
+
+    let dataString = '{"asqid":"1556267499660-239f","asqlx":"1","aazdz":"' + this.data.gpsLocation + '","gpslist":' + temp + '}'
 
     util.doApi(util.apiGpsSave, dataString, this.successGpsSave, this.failGpsSave)
   },
@@ -371,15 +358,10 @@ Page({
     })
   },
   /**
-   * 提交成功回调方法
+   * 提交失败回调方法
    * @param res 返回结果
    */
   failGpsSave: function(res) {
     util.showToast('提交失败！')
-
-    //返回到工单首页
-    wx.navigateBack({
-      delta: 2
-    })
   }
 })

@@ -51,16 +51,16 @@ const doApi = (url, param, successFunction, failFunction) => {
   })
 
   //获取openid（obj.openid）
-  let obj = wx.getStorageSync('user');
+  let obj = wx.getStorageSync('user')
   //获取手机型号
-  let device = wx.getStorageSync('device');
+  let device = wx.getStorageSync('device')
   //获取时间
   let timeM = new Date()
   let timeParam = timeM.getTime()
   //sign
-  let sign = md5.hexMD5(param + signKey + timeParam)
+  let sign = md5.hexMD5(encodeURIComponent(param) + signKey + timeParam)
   //参数值
-  let paramData = Encrypt(param)
+  let paramData = Encrypt(encodeURIComponent(param))
 
   let params = {
     "source": 2,
