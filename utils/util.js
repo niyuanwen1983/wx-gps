@@ -31,8 +31,10 @@ const apiTaskUpdate = '/api/gps/updateOrderStatus.do'
 const apiTaskDetail = '/api/gps/workOrderInfo.do'
 //文件上传接口
 const apiFileUpload = '/api/gps/uploadFile.do'
-//保存gps信息
+//保存gps信息接口
 const apiGpsSave = '/api/gps/saveGpsInfo.do'
+//文件删除接口
+const apiDelFile = '/api/gps/delFile.do'
 
 const md5 = require('../assets/js/md5/md5.js')
 
@@ -128,10 +130,12 @@ const doUpload = (url, filePath, param, successFunction, failFunction) => {
     name: 'file',
     formData: param,
     success: function(res) {
-
+      console.log('uploadsuccess='+res)
+      this.showToast('照片上传成功！')
     },
     fail: function(res) {
-
+      console.log('uploadfail=' + res)
+      this.showToast('照片上传失败！')
     }
   })
 }
@@ -279,6 +283,7 @@ module.exports = {
   apiTaskDetail: apiTaskDetail,
   apiFileUpload: apiFileUpload,
   apiGpsSave: apiGpsSave,
+  apiDelFile: apiDelFile,
   isEmpty: isEmpty,
   isLeapYear: isLeapYear,
   showToast: showToast,

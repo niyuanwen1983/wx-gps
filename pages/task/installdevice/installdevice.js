@@ -21,6 +21,9 @@ Page({
     locationName: '',
     gpsLocation: '',
 
+    tapIndex: -1,
+    tapIdx: -1,
+
     selectedLocationId: [], //安装位置id
     selectedLocationValue: [], //安装位置名称
 
@@ -32,7 +35,9 @@ Page({
     aazsj: '', //安装时间
     aazdz: '', //安装地址
     afjxx: [], //附件信息
-    asfxx: [] //设备列表
+    asfxx: [], //设备列表
+
+    photoArr: [] //照片数组
   },
   /**
    * 生命周期函数--监听页面加载
@@ -135,6 +140,27 @@ Page({
       selectedLocationId: selectedLocationIdTemp,
       selectedLocationValue: selectedLocationValueTemp
     })
+
+    //初始化照片数组
+    let photoArrTemp = []
+    for (let i = 0; i < res.data.respData.asfxx.length; i++) {
+      let photos = ['/imgs/cammera.png', '/imgs/cammera.png', '/imgs/cammera.png', '/imgs/jia.png']
+      for (let j = 0; j < res.data.respData.asfxx[i].aazzp.length; j++) {
+        if (j <= 3) {
+          photos[j] = res.data.respData.asfxx[i].aazzp[j].imageUrl
+        } else {
+          photos.push(res.data.respData.asfxx[i].aazzp[j].imageUrl)
+        }
+      }
+      if (photos.length > 4 && photos.length < 8) {
+        photos.push('/imgs/jia.png')
+      }
+      photoArrTemp.push(photos)
+    }
+
+    this.setData({
+      photoArr: photoArrTemp
+    })
   },
   /**
    * 放大显示附件图片
@@ -153,18 +179,21 @@ Page({
    */
   showCamera: function(e) {
     let index = e.currentTarget.dataset.id
+    let idx = e.currentTarget.dataset.idx
     this.setData({
-      currentIndex1: index
+      currentIndex1: index,
+      tapIndex: index,
+      tapIdx: idx
     })
 
-    if (this.data.srcArrFix1[index] == '/imgs/cammera.png' || this.data.srcArrFix1[index] == '/imgs/jia.png') {
+    if (this.data.photoArr[index][idx] == '/imgs/cammera.png' || this.data.photoArr[index][idx] == '/imgs/jia.png') {
       this.setData({
         isShow: true
       })
     } else {
       wx.previewImage({
-        current: [this.data.srcArrFix1[index]], //当前图片地址
-        urls: [this.data.srcArrFix1[index]], //所有要预览的图片的地址集合 数组形式
+        current: [this.data.photoArr[index][idx]], //当前图片地址
+        urls: [this.data.photoArr[index][idx]], //所有要预览的图片的地址集合 数组形式
         success: function(res) {},
         fail: function(res) {},
         complete: function(res) {},
@@ -186,55 +215,44 @@ Page({
     let that = this
 
     this.ctx.takePhoto({
-      quality: 'low',
+      quality: 'high',
       success: (res) => {
-        that.data.srcArrFix1[that.data.currentIndex1] = res.tempImagePath
+        that.data.photoArr[that.data.tapIndex][that.data.tapIdx] = res.tempImagePath
 
-        if (that.data.currentIndex1 > 2 && that.data.currentIndex1 < 7) {
-          that.data.srcArrFix1.push('/imgs/jia.png')
+        if (that.data.tapIndex > 2 && that.data.tapIndex < 7) {
+          that.data.photoArr[that.data.tapIndex].push('/imgs/jia.png')
         }
 
         this.setData({
-          srcArrFix1: that.data.srcArrFix1,
+          photoArr: that.data.photoArr,
           isShow: false
-        })
-
-        wx.showLoading({
-          title: '加载中......',
         })
 
         //let dataString = '{"id":"8a82cc9d65ccc8130165ccccdeb20044","asqlx":"1","atplx":"1001"}'
         let dataString = {
-          "id": "8a82cc9d65ccc8130165ccccdeb20044", 
-          "asqlx": "1", 
+          "id": "8a82cc9d65ccc8130165ccccdeb20044",
+          "asqlx": "1",
           "atplx": "1001"
         }
 
         util.doUpload(util.apiFileUpload, res.tempImagePath, dataString, that.successFileUpload, that.failFileUpload)
-
-        /*wx.getFileSystemManager().readFile({
-          filePath: res.tempImagePath, //选择图片返回的相对路径
-          encoding: 'base64', //编码格式
-          success: res => { //成功的回调
-            that.data.srcArrFixBase64[0] = res.data
-
-            let dataString = '{"id":"8a82c8a6679b6fc401679bee68b5001d","asqlx":"1","atplx":"1001","dimageData":"' + that.data.srcArrFixBase64[0] + '","fileName":"abcd.jpg","fileSuffix":"jpg"}'
-
-            util.doApi(util.apiFileUpload, dataString, that.successFileUpload, that.failFileUpload)
-          }
-        })*/
       }
     })
   },
-
+  /**
+   * 图片上传成功回调方法
+   * @param res 返回结果
+   */
   successFileUpload: function(res) {
     console.log(res)
   },
-
+  /**
+   * 图片上传失败回调方法
+   * @param res 返回结果
+   */
   failFileUpload: function() {
     console.log('上传失败！')
   },
-
   /**
    * 删除图片
    */
@@ -246,8 +264,10 @@ Page({
       content: '确认删除这张照片？',
       success(res) {
         if (res.confirm) {
+          let dataString = '{"id":"' + e.currentTarget.dataset.imgid + '"}'
+          util.doApi(util.apiDelFile, dataString, that.deleteSuccess)
 
-          if (e.currentTarget.dataset.id < 3) {
+          /*if (e.currentTarget.dataset.id < 3) {
             that.data.srcArrFix1[e.currentTarget.dataset.id] = '/imgs/cammera.png'
           } else {
             that.data.srcArrFix1.splice(e.currentTarget.dataset.id, 1)
@@ -256,10 +276,19 @@ Page({
 
           that.setData({
             srcArrFix1: that.data.srcArrFix1
-          })
+          })*/
         }
       }
     })
+  },
+  /**
+   * 删除照片成功回调方法
+   * @param res 返回结果
+   */
+  deleteSuccess:function(res){
+    util.showToast('删除成功！')
+
+    this.initData('1556267499660-239f')
   },
   /**
    * 跳转到安装位置选择画面

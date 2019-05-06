@@ -42,7 +42,7 @@
         </li>
         <li>
           <span class="tit">退回原因：</span>
-          <span class="des">安装不符要求</span>
+          <span class="des">?</span>
         </li>
         <li>
           <span class="tit">附件信息：</span>
@@ -57,7 +57,7 @@
     <!-- 安装信息 -->
     <view class="installationInfo">
       <h1>安装信息</h1>
-      <ul wx:for="{{asfxx}}" wx:key="{{index}}">
+      <ul wx:for="{{asfxx}}" wx:key="{{index}}" wx:for-index="index" wx:for-item="item">
         <li>
           <span class="tit">网络类型：</span>
           <span class="des">
@@ -78,16 +78,16 @@
         <li>
           <span class="tit">安装照片：</span>
           <span class="pic clearfix">
-            <view class="item" wx:for="{{srcArrFix1}}">
-              <i data-id="{{index}}" bindtap="showCamera">
-                <image wx:if="{{index<3}}" src="{{item}}" alt="" class="{{item=='/imgs/cammera.png'?'carema':'photo'}}"></image>
-                <image wx:else src="{{item}}" alt="" class="{{item=='/imgs/jia.png'?'carema':'photo'}}"></image>
-                <span data-id="{{index}}" class='cls' catchtap="deletePhoto" wx:if="{{item!='/imgs/cammera.png' && item!='/imgs/jia.png'}}">x</span>
+            <view class="item" wx:for="{{photoArr[index]}}" wx:for-index="idx" wx:for-item="photo">
+              <i data-id="{{index}}" data-idx="{{idx}}" bindtap="showCamera">
+                <image wx:if="{{idx<3}}" src="{{photo}}" alt="" class="{{photo=='/imgs/cammera.png'?'carema':'photo'}}"></image>
+                <image wx:else src="{{photo}}" alt="" class="{{photo=='/imgs/jia.png'?'carema':'photo'}}"></image>
+                <span data-id="{{index}}" data-idx="{{idx}}" data-imgid="{{item.aazzp[idx].id}}" class='cls' catchtap="deletePhoto" wx:if="{{photo!='/imgs/cammera.png' && photo!='/imgs/jia.png'}}">x</span>
               </i>
-              <text wx:if="{{index==0}}">安装位置</text>
-              <text wx:elif="{{index==1}}">人车合影</text>
-              <text wx:elif="{{index==2}}">设备车架号合影</text>
-              <text wx:else>其他{{index-2}}</text>
+              <text wx:if="{{idx==0}}">安装位置</text>
+              <text wx:elif="{{idx==1}}">人车合影</text>
+              <text wx:elif="{{idx==2}}">设备车架号合影</text>
+              <text wx:else>其他{{idx-2}}</text>
             </view>
           </span>
         </li>
