@@ -131,11 +131,17 @@ const doUpload = (url, filePath, param, successFunction, failFunction) => {
     formData: param,
     success: function(res) {
       console.log('uploadsuccess='+res)
-      this.showToast('照片上传成功！')
+      
+      if (typeof successFunction == "function") {
+        successFunction(res);
+      }
     },
     fail: function(res) {
       console.log('uploadfail=' + res)
-      this.showToast('照片上传失败！')
+      
+      if (typeof failFunction == "function") {
+        failFunction(res);
+      }
     }
   })
 }

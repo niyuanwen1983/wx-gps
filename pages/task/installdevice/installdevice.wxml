@@ -82,7 +82,7 @@
               <i data-id="{{index}}" data-idx="{{idx}}" bindtap="showCamera">
                 <image wx:if="{{idx<3}}" src="{{photo}}" alt="" class="{{photo=='/imgs/cammera.png'?'carema':'photo'}}"></image>
                 <image wx:else src="{{photo}}" alt="" class="{{photo=='/imgs/jia.png'?'carema':'photo'}}"></image>
-                <span data-id="{{index}}" data-idx="{{idx}}" data-imgid="{{item.aazzp[idx].id}}" class='cls' catchtap="deletePhoto" wx:if="{{photo!='/imgs/cammera.png' && photo!='/imgs/jia.png'}}">x</span>
+                <span data-id="{{index}}" data-idx="{{idx}}" data-imgid="{{photo}}" class='cls' catchtap="deletePhoto" wx:if="{{photo!='/imgs/cammera.png' && photo!='/imgs/jia.png'}}">x</span>
               </i>
               <text wx:if="{{idx==0}}">安装位置</text>
               <text wx:elif="{{idx==1}}">人车合影</text>
@@ -107,7 +107,7 @@
   </view>
 </view>
 <view wx:else>
-  <camera device-position="back" flash="off" binderror="error" style="width: 100%; height: 300px;"></camera>
+  <camera device-position="back" flash="off" binderror="error" style="width: 100%; height: 1000rpx;"></camera>
   <button bindtap="takePhoto" style="margin:20rpx auto 0 auto;padding:20rpx;font-size:30rpx;width:80%;">拍照</button>
   <button bindtap="hiddeCarema" style="margin:20rpx auto 0 auto;padding:20rpx;font-size:30rpx;width:80%;">关闭</button>
 </view>

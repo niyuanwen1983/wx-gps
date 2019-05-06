@@ -143,16 +143,24 @@ Page({
 
     //初始化照片数组
     let photoArrTemp = []
-    for (let i = 0; i < res.data.respData.asfxx.length; i++) {
+    for (let ii = 0; ii < res.data.respData.asfxx.length; ii++) {
       let photos = ['/imgs/cammera.png', '/imgs/cammera.png', '/imgs/cammera.png', '/imgs/jia.png']
-      for (let j = 0; j < res.data.respData.asfxx[i].aazzp.length; j++) {
+      for (let j = 0; j < res.data.respData.asfxx[ii].aazzp.length; j++) {
         if (j <= 3) {
-          photos[j] = res.data.respData.asfxx[i].aazzp[j].imageUrl
+          if (res.data.respData.asfxx[ii].aazzp[j].afjxl == '1001') {
+            photos[0] = res.data.respData.asfxx[ii].aazzp[j].imageUrl
+          } else if (res.data.respData.asfxx[ii].aazzp[j].afjxl == '1002') {
+            photos[1] = res.data.respData.asfxx[ii].aazzp[j].imageUrl
+          } else if (res.data.respData.asfxx[ii].aazzp[j].afjxl == '1003') {
+            photos[2] = res.data.respData.asfxx[ii].aazzp[j].imageUrl
+          } else {
+            photos[3] = res.data.respData.asfxx[ii].aazzp[j].imageUrl
+          }
         } else {
-          photos.push(res.data.respData.asfxx[i].aazzp[j].imageUrl)
+          photos.push(res.data.respData.asfxx[ii].aazzp[j].imageUrl)
         }
       }
-      if (photos.length > 4 && photos.length < 8) {
+      if (photos.length > 3 && photos.length < 8 && photos[photos.length - 1] != '/imgs/jia.png') {
         photos.push('/imgs/jia.png')
       }
       photoArrTemp.push(photos)
@@ -228,11 +236,21 @@ Page({
           isShow: false
         })
 
-        //let dataString = '{"id":"8a82cc9d65ccc8130165ccccdeb20044","asqlx":"1","atplx":"1001"}'
+        let atplx = '1004'
+        if (that.data.tapIdx == 0) {
+          atplx = '1001'
+        } else if (that.data.tapIdx == 1) {
+          atplx = '1002'
+        } else if (that.data.tapIdx == 2) {
+          atplx = '1003'
+        }
+
+        let id = that.data.asfxx[that.data.tapIndex].id
+
         let dataString = {
-          "id": "8a82cc9d65ccc8130165ccccdeb20044",
+          "id": id,
           "asqlx": "1",
-          "atplx": "1001"
+          "atplx": atplx
         }
 
         util.doUpload(util.apiFileUpload, res.tempImagePath, dataString, that.successFileUpload, that.failFileUpload)
@@ -245,6 +263,8 @@ Page({
    */
   successFileUpload: function(res) {
     console.log(res)
+    util.showToast('照片上传成功！')
+    this.initData('1556267499660-239f')
   },
   /**
    * 图片上传失败回调方法
@@ -252,6 +272,7 @@ Page({
    */
   failFileUpload: function() {
     console.log('上传失败！')
+    util.showToast('照片上传失败！')
   },
   /**
    * 删除图片
@@ -259,24 +280,28 @@ Page({
   deletePhoto: function(e) {
     let that = this
 
+    let id = ''
+    for (let i = 0; i < that.data.asfxx.length; i++) {
+      for (let j = 0; j < that.data.asfxx[i].aazzp.length; j++) {
+        if (that.data.asfxx[i].aazzp[j].imageUrl == e.currentTarget.dataset.imgid) {
+          id = that.data.asfxx[i].aazzp[j].id
+          break
+        }
+      }
+    }
+
     wx.showModal({
       title: '提示',
       content: '确认删除这张照片？',
       success(res) {
         if (res.confirm) {
-          let dataString = '{"id":"' + e.currentTarget.dataset.imgid + '"}'
-          util.doApi(util.apiDelFile, dataString, that.deleteSuccess)
+          if(util.isEmpty(id)){
 
-          /*if (e.currentTarget.dataset.id < 3) {
-            that.data.srcArrFix1[e.currentTarget.dataset.id] = '/imgs/cammera.png'
-          } else {
-            that.data.srcArrFix1.splice(e.currentTarget.dataset.id, 1)
-            that.data.srcArrFix1.push('/imgs/jia.png')
           }
-
-          that.setData({
-            srcArrFix1: that.data.srcArrFix1
-          })*/
+          else{
+            let dataString = '{"id":"' + id + '"}'
+            util.doApi(util.apiDelFile, dataString, that.deleteSuccess)
+          }
         }
       }
     })
@@ -285,7 +310,7 @@ Page({
    * 删除照片成功回调方法
    * @param res 返回结果
    */
-  deleteSuccess:function(res){
+  deleteSuccess: function(res) {
     util.showToast('删除成功！')
 
     this.initData('1556267499660-239f')
@@ -294,9 +319,6 @@ Page({
    * 跳转到安装位置选择画面
    */
   gotoLocation: function(e) {
-    /*wx.redirectTo({
-      url: '/pages/task/installlocation/installlocation'
-    })*/
     wx.navigateTo({
       url: '/pages/task/installlocation/installlocation?index=' + e.currentTarget.dataset.index
     })
