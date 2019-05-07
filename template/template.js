@@ -1,17 +1,19 @@
+//导入路由
+const routes = require('../router/routes.js')
 
 //初始化数据
 function tabbarinit() {
   return [
     {
       "current": 0,
-      "pagePath": "/pages/index/index",
+      "pagePath": routes.home,
       "iconPath": "/imgs/index_unselected.png",
       "selectedIconPath": "/imgs/index_selected.png",
       "text": "首页"
     },
     {
       "current": 0,
-      "pagePath": "/pages/task/task",
+      "pagePath": routes.task,
       "iconPath": "/imgs/task_unselected.png",
       "selectedIconPath": "/imgs/task_selected.png",
       "text": "工单"
@@ -19,7 +21,7 @@ function tabbarinit() {
     },
     {
       "current": 0,
-      "pagePath": "/pages/me/me",
+      "pagePath": routes.me,
       "iconPath": "/imgs/me_unselected.png",
       "selectedIconPath": "/imgs/me_selected.png",
       "text": "我的"

@@ -1,5 +1,7 @@
 //导入通用方法js
 const util = require('../../utils/util.js')
+//导入路由
+const routes = require('../../router/routes.js')
 
 var template = require('../../template/template.js')
 
@@ -54,11 +56,8 @@ Page({
    * 跳转到待收入页面
    */
   gotoIncome: function() {
-    /*wx.navigateTo({
-      url: '/pages/income/income'
-    })*/
     wx.redirectTo({
-      url: '/pages/income/income'
+      url:routes.income
     })
   },
   /**
@@ -74,7 +73,7 @@ Page({
    */
   gotoMyincome: function() {
     wx.navigateTo({
-      url: '/pages/me/myincome/myincome'
+      url: routes.myincome
     })
   }
 })
