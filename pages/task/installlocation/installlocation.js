@@ -10,14 +10,14 @@ Page({
     modalHidden: true,
     locationArr: [],
     checkedItem: '',
-    locationIndex:0
+    locationIndex: 0
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
     this.setData({
-      locationIndex:options.index
+      locationIndex: options.index
     })
 
     let dataString = '{}'
@@ -27,7 +27,7 @@ Page({
   successConfig: function(res) {
     let tempArr = res.data.respData.instLocs
 
-    for(let i = 0;i < tempArr.length;i++){
+    for (let i = 0; i < tempArr.length; i++) {
       tempArr[i].imageUrl = util.baseUrl + tempArr[i].imageUrl
     }
 
@@ -74,21 +74,27 @@ Page({
   },
 
   showModalHtml: function() {
-    let that = this
+    if (util.isEmpty(this.data.checkedItem.code)) {
+      util.showToast('请选择安装位置！')
+    } else {
+      let that = this
 
-    getApp().globalData.locationIndex = this.data.locationIndex
-    getApp().globalData.locationId = this.data.checkedItem.code
-    getApp().globalData.locationName = this.data.checkedItem.name
+      getApp().globalData.locationIndex = this.data.locationIndex
+      getApp().globalData.locationId = this.data.checkedItem.code
+      getApp().globalData.locationName = this.data.checkedItem.name
 
-    wx.showModal({
-      title: '提示',
-      content: '确定选择该位置进行安装？',
-      success: function() {
-        wx.navigateBack({
-          delta:1
-        })
-      }
-    })
+      wx.showModal({
+        title: '提示',
+        content: '确定选择该位置进行安装？',
+        success: function(res) {
+          if (res.confirm) {
+            wx.navigateBack({
+              delta: 1
+            })
+          }
+        }
+      })
+    }
   },
   modalConfirm: function() {
     this.setData({

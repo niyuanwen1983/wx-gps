@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    id: '',
     isShow: false,
     currentIndex1: -1,
     locationId: '',
@@ -47,9 +48,12 @@ Page({
   onLoad: function(options) {
     this.ctx = wx.createCameraContext()
 
-    //this.initData(options.id)
-    //todo
-    this.initData('1556267499660-239f')
+    this.setData({
+      //id:options.id todo
+      id: '1556267499660-239f',
+      currentStatus: options.status == 0 ? 0 : 1
+    })
+    this.initData(this.data.id)
 
     // 实例化API核心类
     qqmapsdk = new QQMapWX({
@@ -281,7 +285,7 @@ Page({
   successFileUpload: function(res) {
     console.log(res)
     util.showToast('照片上传成功！')
-    this.initData('1556267499660-239f')
+    this.initData(this.data.id)
   },
   /**
    * 图片上传失败回调方法
@@ -329,7 +333,7 @@ Page({
   deleteSuccess: function(res) {
     util.showToast('删除成功！')
 
-    this.initData('1556267499660-239f')
+    this.initData(this.data.id)
   },
   /**
    * 跳转到安装位置选择画面
@@ -393,7 +397,7 @@ Page({
     temp = temp.substr(0, temp.length - 1)
     temp += ']'
 
-    let dataString = '{"asqid":"1556267499660-239f","asqlx":"1","aazdz":"' + this.data.gpsLocation + '","gpslist":' + temp + '}'
+    let dataString = '{"asqid":"' + this.data.id + '","asqlx":"1","aazdz":"' + this.data.gpsLocation + '","gpslist":' + temp + '}'
 
     util.doApi(util.apiGpsSave, dataString, this.successGpsSave, this.failGpsSave)
   },
@@ -422,5 +426,5 @@ Page({
     this.setData({
       modalHidden: true
     })
-  },
+  }
 })

@@ -8,9 +8,9 @@ Page({
     currentTab: 0,
     aspzt: '1', //状态
     taskList: [],
-    searchList:[],
-    showFlag:false,
-    showTrue:true,
+    searchList: [],
+    showFlag: false,
+    showTrue: true,
     showInputStatus: false,
     inputValue: '', //点击结果项之后替换到文本框的值
     adapterSource: ["app", "application", "apply", "weixin", "WeiXin"],
@@ -104,10 +104,10 @@ Page({
 
   },
   //搜索
-  bindKeyInput: function (e) {
+  bindKeyInput: function(e) {
     var currentInputStatu = e.currentTarget.dataset.statu;
-    var prefix = e.detail.value;//用户实时输入值
-    var newSource = [];//匹配的结果
+    var prefix = e.detail.value; //用户实时输入值
+    var newSource = []; //匹配的结果
 
     if (prefix != "") {
       let dataString = '{"aspzt":"' + this.data.aspzt + '","aname":"' + prefix + '"}'
@@ -150,8 +150,8 @@ Page({
    * 检索回调方法
    * @param res 返回结果
    */
-  successSearchList: function (res) {
-    if(res.data.respData.length > 0){
+  successSearchList: function(res) {
+    if (res.data.respData.length > 0) {
       this.setData({
         showInputStatus: true
       })
@@ -161,7 +161,7 @@ Page({
     })
   },
   //点击选型确定input值
-  itemtap: function (e) {
+  itemtap: function(e) {
     var currentInputStatu = e.currentTarget.dataset.statu;
 
     this.setData({
@@ -186,7 +186,7 @@ Page({
    */
   gotoDetail: function(e) {
     wx.navigateTo({
-      url: '/pages/task/deviceconfirm/deviceconfirm?id=' + e.currentTarget.dataset.id
+      url: '/pages/task/deviceconfirm/deviceconfirm?id=' + e.currentTarget.dataset.id + '&type=' + e.currentTarget.dataset.type
     })
   },
   /**
@@ -207,5 +207,17 @@ Page({
     util.showToast('放弃接单成功！')
 
     this.initData()
+  },
+  /**
+   * 点击行事件（只有审核中和已完成响应）
+   */
+  clickRow: function(e) {
+    if (e.currentTarget.dataset.status == '2' || e.currentTarget.dataset.status == '3,4') {
+      wx.navigateTo({
+        url: '/pages/task/installdevice/installdevice?id=' + e.currentTarget.dataset.id + '&status=0'
+      })
+    } else {
+      return false
+    }
   }
 })

@@ -237,3 +237,7 @@
   text-align: center;
   line-height: 30rpx;
 }
+
+.location {
+  color: #445dfd !important;
+}

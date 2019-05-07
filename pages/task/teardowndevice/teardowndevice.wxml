@@ -1,129 +1,106 @@
-<!--pages/task/teardowndevice/teardowndevice.wxml-->
-<view class="wrap" style="background-color:#fff;">
-		<view class="header">
-			<p class="back"><image src="/imgs/white_arrow.png" alt=""></image></p>
-			<p class="title">安装详情</p>
-			<p class="subTitle"></p>
-		</view>
-		<view class="content buildInfo">
-			<!-- 基本信息 -->
-			<view class="basisInfo">
-				<h1>基本信息</h1>
-				<ul>
-					<li style="display:inline-block;width:50%;">
-						<span class="tit">客户姓名：</span>
-						<span class="des">王大锤</span>
-					</li>
-					<li style="display:inline-block;width:50%;">
-						<span class="tit">车牌号码：</span>
-						<span class="des">沪ATF888</span>
-					</li>
-					<li>
-						<span class="tit">车架号码：</span>
-						<span class="des">ZF11425433</span>
-					</li>
-					<li>
-						<span class="tit">发起时间：</span>
-						<span class="des">2018-04-18 09:09</span>
-					</li>
-					<li>
-						<span class="tit">车辆型号：</span>
-						<span class="des">2018款 奥迪A8 2.0T 自动舒适型</span>
-					</li>
-					<li>
-						<span class="tit">期望安装时间：</span>
-						<span class="des">2018-04-18 09:09</span>
-					</li>
-          <li>
-						<span class="tit">安装时间：</span>
-						<span class="des">2018-04-18&nbsp;&nbsp;09:09</span>
-					</li>
-					<li>
-						<span class="tit">安装地址：</span>
-						<span class="des">上海市宝山区殷高西路101号高景国际大厦103室</span>
-					</li>
-          <li>
-						<span class="tit">退回原因：</span>
-						<span class="des">安装不符要求</span>
-					</li>
-					<li>
-						<span class="tit">附件信息：</span>
-						<span class="pic clearfix">
-							<i></i>
-							<i></i>
-							<i></i>
-						</span>
-					</li>
-				</ul>
-			</view>
-			<!-- border -->
-			<view style="height:20rpx;background-color:#f8f8f8;"></view>
-			<!-- 安装信息 -->
-			<view class="installationInfo">
-				<h1>安装信息</h1>
-				<ul>
-					<li>
-						<span class="tit">网络类型：</span>
-						<span class="des">无线</span>
-					</li>
-					<li>
-						<span class="tit">SIM卡号：</span>
-						<span class="des">1345646566464</span>
-					</li>
-          <li>
-						<span class="tit">安装位置：</span>
-						<span class="des">15.右三角板<a href="javascript:;" onclick="imgChange15()">查看安装位置示意图</a></span>
-					</li>
-					<li>
-						<span class="tit">拆机情况：</span>
-						<span class="des">
-							<label bindtap="test1"><input type="checkbox" style="display:none;"></input><span class="{{data1?'checked-item':'unchecked-item'}}"></span>拆机成功</label>
-							<label bindtap="test2"><input type="checkbox" style="display:none;"></input><span class="{{data2?'checked-item':'unchecked-item'}}"></span>拆机失败</label>
-						</span>
-					</li>
-					<li>
-						<span class="tit">安装照片：</span>
-						<span class="pic clearfix">
-							<view class="item"><i><image src="/imgs/cammera.png" alt=""></image><span class='cls'>x</span></i>abc</view>
-							<view class="item"><i><image src="/imgs/cammera.png" alt=""></image><span class='cls'>x</span></i>abc</view>
-							<view class="item"><i><image src="/imgs/cammera.png" alt=""></image><span class='cls'>x</span></i>abc</view>
-							<view class="item"><i><image src="/imgs/jia.png" alt=""></image><span class='cls'>x</span></i>abc</view>
-						</span>
-					</li>
-					<li>
-						<span class="tit">网络类型：</span>
-						<span class="des">无线</span>
-					</li>
-					<li>
-						<span class="tit">SIM卡号：</span>
-						<span class="des">1345646566464</span>
-					</li>
-          <li>
-						<span class="tit">安装位置：</span>
-						<span class="des">15.右三角板<a href="javascript:;" onclick="imgChange15()">查看安装位置示意图</a></span>
-					</li>
-					<li>
-						<span class="tit">拆机情况：</span>
-						<span class="des">
-							<label bindtap="test3"><input type="checkbox" style="display:none;"></input><span class="{{data3?'checked-item':'unchecked-item'}}"></span>拆机成功</label>
-							<label bindtap="test4"><input type="checkbox" style="display:none;"></input><span class="{{data4?'checked-item':'unchecked-item'}}"></span>拆机失败</label>
-						</span>
-					</li>
-					<li>
-						<span class="tit">安装照片：</span>
-						<span class="pic clearfix">
-							<view class="item"><i><image src="/imgs/cammera.png" alt=""></image><span class='cls'>x</span></i>abc</view>
-							<view class="item"><i><image src="/imgs/cammera.png" alt=""></image><span class='cls'>x</span></i>abc</view>
-							<view class="item"><i><image src="/imgs/cammera.png" alt=""></image><span class='cls'>x</span></i>abc</view>
-							<view class="item"><i><image src="/imgs/jia.png" alt=""></image><span class='cls'>x</span></i>abc</view>
-						</span>
-					</li>
-          <li>
-						<span class="tit">备注：</span>
-						<span class="des">设备拆除过程中有破损</span>
-					</li>
-				</ul>
-			</view>
-			<button class="submitBtn">提交</button>
-		</view>
-	</view>
+<!--pages/task/installdevice/installdevice.wxml-->
+<view class="wrap" style="background-color:#fff;" wx:if="{{!isShow}}">
+  <view class="header">
+    <p class="back">
+      <image src="/imgs/white_arrow.png" alt="" style="visibility:hidden;"></image>
+    </p>
+    <p class="title">拆机详情</p>
+    <p class="subTitle"></p>
+  </view>
+  <view class="content buildInfo">
+    <!-- 基本信息 -->
+    <view class="basisInfo">
+      <h1>基本信息</h1>
+      <ul>
+        <li style="display:inline-block;width:50%;">
+          <span class="tit">客户姓名：</span>
+          <span class="des">{{axm}}</span>
+        </li>
+        <li style="display:inline-block;width:50%;">
+          <span class="tit">车牌号码：</span>
+          <span class="des">{{acp}}</span>
+        </li>
+        <li>
+          <span class="tit">车架号码：</span>
+          <span class="des">{{acjh}}</span>
+        </li>
+        <li>
+          <span class="tit">发起时间：</span>
+          <span class="des">{{tsqsj}}</span>
+        </li>
+        <li>
+          <span class="tit">期望拆机时间：</span>
+          <span class="des">{{dqwazsj}}</span>
+        </li>
+        <li wx:if="{{athyy!=null}}">
+          <span class="tit">退回原因：</span>
+          <span class="des">{{athyy}}</span>
+        </li>
+      </ul>
+    </view>
+    <!-- border -->
+    <view style="height:20rpx;background-color:#f8f8f8;"></view>
+    <!-- 拆机信息 -->
+    <view class="installationInfo">
+      <h1>需拆除设备</h1>
+      <ul wx:for="{{asfxx}}" wx:key="{{index}}" wx:for-index="index" wx:for-item="item">
+        <li>
+          <span class="tit">网络类型：</span>
+          <span class="des">
+            <label wx:if="{{item.iwllx==1}}">
+              有线</label>
+            <label wx:elif="{{item.iwllx==0}}">
+              无线</label>
+          </span>
+        </li>
+        <li>
+          <span class="tit">SIM卡号：</span>
+          <span class="des">{{item.asimbh}}</span>
+        </li>
+        <li>
+          <span class="tit">安装位置：</span>
+          <span class="des" bindtap="gotoLocation" data-id="{{selectedLocationId[index]}}" data-index="{{index}}">{{selectedLocationId[index]==''?'请点击选择安装位置序列号':selectedLocationValue[index]}}</span>
+        </li>
+        <li>
+          <span class="tit">拆机情况：</span>
+          <span class="des">{{item.acjqk==1001?'拆机成功':'拆机失败'}}</span>
+        </li>
+        <li>
+          <span class="tit">拆机照片：</span>
+          <span class="pic clearfix">
+            <view class="item" wx:for="{{photoArr[index]}}" wx:for-index="idx" wx:for-item="photo">
+              <i data-id="{{index}}" data-idx="{{idx}}" bindtap="showCamera">
+                <image wx:if="{{idx<3}}" src="{{photo}}" alt="" class="{{photo=='/imgs/cammera.png'?'carema':'photo'}}"></image>
+                <image wx:else src="{{photo}}" alt="" class="{{photo=='/imgs/jia.png'?'carema':'photo'}}"></image>
+                <span data-id="{{index}}" data-idx="{{idx}}" data-imgid="{{photo}}" class='cls' catchtap="deletePhoto" wx:if="{{photo!='/imgs/cammera.png' && photo!='/imgs/jia.png' && currentStatus==1}}">X</span>
+              </i>
+              <text wx:if="{{idx==0}}">拆机照片</text>
+              <text wx:else>其他{{idx}}</text>
+            </view>
+          </span>
+        </li>
+        <li>
+          <view style="height:24rpx;"></view>
+        </li>
+      </ul>
+      <view style="height:36rpx;"></view>
+      <ul>
+        <li>
+          <span class="tit">备注：</span>
+          <span class="des">{{acjbz}}</span>
+        </li>
+      </ul>
+    </view>
+    <button wx:if="{{currentStatus==1}}" class="submitBtn" bindtap="firstCommit">提交</button>
+  </view>
+</view>
+<view wx:else>
+  <camera device-position="back" flash="off" binderror="error" style="width: 100%; height: 1000rpx;"></camera>
+  <button bindtap="takePhoto" style="margin:20rpx auto 0 auto;padding:20rpx;font-size:30rpx;width:80%;">拍照</button>
+  <button bindtap="hiddeCarema" style="margin:20rpx auto 0 auto;padding:20rpx;font-size:30rpx;width:80%;">关闭</button>
+</view>
+<modal title="安装位置" hidden="{{modalHidden}}" bindconfirm="modalConfirm" no-cancel="true" confirm-text="关闭">
+  <view>
+    <image class="image" src="{{currentLocationImg}}" style="width:572rpx;height:448rpx;"></image>
+  </view>
+</modal>

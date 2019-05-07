@@ -39,8 +39,7 @@
   </view>
   <view class="content" style="display:block;">
     <ul>
-      <!--未完成-->
-      <li wx:for="{{taskList}}" wx:key="{{index}}">
+      <li wx:for="{{taskList}}" wx:key="{{index}}" data-id="{{item.id}}" data-status="{{aspzt}}" bindtap="clickRow">
         <view class="li-wrap">
           <view class="top">
             <p>类型：{{item.asqlx==1?'安装':'拆机'}}</p>
@@ -68,7 +67,7 @@
             <li>
               <view wx:if="{{aspzt==1}}" class="view-row">
                 <a href="javascript:;" class="abandonBtn" bindtap="abandon" data-id="{{item.id}}">取消</a>
-                <a href="javascript:;" class="confirmBtn" bindtap="gotoDetail" data-id="{{item.id}}">{{item.asqlx==1?'装机':'拆机'}}</a>
+                <a href="javascript:;" class="confirmBtn" bindtap="gotoDetail" data-id="{{item.id}}" data-type="{{item.asqlx}}">{{item.asqlx==1?'装机':'拆机'}}</a>
               </view>
               <view wx:elif="{{aspzt==5}}" class="view-row">
                 <a href="javascript:;" class="redoBtn" bindtap="gotoDetail" data-id="{{item.id}}">重新处理</a>

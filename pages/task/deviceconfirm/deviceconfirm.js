@@ -6,6 +6,7 @@ const app = getApp()
 
 Page({
   data: {
+    type: '', //1：装机；其他：拆机
     axm: '', //姓名
     acp: '', //车牌号码
     acjh: '', //车架号
@@ -19,6 +20,10 @@ Page({
   //事件处理函数
   bindViewTap: function() {},
   onLoad: function(options) {
+    this.setData({
+      type: options.type
+    })
+
     //todo
     this.initData('1556267499660-239f')
   },
@@ -63,9 +68,15 @@ Page({
    * 跳转到工单详情页面
    */
   gotoDetail: function(e) {
-    wx.navigateTo({
-      url: '/pages/task/installdevice/installdevice?id=' + e.currentTarget.dataset.id
-    })
+    if (this.data.type == 1) {
+      wx.navigateTo({
+        url: '/pages/task/installdevice/installdevice?id=' + e.currentTarget.dataset.id
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/task/teardowndevice/teardowndevice?id=' + e.currentTarget.dataset.id
+      })
+    }
   },
   backToTask: function(e) {
     wx.navigateBack()
