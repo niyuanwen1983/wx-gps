@@ -3,8 +3,7 @@ const routes = require('../router/routes.js')
 
 //初始化数据
 function tabbarinit() {
-  return [
-    {
+  return [{
       "current": 0,
       "pagePath": routes.home,
       "iconPath": "/imgs/index_unselected.png",
@@ -27,7 +26,6 @@ function tabbarinit() {
       "text": "我的"
     }
   ]
-
 }
 
 /**
@@ -40,12 +38,13 @@ function tabbarmain(bindName = "tabdata", id, target) {
   var that = target;
   var bindData = {};
   var otabbar = tabbarinit();
-  otabbar[id]['iconPath'] = otabbar[id]['selectedIconPath']//换当前的icon
+  otabbar[id]['iconPath'] = otabbar[id]['selectedIconPath'] //换当前的icon
   otabbar[id]['current'] = 1;
   bindData[bindName] = otabbar
-  that.setData({ bindData });
+  that.setData({
+    bindData
+  });
 }
-
 
 module.exports = {
   tabbar: tabbarmain
