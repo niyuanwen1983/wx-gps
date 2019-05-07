@@ -9,7 +9,7 @@
     <view class="{{showFlag?'fShow':'fHide'}}">
       <view class="search-view">
         <image class="search-left" src="/imgs/icon_search.png"></image>
-        <input class="search-input" type="text" placeholder="车牌号/车架号" bindinput="bindKeyInput" value="{{inputValue}}" data-statu="open"></input>
+        <input class="search-input" type="text" placeholder="车牌号/车架号" bindinput="bindKeyInput" bindblur="bindInputBlur" value="{{inputValue}}" data-statu="open"></input>
       </view>
       <button class="search-cancel" bindtap="clickCancel">取消</button>
     </view>
