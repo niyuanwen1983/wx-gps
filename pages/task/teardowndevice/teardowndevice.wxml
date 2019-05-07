@@ -70,7 +70,7 @@
           <span class="pic clearfix">
             <view class="item" wx:for="{{photoArr[index]}}" wx:for-index="idx" wx:for-item="photo">
               <i data-id="{{index}}" data-idx="{{idx}}" bindtap="showCamera">
-                <image wx:if="{{idx<3}}" src="{{photo}}" alt="" class="{{photo=='/imgs/cammera.png'?'carema':'photo'}}"></image>
+                <image wx:if="{{idx<1}}" src="{{photo}}" alt="" class="{{photo=='/imgs/cammera.png'?'carema':'photo'}}"></image>
                 <image wx:else src="{{photo}}" alt="" class="{{photo=='/imgs/jia.png'?'carema':'photo'}}"></image>
                 <span data-id="{{index}}" data-idx="{{idx}}" data-imgid="{{photo}}" class='cls' catchtap="deletePhoto" wx:if="{{photo!='/imgs/cammera.png' && photo!='/imgs/jia.png' && currentStatus==1}}">X</span>
               </i>

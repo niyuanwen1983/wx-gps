@@ -125,7 +125,7 @@ Page({
     //初始化照片数组
     let photoArrTemp = []
     for (let ii = 0; ii < res.data.respData.asfxx.length; ii++) {
-      let photos = ['/imgs/cammera.png', '/imgs/cammera.png', '/imgs/cammera.png', '/imgs/jia.png']
+      let photos = ['/imgs/cammera.png', '/imgs/jia.png']
       for (let j = 0; j < res.data.respData.asfxx[ii].aazzp.length; j++) {
         if (j <= 1) {
           if (res.data.respData.asfxx[ii].aazzp[j].afjxl == '1001') {
