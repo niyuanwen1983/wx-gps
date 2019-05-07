@@ -12,9 +12,7 @@ Page({
     showFlag: false,
     showTrue: true,
     showInputStatus: false,
-    inputValue: '', //点击结果项之后替换到文本框的值
-    adapterSource: ["app", "application", "apply", "weixin", "WeiXin"],
-    bindSource: [] //绑定到页面的数据，根据用户输入动态变化
+    inputValue: ''
   },
   //事件处理函数
   bindViewTap: function() {},
@@ -111,25 +109,54 @@ Page({
 
     if (prefix != "") {
       let dataString = '{"aspzt":"' + this.data.aspzt + '","aname":"' + prefix + '"}'
-
       util.doApi(util.apiTaskList, dataString, this.successSearchList)
-
-      /*this.data.adapterSource.forEach(function (i) {
-        if (i.indexOf(prefix) != -1) {//返回某个指定的字符串值在字符串中首次出现的位置,如果要检索的字符串值没有出现，则该方法返回 -1
-          newSource.push(i)
-        }
-      })*/
     } else {
       currentInputStatu = "close";
     }
 
     if (newSource.length != 0) {
       this.setData({
-        bindSource: newSource
+        taskList: newSource
       })
     } else {
       this.setData({
-        bindSource: []
+        taskList: []
+      })
+      currentInputStatu = "close";
+    }
+    //关闭 
+    if (currentInputStatu == "close") {
+      this.setData({
+        showInputStatus: false
+      })
+    }
+    // 显示 
+    if (currentInputStatu == "open") {
+      this.setData({
+        showInputStatus: true
+      });
+    }
+  },
+  //失去焦点
+  bindInputBlur: function (e) {
+    var currentInputStatu = e.currentTarget.dataset.statu;
+    var prefix = e.detail.value;//用户输入值
+    var newSource = [];//匹配的结果
+
+    if (prefix != "") {
+      let dataString = '{"aspzt":"' + this.data.aspzt + '","aname":"' + prefix + '"}'
+      util.doApi(util.apiTaskList, dataString, this.successTaskList)
+    } else {
+      currentInputStatu = "close";
+    }
+
+    if (newSource.length != 0) {
+      this.setData({
+        taskList: newSource
+      })
+    } else {
+      this.setData({
+        taskList: []
       })
       currentInputStatu = "close";
     }
@@ -166,7 +193,7 @@ Page({
 
     this.setData({
       inputValue: e.target.id,
-      bindSource: []
+      taskList: []
     })
     //关闭 
     if (currentInputStatu == "close") {
