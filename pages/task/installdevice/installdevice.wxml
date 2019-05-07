@@ -34,15 +34,15 @@
         </li>
         <li>
           <span class="tit">安装时间：</span>
-          <span class="des">?</span>
+          <span class="des">{{dazsj}}</span>
         </li>
         <li>
           <span class="tit">安装地址：</span>
           <span class="des">{{aazdz}}</span>
         </li>
-        <li>
+        <li wx:if="{{athyy!=null}}">
           <span class="tit">退回原因：</span>
-          <span class="des">?</span>
+          <span class="des">{{athyy}}</span>
         </li>
         <li>
           <span class="tit">附件信息：</span>
@@ -73,7 +73,7 @@
         </li>
         <li>
           <span class="tit">安装位置：</span>
-          <span class="des" bindtap="gotoLocation" data-index="{{index}}">{{selectedLocationId[index]==''?'请点击选择安装位置序列号':selectedLocationValue[index]}}</span>
+          <span class="des" bindtap="gotoLocation" data-id="{{selectedLocationId[index]}}" data-index="{{index}}">{{selectedLocationId[index]==''?'请点击选择安装位置序列号':selectedLocationValue[index]}}</span>
         </li>
         <li>
           <span class="tit">安装照片：</span>
@@ -82,7 +82,7 @@
               <i data-id="{{index}}" data-idx="{{idx}}" bindtap="showCamera">
                 <image wx:if="{{idx<3}}" src="{{photo}}" alt="" class="{{photo=='/imgs/cammera.png'?'carema':'photo'}}"></image>
                 <image wx:else src="{{photo}}" alt="" class="{{photo=='/imgs/jia.png'?'carema':'photo'}}"></image>
-                <span data-id="{{index}}" data-idx="{{idx}}" data-imgid="{{photo}}" class='cls' catchtap="deletePhoto" wx:if="{{photo!='/imgs/cammera.png' && photo!='/imgs/jia.png'}}">x</span>
+                <span data-id="{{index}}" data-idx="{{idx}}" data-imgid="{{photo}}" class='cls' catchtap="deletePhoto" wx:if="{{photo!='/imgs/cammera.png' && photo!='/imgs/jia.png' && currentStatus==1}}">X</span>
               </i>
               <text wx:if="{{idx==0}}">安装位置</text>
               <text wx:elif="{{idx==1}}">人车合影</text>
@@ -103,7 +103,7 @@
         </li>
       </ul>
     </view>
-    <button class="submitBtn" bindtap="firstCommit">提交</button>
+    <button wx:if="{{currentStatus==1}}" class="submitBtn" bindtap="firstCommit">提交</button>
   </view>
 </view>
 <view wx:else>
@@ -111,3 +111,8 @@
   <button bindtap="takePhoto" style="margin:20rpx auto 0 auto;padding:20rpx;font-size:30rpx;width:80%;">拍照</button>
   <button bindtap="hiddeCarema" style="margin:20rpx auto 0 auto;padding:20rpx;font-size:30rpx;width:80%;">关闭</button>
 </view>
+<modal title="安装位置" hidden="{{modalHidden}}" bindconfirm="modalConfirm" no-cancel="true" confirm-text="关闭">
+  <view>
+    <image class="image" src="{{currentLocationImg}}" style="width:572rpx;height:448rpx;"></image>
+  </view>
+</modal>

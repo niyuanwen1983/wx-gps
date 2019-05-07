@@ -2,8 +2,8 @@
 const util = require('../../../utils/util.js')
 
 // 引入SDK核心类
-var QQMapWX = require('../../../assets/js/qqmap/qqmap-wx-jssdk.js')
-var qqmapsdk
+let QQMapWX = require('../../../assets/js/qqmap/qqmap-wx-jssdk.js')
+let qqmapsdk
 
 Page({
   /**
@@ -16,8 +16,8 @@ Page({
     locationName: '',
     gpsLocation: '',
 
-    tapIndex: -1,
-    tapIdx: -1,
+    tapIndex: -1, //点击图片的设备序号
+    tapIdx: -1, //点击图片的序号
 
     selectedLocationId: [], //安装位置id
     selectedLocationValue: [], //安装位置名称
@@ -27,12 +27,19 @@ Page({
     acjh: '', //车架号
     tsqsj: '', //发起时间
     dqwazsj: '', //期望安装时间
-    aazsj: '', //安装时间
+    dazsj: '', //安装时间
     aazdz: '', //安装地址
+    athyy: '', //退回原因
     afjxx: [], //附件信息
     asfxx: [], //设备列表
 
-    photoArr: [] //照片数组
+    photoArr: [], //照片数组
+
+    currentStatus: 0, //状态（0：不可修改；1可修改）todo
+
+    modalHidden: true, //安装位置是否显示
+    locationArr: [], //安装位置图片数组
+    currentLocationImg: '' //选中的安装位置图片（用于查看安装位置）
   },
   /**
    * 生命周期函数--监听页面加载
@@ -47,7 +54,20 @@ Page({
     // 实例化API核心类
     qqmapsdk = new QQMapWX({
       key: util.QQKey
-    });
+    })
+
+    //获取安装位置图片
+    let dataString = '{}'
+    util.doApi(util.apiConfig, dataString, this.successConfig)
+  },
+  /**
+   * 获取安装图片成功回调方法
+   * @param res 返回结果
+   */
+  successConfig: function(res) {
+    this.setData({
+      locationArr: res.data.respData.instLocs
+    })
   },
 
   onShow: function(options) {
@@ -120,13 +140,15 @@ Page({
       acjh: res.data.respData.acjh,
       tsqsj: res.data.respData.tsqsj,
       dqwazsj: res.data.respData.dqwazsj,
+      dazsj: res.data.respData.dazsj,
       aazdz: res.data.respData.aazdz,
+      athyy: res.data.respData.athyy,
       afjxx: res.data.respData.afjxx,
       asfxx: res.data.respData.asfxx
     })
 
-    var selectedLocationIdTemp = []
-    var selectedLocationValueTemp = []
+    let selectedLocationIdTemp = []
+    let selectedLocationValueTemp = []
     for (let i = 0; i < res.data.respData.asfxx.length; i++) {
       selectedLocationIdTemp.push('')
       selectedLocationValueTemp.push('')
@@ -155,7 +177,7 @@ Page({
           photos.push(res.data.respData.asfxx[ii].aazzp[j].imageUrl)
         }
       }
-      if (photos.length > 3 && photos.length < 8 && photos[photos.length - 1] != '/imgs/jia.png') {
+      if (photos.length > 3 && photos.length < 8 && photos[photos.length - 1] != '/imgs/jia.png' && this.data.currentStatus == 1) {
         photos.push('/imgs/jia.png')
       }
       photoArrTemp.push(photos)
@@ -313,28 +335,57 @@ Page({
    * 跳转到安装位置选择画面
    */
   gotoLocation: function(e) {
-    wx.navigateTo({
-      url: '/pages/task/installlocation/installlocation?index=' + e.currentTarget.dataset.index
-    })
+    if (this.data.currentStatus == 1) {
+      wx.navigateTo({
+        url: '/pages/task/installlocation/installlocation?index=' + e.currentTarget.dataset.index
+      })
+    } else {
+      let imgSrc = ''
+      for (let i = 0; i < this.data.locationArr.length; i++) {
+        if (this.data.locationArr[i].code == e.currentTarget.dataset.id) {
+          imgSrc = this.data.locationArr[i].imageUrl
+          break
+        }
+      }
+
+      this.setData({
+        modalHidden: false,
+        currentLocationImg: util.baseUrl + imgSrc
+      })
+    }
   },
   /**
    * 提交
    */
   firstCommit: function() {
-    /*asqid 申请id
+    //是否输入安装位置
+    let isLocation = true
+    for (let num = 0; num < this.data.asfxx.length; num++) {
+      if (util.isEmpty(this.data.selectedLocationId[num])) {
+        isLocation = false
+        break;
+      }
+    }
+    if (!isLocation) {
+      util.showToast('有设备的安装位置未选择！')
+      return false
+    }
 
-    asqlx 申请类型 1 安装申请 2 悔贷拆机申请(必填)
+    //是否上传所有照片
+    let isPhoto = true
+    for (let i = 0; i < this.data.asfxx.length; i++) {
+      for (let j = 0; j < 3; j++)
+        if (this.data.photoArr[i][j] == '/imgs/cammera.png') {
+          isPhoto = false
+          break;
+        }
+    }
+    if (!isPhoto) {
+      util.showToast('有设备的照片没有上传！')
+      return false
+    }
 
-    aazdz 安装地址 / 拆机备注
-
-    gpslist gps设备更新（集合）
-
-    --> gpsid gps设备id
-
-    --> acjqk 拆机情况 1001 拆机成功 1002 拆机失败
-
-    --> aazwz 安装位置(参考配置接口安装位置)*/
-
+    //通过检查，执行提交
     let temp = '['
     for (let i = 0; i < this.data.asfxx.length; i++) {
       temp += '{"gpsid":"' + this.data.asfxx[i].id + '","aazwz":"' + this.data.selectedLocationId[i] + '"},'
@@ -363,5 +414,13 @@ Page({
    */
   failGpsSave: function(res) {
     util.showToast('提交失败！')
-  }
+  },
+  /**
+   * 关闭安装位置弹出框
+   */
+  modalConfirm: function() {
+    this.setData({
+      modalHidden: true
+    })
+  },
 })

@@ -24,11 +24,15 @@ Page({
     util.doApi(util.apiConfig, dataString, this.successConfig)
   },
 
-
   successConfig: function(res) {
+    let tempArr = res.data.respData.instLocs
+
+    for(let i = 0;i < tempArr.length;i++){
+      tempArr[i].imageUrl = util.baseUrl + tempArr[i].imageUrl
+    }
 
     this.setData({
-      locationArr: res.data.respData.instLocs
+      locationArr: tempArr
     })
   },
   /**
