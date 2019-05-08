@@ -1,5 +1,7 @@
 //导入通用方法js
 const util = require('../../utils/util.js')
+//导入路由
+const routes = require('../../router/routes.js')
 
 //获取应用实例
 const app = getApp()
@@ -52,17 +54,7 @@ Page({
   /**
    * 显示
    */
-  onShow: function() {
-    /*wx.getLocation({
-      type: 'wgs84',
-      success(res) {
-        const latitude = res.latitude
-        const longitude = res.longitude
-        const speed = res.speed
-        const accuracy = res.accuracy
-      }
-    })*/
-    
+  onShow: function() {   
     this.initData()
   },
   /**
@@ -87,9 +79,9 @@ Page({
 
   initDataFailback:function(res){
     //第一次进入
-    if (res.data.respMsg.indexOf('CODE:2') > -1) {
+    if (res.data.respCode == 2) {
       wx.redirectTo({
-        url: '/pages/login/login',
+        url: routes.login
       })
     }
   },

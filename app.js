@@ -28,7 +28,7 @@ App({
             }
           });
           //var d = that.globalData;//这里存储了appid、secret、token串  
-          var l = 'https://api.weixin.qq.com/sns/jscode2session?appid=wx3064ba115a84fcc6&secret=19d52e4c97099bb09b85a204cdfe6e3d&js_code=' + resCode + '&grant_type=authorization_code';
+          var l = 'https://api.weixin.qq.com/sns/jscode2session?appid=wx4e070a913c7f4b22&secret=592a9796d9832363ad9a4a39849fb926&js_code=' + resCode + '&grant_type=authorization_code';
           wx.request({
             url: l,
             data: {},
@@ -105,7 +105,7 @@ App({
   },
   globalData: {
     userInfo: null,
-    appid: 'wx3064ba115a84fcc6',
-    secret: '19d52e4c97099bb09b85a204cdfe6e3d'
+    appid: 'wx4e070a913c7f4b22',
+    secret: '592a9796d9832363ad9a4a39849fb926'
   }
 })
