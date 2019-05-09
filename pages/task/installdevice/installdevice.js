@@ -100,10 +100,10 @@ Page({
             console.log(res)
           },
           complete: function(res) {
-            /*console.log(res)
+            console.log(res)
             that.setData({
               gpsLocation: res.result.address
-            })*/
+            })
           }
         })
       }

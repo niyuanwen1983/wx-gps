@@ -56,7 +56,7 @@ Page({
    * 跳转到待收入页面
    */
   gotoIncome: function() {
-    wx.redirectTo({
+    wx.navigateTo({
       url:routes.income
     })
   },

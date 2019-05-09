@@ -34,6 +34,15 @@ Page({
     let srlx = options.srlx //类型
     let date = options.date //年月
 
+    if (util.isEmpty(srlx)) {
+      srlx = 0
+    }
+
+    if (util.isEmpty(date)) {
+      let temp = new Date()
+      date = temp.getFullYear() + '-' + (temp.getMonth() + 1 >= 10 ? (temp.getMonth() + 1) : ('0' + (temp.getMonth() + 1)))
+    }
+
     let startDate = date + '-01'
     let endDate;
     if (date.indexOf('-01') > -1 || date.indexOf('-03') > -1 || date.indexOf('-05') > -1 || date.indexOf('-07') > -1 || date.indexOf('-08') > -1 || date.indexOf('-10') > -1 || date.indexOf('-12') > -1) {
@@ -61,8 +70,12 @@ Page({
   },
 
   successIncome: function(res) {
-    this.setData({
-      incomeArr: res.data.respData
-    })
+    if (res.data.respData.length < 1) {
+      util.showToast('暂无数据！')
+    } else {
+      this.setData({
+        incomeArr: res.data.respData
+      })
+    }
   }
 })
