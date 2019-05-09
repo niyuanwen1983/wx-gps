@@ -58,12 +58,19 @@
           <span class="des">{{item.asimbh}}</span>
         </li>
         <li>
-          <span class="tit">安装位置：</span>
-          <span class="des" bindtap="gotoLocation" data-id="{{selectedLocationId[index]}}" data-index="{{index}}">{{selectedLocationId[index]==''?'请点击选择安装位置序列号':selectedLocationValue[index]}}</span>
+          <span class="tit">拆机位置：</span>
+          <span class="des" bindtap="gotoLocation" data-id="{{selectedLocationId[index]}}" data-index="{{index}}">{{selectedLocationId[index]==''?'请点击选择拆机位置序列号':selectedLocationValue[index]}}</span>
         </li>
         <li>
           <span class="tit">拆机情况：</span>
-          <span class="des">{{item.acjqk==1001?'拆机成功':'拆机失败'}}</span>
+          <view style="display:inline-block;margin:0 8rpx;" bindtap="checkItem" data-index="{{index}}" wx:key="{{index}}" data-value="1001">
+            <image style="height:32rpx;width:32rpx;" src="{{item.acjqk=='1001'?'/imgs/check.png':'/imgs/uncheck.png'}}"></image>
+            <label style="font-size:32rpx;">拆机成功</label>
+          </view>
+          <view style="display:inline-block;margin:0 8rpx;" bindtap="checkItem" data-index="{{index}}" wx:key="{{index}}" data-value="1002">
+            <image style="height:32rpx;width:32rpx;" src="{{item.acjqk=='1002'?'/imgs/check.png':'/imgs/uncheck.png'}}"></image>
+            <label style="font-size:32rpx;">拆机失败</label>
+          </view>
         </li>
         <li>
           <span class="tit">拆机照片：</span>
@@ -87,7 +94,8 @@
       <ul>
         <li>
           <span class="tit">备注：</span>
-          <span class="des">{{acjbz}}</span>
+          <span wx:if="{{currentStatus==0}}" class="des">{{acjbz}}</span>
+          <input wx:else class="des" style="border:solid #EFEFEF 1px;" maxlength='200'>{{acjbz}}</input>
         </li>
       </ul>
     </view>

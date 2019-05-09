@@ -4,23 +4,11 @@
     <!--<p class="subTitle"></p>-->
   </view>
   <view class="content site">
-  
-
-<view class="clearfix">
-      <view  wx:for="{{locationArr}}" data-index="{{index}}" wx:key="{{index}}">
-        
-        <image src="{{item.imageUrl}}" style="display:{{item.selected==0?'none;':'block;'}}"></image>
+    <view class="clearfix">
+      <view wx:for="{{locationArr}}" data-index="{{index}}" wx:key="{{index}}">
+        <image src="{{item.imageUrl}}" style="display:{{item.selected==0?'none;':'block;'}}margin:0 auto;"></image>
       </view>
     </view>
-
-
-    <!--<view wx:for="locationArr">
-      <text>{{item.code}}</text>
-      <text>{{item.imageUrl}}</text>
-      <text>{{item.name}}</text>
-      <text>{{item.selected}}</text>
-      <image src="{{item.imageUrl}}" alt="" class="{{item.selected==0?'hide':''}}"></image>
-    </view>-->
     <view class="clearfix">
       <view style="float:left;width:50%;" wx:for="{{locationArr}}" bindtap="checkItem" data-index="{{index}}" wx:key="{{index}}">
         <image style="height:32rpx;width:32rpx;" src="{{item.selected==0?'/imgs/uncheck.png':'/imgs/check.png'}}"></image>

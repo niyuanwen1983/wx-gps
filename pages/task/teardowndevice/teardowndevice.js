@@ -30,6 +30,7 @@ Page({
     afjxx: [], //附件信息
     asfxx: [], //设备列表
     acjbz: '', //备注
+    acjqk: [], //拆机情况
 
     photoArr: [], //照片数组
 
@@ -112,13 +113,17 @@ Page({
 
     let selectedLocationIdTemp = []
     let selectedLocationValueTemp = []
+    let acjqk = []
     for (let i = 0; i < res.data.respData.asfxx.length; i++) {
       selectedLocationIdTemp.push('')
       selectedLocationValueTemp.push('')
+
+      acjqk.push('')
     }
     this.setData({
       selectedLocationId: selectedLocationIdTemp,
-      selectedLocationValue: selectedLocationValueTemp
+      selectedLocationValue: selectedLocationValueTemp,
+      acjqk: acjqk
     })
 
     //初始化照片数组
@@ -331,15 +336,29 @@ Page({
       return false
     }
 
+    //是否设置了拆机情况
+    let isCJQK = true
+    for(let i = 0;i < this.data.asfxx.length;i++)
+    {
+      if(this.data.asfxx[i].acjqk == '')
+      {
+        isCJQK = false
+      }
+    }
+    if (!isCJQK) {
+      util.showToast('有设备的拆机情况没有选择！')
+      return false
+    }
+
     //通过检查，执行提交
     let temp = '['
     for (let i = 0; i < this.data.asfxx.length; i++) {
-      temp += '{"gpsid":"' + this.data.asfxx[i].id + '","aazwz":"' + this.data.selectedLocationId[i] + '"},'
+      temp += '{"gpsid":"' + this.data.asfxx[i].id + '","acjqk":"' + this.data.asfxx[i].acjqk + '"},'
     }
     temp = temp.substr(0, temp.length - 1)
     temp += ']'
 
-    let dataString = '{"asqid":"' + this.data.id + '","asqlx":"1","aazdz":"' + this.data.gpsLocation + '","gpslist":' + temp + '}'
+    let dataString = '{"asqid":"' + this.data.id + '","asqlx":"1","aazdz":"' + this.data.acjbz + '","gpslist":' + temp + '}'
 
     util.doApi(util.apiGpsSave, dataString, this.successGpsSave, this.failGpsSave)
   },
@@ -369,4 +388,16 @@ Page({
       modalHidden: true
     })
   },
+  /**
+   * 点击拆机情况
+   */
+  checkItem: function(e) {
+    let tempArr = this.data.asfxx
+
+    tempArr[e.currentTarget.dataset.index].acjqk = e.currentTarget.dataset.value
+
+    this.setData({
+      asfxx: tempArr
+    })
+  }
 })
