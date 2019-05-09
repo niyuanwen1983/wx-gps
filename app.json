@@ -1,27 +1,26 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/task/task",
     "pages/task/installdevice/installdevice",
+    "pages/task/teardowndevice/teardowndevice",
     
     
     
+    
+    "pages/login/login",
+    "pages/task/deviceconfirm/deviceconfirm",
     "pages/me/me",
     "pages/me/messages/messages",
-    
-    
     "pages/task/installlocation/installlocation",
-    "pages/login/login",
-    "pages/task/task",
-    "pages/task/deviceconfirm/deviceconfirm",
-    "pages/task/teardowndevice/teardowndevice",
-    "pages/me/myincome/myincome",
     
+    "pages/me/myincome/myincome",
     "pages/income/income"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "智安装",
+    "navigationBarTitleText": "智慧车安装",
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json",

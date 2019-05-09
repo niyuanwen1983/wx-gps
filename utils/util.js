@@ -11,7 +11,7 @@ const _aesKey = '8n64jliKdUfZb0Ar4HzlCnYgGW1FuXS9'
 const _iv = '0102030405060708'
 
 //调试接口地址
-const baseUrl = 'http://www.zhifubank.com.cn:8099/mogo'
+const baseUrl = 'https://www.zhifubank.com.cn:8099/mogo'
 
 //登录接口
 const apiLogin = '/api/gps/login.do'
