@@ -1,6 +1,9 @@
 //导入通用方法js
 const util = require('../../utils/util.js')
 
+//导入路由
+const routes = require('../../router/routes.js')
+
 //获取应用实例
 const app = getApp()
 
@@ -44,8 +47,12 @@ Page({
    * 登录成功回调方法
    */
   successLogin: function(res) {
+    wx.redirectTo({
+      url: routes.home
+    })
   },
   failLogin: function(res) {
+    util.showToast(res)
   },
   /**
    * 发送验证码

@@ -1,14 +1,17 @@
+//导入通用方法js
+const util = require('/utils/util.js')
+
 //app.js
 App({
-  onLaunch: function () {
+  onLaunch: function() {
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
 
     wx.getSystemInfo({
-      success: function (res) {
-        wx.setStorageSync('device', res.model); 
+      success: function(res) {
+        wx.setStorageSync('device', res.model);
       }
     })
 
@@ -24,29 +27,25 @@ App({
               objz.avatarUrl = res.userInfo.avatarUrl;
               objz.nickName = res.userInfo.nickName;
               //console.log(objz);
-              wx.setStorageSync('userInfo', objz);//存储userInfo
+              wx.setStorageSync('userInfo', objz); //存储userInfo
             }
           });
-          //var d = that.globalData;//这里存储了appid、secret、token串  
-          var l = 'https://api.weixin.qq.com/sns/jscode2session?appid=wx4e070a913c7f4b22&secret=592a9796d9832363ad9a4a39849fb926&js_code=' + resCode + '&grant_type=authorization_code';
-          wx.request({
-            url: l,
-            data: {},
-            method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT  
-            // header: {}, // 设置请求的 header  
-            success: function (res) {
-              var obj = {};
-              obj.openid = res.data.openid;
-              obj.expires_in = Date.now() + res.data.expires_in;
-              //console.log(obj);
-              wx.setStorageSync('user', obj);//存储openid  
-            }
-          });
+
+          //获取openid
+          if (util.isEmpty(wx.getStorageSync('openid'))) {
+            let dataString = '{"jsCode":"' + resCode + '"}'
+            console.log('resCode=' + resCode)
+            util.doApi(util.apiGetOpenid, dataString, function (res) {
+              console.log('res=' + res.data.respData.openid)
+              wx.setStorageSync('openid', res.data.respData.openid)
+            })
+          }
         } else {
           console.log('获取用户登录态失败！' + res.errMsg)
         }
       }
-    })
+    }) 
+
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -69,7 +68,7 @@ App({
           wx.showModal({
             title: '请求授权当前位置',
             content: '需要获取您的地理位置，请确认授权',
-            success: function (res) {
+            success: function(res) {
               if (res.cancel) {
                 wx.showToast({
                   title: '拒绝授权',
@@ -78,7 +77,7 @@ App({
                 })
               } else if (res.confirm) {
                 wx.openSetting({
-                  success: function (dataAu) {
+                  success: function(dataAu) {
                     if (dataAu.authSetting["scope.userLocation"] == true) {
                       wx.showToast({
                         title: '授权成功',

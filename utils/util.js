@@ -35,6 +35,8 @@ const apiFileUpload = '/api/gps/uploadFile.do'
 const apiGpsSave = '/api/gps/saveGpsInfo.do'
 //文件删除接口
 const apiDelFile = '/api/gps/delFile.do'
+//获取openid接口
+const apiGetOpenid = '/api/gps/getOpenId.do'
 
 const md5 = require('../assets/js/md5/md5.js')
 
@@ -50,8 +52,8 @@ const doApi = (url, param, successFunction, failFunction) => {
     title: '加载中......',
   })
 
-  //获取openid（obj.openid）
-  let obj = wx.getStorageSync('user')
+  //获取openid
+  let openid = wx.getStorageSync('openid')
   //获取手机型号
   let device = wx.getStorageSync('device')
   //获取时间
@@ -64,7 +66,7 @@ const doApi = (url, param, successFunction, failFunction) => {
 
   let params = {
     "source": 2,
-    "token": obj.openid,
+    "token": openid,
     "sign": sign,
     "data": paramData,
     "deviceId": device,
@@ -115,30 +117,30 @@ const doApi = (url, param, successFunction, failFunction) => {
  * @failFunction 失败的回调方法
  */
 const doUpload = (url, filePath, param, successFunction, failFunction) => {
-  //获取openid（obj.openid）
-  let obj = wx.getStorageSync('user');
+  //获取openid
+  let openid = wx.getStorageSync('openid');
   //获取手机型号
   let device = wx.getStorageSync('device');
 
   param["source"] = 2;
-  param["token"] = obj.openid;
+  param["token"] = openid;
   param["deviceId"] = device;
-  
+
   wx.uploadFile({
-    url: baseUrl + apiFileUpload, //仅为示例，非真实的接口地址 
+    url: baseUrl + apiFileUpload,
     filePath: filePath,
     name: 'file',
     formData: param,
     success: function(res) {
-      console.log('uploadsuccess='+res)
-      
+      console.log('uploadsuccess=' + res)
+
       if (typeof successFunction == "function") {
         successFunction(res);
       }
     },
     fail: function(res) {
       console.log('uploadfail=' + res)
-      
+
       if (typeof failFunction == "function") {
         failFunction(res);
       }
@@ -290,6 +292,7 @@ module.exports = {
   apiFileUpload: apiFileUpload,
   apiGpsSave: apiGpsSave,
   apiDelFile: apiDelFile,
+  apiGetOpenid: apiGetOpenid,
   isEmpty: isEmpty,
   isLeapYear: isLeapYear,
   showToast: showToast,

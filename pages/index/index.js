@@ -54,8 +54,8 @@ Page({
   /**
    * 显示
    */
-  onShow: function() {   
-    this.initData()
+  onShow: function() { 
+    this.initData() 
   },
   /**
    * 初始化
