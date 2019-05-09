@@ -49,8 +49,7 @@ Page({
     this.ctx = wx.createCameraContext()
 
     this.setData({
-      //id:options.id todo
-      id: '1556267499660-239f',
+      id: options.id,
       currentStatus: options.status == 0 ? 0 : 1
     })
     this.initData(this.data.id)
@@ -101,10 +100,10 @@ Page({
             console.log(res)
           },
           complete: function(res) {
-            console.log(res)
+            /*console.log(res)
             that.setData({
               gpsLocation: res.result.address
-            })
+            })*/
           }
         })
       }

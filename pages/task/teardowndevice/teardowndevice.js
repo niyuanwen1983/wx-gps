@@ -46,8 +46,7 @@ Page({
     this.ctx = wx.createCameraContext()
 
     this.setData({
-      //id: options.id
-      id: '1556267499660-239f',
+      id: options.id,
       currentStatus: options.status == 0 ? 0 : 1
     })
 

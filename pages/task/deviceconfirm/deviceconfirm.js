@@ -6,6 +6,7 @@ const app = getApp()
 
 Page({
   data: {
+    id: '',
     type: '', //1：装机；其他：拆机
     axm: '', //姓名
     acp: '', //车牌号码
@@ -21,11 +22,11 @@ Page({
   bindViewTap: function() {},
   onLoad: function(options) {
     this.setData({
+      id: options.id,
       type: options.type
     })
 
-    //todo
-    this.initData('1556267499660-239f')
+    this.initData(options.id)
   },
   /**
    * 初始化
@@ -70,11 +71,11 @@ Page({
   gotoDetail: function(e) {
     if (this.data.type == 1) {
       wx.navigateTo({
-        url: '/pages/task/installdevice/installdevice?id=' + e.currentTarget.dataset.id
+        url: '/pages/task/installdevice/installdevice?id=' + this.data.id
       })
     } else {
       wx.navigateTo({
-        url: '/pages/task/teardowndevice/teardowndevice?id=' + e.currentTarget.dataset.id
+        url: '/pages/task/teardowndevice/teardowndevice?id=' + this.data.id
       })
     }
   },
