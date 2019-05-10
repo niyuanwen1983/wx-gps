@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isInit: true,
     id: '',
     isShow: false,
     currentIndex1: -1,
@@ -33,6 +34,7 @@ Page({
     athyy: '', //退回原因
     afjxx: [], //附件信息
     asfxx: [], //设备列表
+    aazwz: [], //安装位置
 
     photoArr: [], //照片数组
 
@@ -52,16 +54,11 @@ Page({
       id: options.id,
       currentStatus: options.status == 0 ? 0 : 1
     })
-    this.initData(this.data.id)
 
     // 实例化API核心类
     qqmapsdk = new QQMapWX({
       key: util.QQKey
     })
-
-    //获取安装位置图片
-    let dataString = '{}'
-    util.doApi(util.apiConfig, dataString, this.successConfig)
   },
   /**
    * 获取安装图片成功回调方法
@@ -71,9 +68,7 @@ Page({
     this.setData({
       locationArr: res.data.respData.instLocs
     })
-  },
 
-  onShow: function(options) {
     let that = this
 
     //获取当前位置
@@ -120,7 +115,23 @@ Page({
         selectedLocationId: tempIdArr,
         selectedLocationValue: tempValueArr
       })
+
+      getApp().globalData.localTempIdArr = tempIdArr
+      getApp().globalData.localTempValueArr = tempValueArr
     }
+
+    //如果是从确认画面进入
+    if (util.isEmpty(getApp().globalData.locationId)) {
+      this.initData(this.data.id)
+    } else { //从选择安装位置画面返回
+      getApp().globalData.locationId = ''
+    }
+  },
+
+  onShow: function(options) {
+    //获取安装位置图片
+    let dataString = '{}'
+    util.doApi(util.apiConfig, dataString, this.successConfig)
   },
   /**
    * 初始化
@@ -150,16 +161,30 @@ Page({
       asfxx: res.data.respData.asfxx
     })
 
-    let selectedLocationIdTemp = []
-    let selectedLocationValueTemp = []
-    for (let i = 0; i < res.data.respData.asfxx.length; i++) {
-      selectedLocationIdTemp.push('')
-      selectedLocationValueTemp.push('')
+    //安装位置只初始化一次
+    if (this.data.isInit) {
+      let selectedLocationIdTemp = []
+      let selectedLocationValueTemp = []
+      for (let i = 0; i < res.data.respData.asfxx.length; i++) {
+        //是否有安装位置
+        if (util.isEmpty(res.data.respData.asfxx[i].aazwz)) { //没有安装位置
+          selectedLocationIdTemp.push('')
+          selectedLocationValueTemp.push('')
+        } else { //有安装位置
+          selectedLocationIdTemp.push(res.data.respData.asfxx[i].aazwz)
+          for (let j = 0; j < this.data.locationArr.length; j++) {
+            if (this.data.locationArr[j].code == res.data.respData.asfxx[i].aazwz) {
+              selectedLocationValueTemp.push(this.data.locationArr[j].name)
+              break
+            }
+          }
+        }
+      }
+      this.setData({
+        selectedLocationId: selectedLocationIdTemp,
+        selectedLocationValue: selectedLocationValueTemp
+      })
     }
-    this.setData({
-      selectedLocationId: selectedLocationIdTemp,
-      selectedLocationValue: selectedLocationValueTemp
-    })
 
     //初始化照片数组
     let photoArrTemp = []
@@ -187,6 +212,7 @@ Page({
     }
 
     this.setData({
+      isInit: false,
       photoArr: photoArrTemp
     })
   },
@@ -358,9 +384,23 @@ Page({
     }
   },
   /**
-   * 提交
+   * 确认提交
    */
   firstCommit: function() {
+    wx.showModal({
+      title: '提示',
+      content: '确定选择该位置进行安装？',
+      success: function(res) {
+        if (res.confirm) {
+          this.taskCommit()
+        }
+      }
+    })
+  },
+  /**
+   * 提交
+   */
+  taskCommit: function() {
     //是否输入安装位置
     let isLocation = true
     for (let num = 0; num < this.data.asfxx.length; num++) {
@@ -406,6 +446,9 @@ Page({
    */
   successGpsSave: function(res) {
     util.showToast('提交成功！')
+
+    getApp().globalData.localTempIdArr = []
+    getApp().globalData.localTempValueArr = []
 
     wx.navigateBack({
       delta: 2

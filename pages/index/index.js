@@ -54,8 +54,8 @@ Page({
   /**
    * 显示
    */
-  onShow: function() { 
-    this.initData() 
+  onShow: function() {
+    this.initData()
   },
   /**
    * 初始化
@@ -68,16 +68,22 @@ Page({
     util.doApi(util.apiTaskList, dataString, this.initDataCallback, this.initDataFailback)
   },
   /**
-   * 初始化回调方法
+   * 初始化成功回调方法
    * @param res 返回结果
    */
   initDataCallback: function(res) {
-      this.setData({
-        taskList: res.data.respData
-      })
+    if (res.data.respData.length < 1) {
+      util.showToast('暂无数据！')
+    }
+    this.setData({
+      taskList: res.data.respData
+    })
   },
-
-  initDataFailback:function(res){
+  /**
+   * 初始化失败回调方法
+   * @param res 返回结果
+   */
+  initDataFailback: function(res) {
     //第一次进入
     if (res.data.respCode == 2) {
       wx.redirectTo({
@@ -126,7 +132,7 @@ Page({
    * 确认接单成功回调方法
    * @param res 返回结果
    */
-  receiveSuccess: function (res) {
+  receiveSuccess: function(res) {
     util.showToast('接单成功！')
 
     this.initData()
