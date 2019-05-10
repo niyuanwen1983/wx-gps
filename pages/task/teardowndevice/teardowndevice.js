@@ -319,9 +319,24 @@ Page({
     }
   },
   /**
-   * 提交
+   * 确认提交
    */
   firstCommit: function() {
+    let that = this
+    wx.showModal({
+      title: '提示',
+      content: '确定选择该位置进行安装？',
+      success: function (res) {
+        if (res.confirm) {
+          that.taskCommit()
+        }
+      }
+    })
+  },
+  /**
+   * 提交
+   */
+  taskCommit:function(){
     //是否上传所有照片
     let isPhoto = true
     for (let i = 0; i < this.data.asfxx.length; i++) {
@@ -338,10 +353,8 @@ Page({
 
     //是否设置了拆机情况
     let isCJQK = true
-    for(let i = 0;i < this.data.asfxx.length;i++)
-    {
-      if(this.data.asfxx[i].acjqk == '')
-      {
+    for (let i = 0; i < this.data.asfxx.length; i++) {
+      if (this.data.asfxx[i].acjqk == '') {
         isCJQK = false
       }
     }

@@ -387,12 +387,13 @@ Page({
    * 确认提交
    */
   firstCommit: function() {
+    let that = this
     wx.showModal({
       title: '提示',
       content: '确定选择该位置进行安装？',
       success: function(res) {
         if (res.confirm) {
-          this.taskCommit()
+          that.taskCommit()
         }
       }
     })
