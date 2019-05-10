@@ -39,7 +39,7 @@
   </view>
   <view class="content" style="display:block;">
     <ul>
-      <li wx:for="{{taskList}}" wx:key="{{index}}" data-id="{{item.id}}" data-status="{{aspzt}}" bindtap="clickRow">
+      <li wx:for="{{taskList}}" wx:key="{{index}}" data-id="{{item.id}}" data-status="{{aspzt}}" data-type="{{item.asqlx}}" bindtap="clickRow">
         <view class="li-wrap">
           <view class="top">
             <p>类型：{{item.asqlx==1?'安装':'拆机'}}</p>

@@ -1,5 +1,7 @@
 //导入通用方法js
 const util = require('../../utils/util.js')
+//导入路由
+const routes = require('../../router/routes.js')
 
 var template = require('../../template/template.js')
 
@@ -138,10 +140,10 @@ Page({
     }
   },
   //失去焦点
-  bindInputBlur: function (e) {
+  bindInputBlur: function(e) {
     var currentInputStatu = e.currentTarget.dataset.statu;
-    var prefix = e.detail.value;//用户输入值
-    var newSource = [];//匹配的结果
+    var prefix = e.detail.value; //用户输入值
+    var newSource = []; //匹配的结果
 
     if (prefix != "") {
       let dataString = '{"aspzt":"' + this.data.aspzt + '","aname":"' + prefix + '"}'
@@ -240,9 +242,15 @@ Page({
    */
   clickRow: function(e) {
     if (e.currentTarget.dataset.status == '2' || e.currentTarget.dataset.status == '3,4') {
-      wx.navigateTo({
-        url: '/pages/task/installdevice/installdevice?id=' + e.currentTarget.dataset.id + '&status=0'
-      })
+      if (e.currentTarget.dataset.type == 1) {
+        wx.navigateTo({
+          url: routes.installdetail + '?id=' + e.currentTarget.dataset.id + '&status=0'
+        })
+      } else {
+        wx.navigateTo({
+          url: routes.uninstalldetail + '?id=' + e.currentTarget.dataset.id + '&status=0'
+        })
+      }
     } else {
       return false
     }
