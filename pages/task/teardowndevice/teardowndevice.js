@@ -326,7 +326,7 @@ Page({
     wx.showModal({
       title: '提示',
       content: '确定选择该位置进行安装？',
-      success: function (res) {
+      success: function(res) {
         if (res.confirm) {
           that.taskCommit()
         }
@@ -336,15 +336,16 @@ Page({
   /**
    * 提交
    */
-  taskCommit:function(){
+  taskCommit: function() {
     //是否上传所有照片
     let isPhoto = true
     for (let i = 0; i < this.data.asfxx.length; i++) {
-      for (let j = 0; j < 1; j++)
+      for (let j = 0; j < 1; j++) {
         if (this.data.photoArr[i][j] == '/imgs/cammera.png') {
           isPhoto = false
           break;
         }
+      }
     }
     if (!isPhoto) {
       util.showToast('有设备的照片没有上传！')

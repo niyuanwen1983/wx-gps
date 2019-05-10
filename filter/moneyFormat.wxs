@@ -13,7 +13,7 @@ var moneyFormat = {
     if (money) {
       result = money + result;
     }
-    return result
+    return '￥' + result
   }
 }
 
