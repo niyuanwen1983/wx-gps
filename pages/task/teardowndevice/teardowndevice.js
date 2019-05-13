@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isInit: true,
     id: '',
     isShow: false,
     currentIndex1: -1,
@@ -97,6 +98,10 @@ Page({
   initDataSuccess: function(res) {
     console.log(res)
 
+    for (let i = 0; i < this.data.acjqk.length; i++) {
+      res.data.respData.asfxx[i].acjqk = this.data.acjqk[i]
+    }
+
     this.setData({
       axm: res.data.respData.axm,
       acp: res.data.respData.acp,
@@ -111,20 +116,23 @@ Page({
       acjbz: res.data.respData.acjbz
     })
 
-    let selectedLocationIdTemp = []
-    let selectedLocationValueTemp = []
-    let acjqk = []
-    for (let i = 0; i < res.data.respData.asfxx.length; i++) {
-      selectedLocationIdTemp.push('')
-      selectedLocationValueTemp.push('')
+    //拆机情况只初始化一次
+    if (this.data.isInit) {
+      let selectedLocationIdTemp = []
+      let selectedLocationValueTemp = []
+      let acjqk = []
+      for (let i = 0; i < res.data.respData.asfxx.length; i++) {
+        selectedLocationIdTemp.push('')
+        selectedLocationValueTemp.push('')
 
-      acjqk.push('')
+        acjqk.push('')
+      }
+      this.setData({
+        selectedLocationId: selectedLocationIdTemp,
+        selectedLocationValue: selectedLocationValueTemp,
+        acjqk: acjqk
+      })
     }
-    this.setData({
-      selectedLocationId: selectedLocationIdTemp,
-      selectedLocationValue: selectedLocationValueTemp,
-      acjqk: acjqk
-    })
 
     //初始化照片数组
     let photoArrTemp = []
@@ -148,6 +156,7 @@ Page({
     }
 
     this.setData({
+      isInit: false,
       photoArr: photoArrTemp
     })
   },
@@ -220,10 +229,6 @@ Page({
         let atplx = '1004'
         if (that.data.tapIdx == 0) {
           atplx = '1001'
-        } else if (that.data.tapIdx == 1) {
-          atplx = '1002'
-        } else if (that.data.tapIdx == 2) {
-          atplx = '1003'
         }
 
         let id = that.data.asfxx[that.data.tapIndex].id
@@ -410,8 +415,12 @@ Page({
 
     tempArr[e.currentTarget.dataset.index].acjqk = e.currentTarget.dataset.value
 
+    let tempAcjqk = this.data.acjqk
+    tempAcjqk[e.currentTarget.dataset.index] = e.currentTarget.dataset.value
+
     this.setData({
-      asfxx: tempArr
+      asfxx: tempArr,
+      acjqk: tempAcjqk
     })
   }
 })
