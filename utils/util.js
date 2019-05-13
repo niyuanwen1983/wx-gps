@@ -12,6 +12,8 @@ const _iv = '0102030405060708'
 
 //调试接口地址
 const baseUrl = 'https://www.zhifubank.com.cn:8099/mogo'
+//小程序版本号
+const version = '1.0.0'
 
 //登录接口
 const apiLogin = '/api/gps/login.do'
@@ -56,6 +58,8 @@ const doApi = (url, param, successFunction, failFunction) => {
   let openid = wx.getStorageSync('openid')
   //获取手机型号
   let device = wx.getStorageSync('device')
+  //获取微信版本号
+  let wxversion = wx.getStorageSync('wxversion')
   //获取时间
   let timeM = new Date()
   let timeParam = timeM.getTime()
@@ -69,8 +73,11 @@ const doApi = (url, param, successFunction, failFunction) => {
     "token": openid,
     "sign": sign,
     "data": paramData,
-    "deviceId": device,
-    "time": timeParam
+    "deviceId": '',
+    "time": timeParam,
+    "version": version,
+    "brandName": device,
+    "other": wxversion
   }
 
   wx.request({

@@ -11,7 +11,10 @@ App({
 
     wx.getSystemInfo({
       success: function(res) {
+        //设备型号
         wx.setStorageSync('device', res.model);
+        //微信版本号
+        wx.setStorageSync('wxversion', res.version)
       }
     })
 

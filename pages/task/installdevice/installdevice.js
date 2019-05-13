@@ -42,7 +42,9 @@ Page({
 
     modalHidden: true, //安装位置是否显示
     locationArr: [], //安装位置图片数组
-    currentLocationImg: '' //选中的安装位置图片（用于查看安装位置）
+    currentLocationImg: '', //选中的安装位置图片（用于查看安装位置）
+
+    scroll_top: 0 //距离顶部位置（关闭照相机后，需要定位到该位置）
   },
   /**
    * 生命周期函数--监听页面加载
@@ -261,6 +263,13 @@ Page({
     this.setData({
       isShow: false
     })
+
+    let that = this
+    wx.pageScrollTo({
+      //scrollTop: that.data.scroll_top,
+      scrollTop: 1000,
+      duration: 0
+    })
   },
   /**
    * 拍照
@@ -470,5 +479,15 @@ Page({
     this.setData({
       modalHidden: true
     })
+  },
+  /**
+   * 记录滚动位置
+   */
+  onPageScroll: function (e) {
+    if (!this.data.isShow) {
+      this.setData({
+        scroll_top: e.scrollTop
+      })
+    }
   }
 })
