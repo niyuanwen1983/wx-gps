@@ -58,8 +58,8 @@
           <span class="des">{{item.asimbh}}</span>
         </li>
         <li>
-          <span class="tit">拆机位置：</span>
-          <span class="des" bindtap="gotoLocation" data-id="{{selectedLocationId[index]}}" data-index="{{index}}">{{selectedLocationId[index]==''?'请点击选择拆机位置序列号':selectedLocationValue[index]}}</span>
+          <span class="tit">安装位置：</span>
+          <span class="des location" bindtap="gotoLocation" data-id="{{selectedLocationId[index]}}" data-index="{{index}}">{{selectedLocationValue[index]}}</span>
         </li>
         <li>
           <span class="tit">拆机情况：</span>
