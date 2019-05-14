@@ -34,7 +34,7 @@
         </li>
         <li>
           <span class="tit">安装时间：</span>
-          <span class="des">{{dazsj}}</span>
+          <span class="des">{{dqwazsj}}</span>
         </li>
         <li>
           <span class="tit">安装地址：</span>

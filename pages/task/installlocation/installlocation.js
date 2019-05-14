@@ -10,14 +10,17 @@ Page({
     modalHidden: true,
     locationArr: [],
     checkedItem: '',
-    locationIndex: 0
+    locationIndex: 0,
+    selectedCode: '', //详情页面传入
+    emptyImage: util.baseUrl + '/images/gps/0.jpg' //空图
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
     this.setData({
-      locationIndex: options.index
+      locationIndex: options.index,
+      selectedCode: options.code
     })
 
     let dataString = '{}'
@@ -27,13 +30,24 @@ Page({
   successConfig: function(res) {
     let tempArr = res.data.respData.instLocs
 
+    let checkedIndex = -1
     for (let i = 0; i < tempArr.length; i++) {
       tempArr[i].imageUrl = util.baseUrl + tempArr[i].imageUrl
+      if (tempArr[i].code == this.data.selectedCode) {
+        tempArr[i].selected = 1
+        checkedIndex = i
+      }
     }
 
     this.setData({
       locationArr: tempArr
     })
+
+    if (checkedIndex > -1) {
+      this.setData({
+        checkedItem: tempArr[checkedIndex]
+      })
+    }
   },
   /**
    * 点击项目

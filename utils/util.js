@@ -48,11 +48,14 @@ const md5 = require('../assets/js/md5/md5.js')
  * @params 请求参数
  * @successFunction 成功的回调方法
  * @failFunction 失败的回调方法
+ * @isShowLoading 是否显示等待框（默认显示）
  */
-const doApi = (url, param, successFunction, failFunction) => {
-  wx.showLoading({
-    title: '加载中......',
-  })
+const doApi = (url, param, successFunction, failFunction, isShowLoading = true) => {
+  if (isShowLoading) {
+    wx.showLoading({
+      title: '加载中......'
+    })
+  }
 
   //获取openid
   let openid = wx.getStorageSync('openid')
@@ -125,13 +128,13 @@ const doApi = (url, param, successFunction, failFunction) => {
  */
 const doUpload = (url, filePath, param, successFunction, failFunction) => {
   //获取openid
-  let openid = wx.getStorageSync('openid');
+  let openid = wx.getStorageSync('openid')
   //获取手机型号
-  let device = wx.getStorageSync('device');
+  let device = wx.getStorageSync('device')
 
-  param["source"] = 2;
-  param["token"] = openid;
-  param["deviceId"] = device;
+  param["source"] = 2
+  param["token"] = openid
+  param["deviceId"] = device
 
   wx.uploadFile({
     url: baseUrl + apiFileUpload,
@@ -140,14 +143,15 @@ const doUpload = (url, filePath, param, successFunction, failFunction) => {
     formData: param,
     success: function(res) {
       if (typeof successFunction == "function") {
-        successFunction(res);
+        successFunction(res)
       }
     },
     fail: function(res) {
       if (typeof failFunction == "function") {
-        failFunction(res);
+        failFunction(res)
       }
-    }
+    },
+    complete: function(res) {}
   })
 }
 

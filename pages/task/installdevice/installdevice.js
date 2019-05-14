@@ -136,7 +136,7 @@ Page({
   onShow: function(options) {
     //获取安装位置图片
     let dataString = '{}'
-    util.doApi(util.apiConfig, dataString, this.successConfig)
+    util.doApi(util.apiConfig, dataString, this.successConfig, undefined, false)
   },
   /**
    * 初始化
@@ -249,7 +249,7 @@ Page({
       })
     } else {
       //过滤掉占位图片
-      let tempArr = this.data.photoArr[index].filter((item)=>{
+      let tempArr = this.data.photoArr[index].filter((item) => {
         return item != '/imgs/cammera.png' && item != '/imgs/jia.png'
       })
 
@@ -273,7 +273,7 @@ Page({
     let that = this
     wx.pageScrollTo({
       //scrollTop: that.data.scroll_top,
-      scrollTop: 1000,
+      scrollTop: 400,
       duration: 0
     })
   },
@@ -316,10 +316,10 @@ Page({
 
         util.doUpload(util.apiFileUpload, res.tempImagePath, dataString, that.successFileUpload, that.failFileUpload)
       },
-      fail:function(e){
+      fail: function(e) {
         console.log(e)
       },
-      complete:function(res){
+      complete: function(res) {
         wx.pageScrollTo({
           //scrollTop: that.data.scroll_top,
           scrollTop: 1000,
@@ -333,8 +333,18 @@ Page({
    * @param res 返回结果
    */
   successFileUpload: function(res) {
+    console.log(res)
     util.showToast('照片上传成功！')
-    this.initData(this.data.id)
+
+    let tempArr = this.data.photoArr
+    tempArr[this.data.tapIndex][this.data.tapIdx] = JSON.parse(res.data).respData.showUrl
+    if (this.data.tapIdx == tempArr[this.data.tapIndex].length - 1 && tempArr[this.data.tapIndex].length < 7) { //最后一张操作时，不满8张，需要再加一个占位图片
+      tempArr[this.data.tapIndex].push('/imgs/jia.png')
+    }
+
+    this.setData({
+      photoArr: tempArr
+    })
   },
   /**
    * 图片上传失败回调方法
@@ -367,6 +377,11 @@ Page({
           if (util.isEmpty(id)) {
 
           } else {
+            that.setData({
+              tapIndex: e.currentTarget.dataset.id,
+              tapIdx: e.currentTarget.dataset.idx
+            })
+
             let dataString = '{"id":"' + id + '"}'
             util.doApi(util.apiDelFile, dataString, that.deleteSuccess)
           }
@@ -381,7 +396,19 @@ Page({
   deleteSuccess: function(res) {
     util.showToast('删除成功！')
 
-    this.initData(this.data.id)
+    let tempArr = this.data.photoArr
+    if (this.data.tapIdx < 3) {
+      tempArr[this.data.tapIndex][this.data.tapIdx] = '/imgs/cammera.png'
+    } else {
+      tempArr[this.data.tapIndex].splice([this.data.tapIdx], 1)
+      if (tempArr[this.data.tapIndex].length == 7) { //需要补一张占位图片
+        tempArr[this.data.tapIndex].push('/imgs/jia.png')
+      }
+    }
+
+    this.setData({
+      photoArr: tempArr
+    })
   },
   /**
    * 跳转到安装位置选择画面
@@ -389,7 +416,7 @@ Page({
   gotoLocation: function(e) {
     if (this.data.currentStatus == 1) {
       wx.navigateTo({
-        url: '/pages/task/installlocation/installlocation?index=' + e.currentTarget.dataset.index
+        url: '/pages/task/installlocation/installlocation?index=' + e.currentTarget.dataset.index + '&code=' + e.currentTarget.dataset.id
       })
     } else {
       let imgSrc = ''

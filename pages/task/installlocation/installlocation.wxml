@@ -5,8 +5,15 @@
   </view>
   <view class="content site">
     <view class="clearfix">
-      <view wx:for="{{locationArr}}" data-index="{{index}}" wx:key="{{index}}">
-        <image src="{{item.imageUrl}}" style="display:{{item.selected==0?'none;':'block;'}}margin:0 auto;"></image>
+      <view wx:if="{{checkedItem==''}}">
+        <view>
+          <image src="{{emptyImage}}" style="display:block;margin:0 auto;"></image>
+        </view>
+      </view>
+      <view wx:else>
+        <view wx:for="{{locationArr}}" data-index="{{index}}" wx:key="{{index}}">
+          <image src="{{item.imageUrl}}" style="display:{{item.selected==0?'none;':'block;'}}margin:0 auto;"></image>
+        </view>
       </view>
     </view>
     <view class="clearfix">
