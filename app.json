@@ -1,20 +1,15 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/task/task",
-    "pages/task/installdevice/installdevice",
-    "pages/task/teardowndevice/teardowndevice",
-    
-    
-    
-    
     "pages/login/login",
+    "pages/task/task",
     "pages/task/deviceconfirm/deviceconfirm",
-    "pages/me/me",
-    "pages/me/messages/messages",
+    "pages/task/installdevice/installdevice",
     "pages/task/installlocation/installlocation",
-    
+    "pages/task/teardowndevice/teardowndevice",
+    "pages/me/me",
     "pages/me/myincome/myincome",
+    "pages/me/messages/messages",
     "pages/income/income"
   ],
   "window": {

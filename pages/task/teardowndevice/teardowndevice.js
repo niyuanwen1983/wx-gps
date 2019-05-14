@@ -161,18 +161,6 @@ Page({
     })
   },
   /**
-   * 放大显示附件图片
-   */
-  prevImage: function(e) {
-    wx.previewImage({
-      current: [e.currentTarget.dataset.url], //当前图片地址
-      urls: [e.currentTarget.dataset.url], //所有要预览的图片的地址集合 数组形式
-      success: function(res) {},
-      fail: function(res) {},
-      complete: function(res) {},
-    })
-  },
-  /**
    * 显示照相机
    */
   showCamera: function(e) {
@@ -189,9 +177,14 @@ Page({
         isShow: true
       })
     } else {
+      //过滤掉占位图片
+      let tempArr = this.data.photoArr[index].filter((item) => {
+        return item != '/imgs/cammera.png' && item != '/imgs/jia.png'
+      })
+
       wx.previewImage({
-        current: [this.data.photoArr[index][idx]], //当前图片地址
-        urls: [this.data.photoArr[index][idx]], //所有要预览的图片的地址集合 数组形式
+        current: this.data.photoArr[index][idx], //当前图片地址
+        urls: tempArr, //所有要预览的图片的地址集合 数组形式
         success: function(res) {},
         fail: function(res) {},
         complete: function(res) {},
