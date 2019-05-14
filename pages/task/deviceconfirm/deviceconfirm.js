@@ -41,8 +41,6 @@ Page({
    * @param res 返回结果
    */
   initDataSuccess: function(res) {
-    console.log(res)
-
     this.setData({
       axm: res.data.respData.axm,
       acp: res.data.respData.acp,

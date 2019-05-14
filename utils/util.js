@@ -139,15 +139,11 @@ const doUpload = (url, filePath, param, successFunction, failFunction) => {
     name: 'file',
     formData: param,
     success: function(res) {
-      console.log('uploadsuccess=' + res)
-
       if (typeof successFunction == "function") {
         successFunction(res);
       }
     },
     fail: function(res) {
-      console.log('uploadfail=' + res)
-
       if (typeof failFunction == "function") {
         failFunction(res);
       }
@@ -155,46 +151,44 @@ const doUpload = (url, filePath, param, successFunction, failFunction) => {
   })
 }
 
-/**
- * 请求apiMock
- * @url 请求地址
- * @params 请求参数
- * @successFunction 成功的回调方法
- * @failFunction 失败的回调方法
- */
-const doApiMock = (url, param, successFunction, failFunction) => {
-  wx.showLoading({
-    title: '加载中......',
-  })
+//授权----------------------------------------------------------------------------
+const hardwareAuth = (title, content) => {
+  // 获取用户信息
+  wx.getSetting({
+    success: res => {
+      wx.showModal({
+        title: title,
+        content: content,
+        success: function(res) {
+          if (res.cancel) {
+            wx.showToast({
+              title: '拒绝授权',
+              icon: 'none',
+              duration: 1000
+            })
+          } else if (res.confirm) {
+            wx.openSetting({
+              success: function(dataAu) {
+                if (dataAu.authSetting["scope.userLocation"] == true) {
+                  wx.showToast({
+                    title: '授权成功',
+                    icon: 'success',
+                    duration: 1000
+                  })
+                  //再次授权，调用wx.getLocation的API
 
-  wx.request({
-    url: url,
-    method: 'GET',
-    data: {},
-    header: {
-      'content-type': 'application/json'
-    },
-    success: function(res) {
-      wx.hideLoading()
-
-      //成功
-      if (res.data.respCode == 1) {
-        if (typeof successFunction == "function") {
-          successFunction(res);
+                } else {
+                  wx.showToast({
+                    title: '授权失败',
+                    icon: 'none',
+                    duration: 1000
+                  })
+                }
+              }
+            })
+          }
         }
-      } else { //失败
-        if (isEmpty(res.data.respMsg)) {
-          showToast('请求失败，请重试！')
-        } else {
-          showToast(res.data.respMsg)
-        }
-      }
-    },
-    fail: function(res) {
-      wx.hideLoading()
-      if (typeof failFunction == "function") {
-        failFunction(res);
-      }
+      })
     }
   })
 }
@@ -306,5 +300,5 @@ module.exports = {
   showConfirm: showConfirm,
   doApi: doApi,
   doUpload: doUpload,
-  doApiMock: doApiMock
+  hardwareAuth: hardwareAuth
 }

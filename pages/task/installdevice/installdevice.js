@@ -88,21 +88,24 @@ Page({
             longitude: longitude
           },
           success: function(res) {
-
+            that.setData({
+              gpsLocation: res.result.address
+            })
           },
           fail: function(res) {
             wx.showToast({
               title: 'gps定位失败！'
             })
-            console.log(res)
           },
           complete: function(res) {
-            console.log(res)
             that.setData({
               gpsLocation: res.result.address
             })
           }
         })
+      },
+      fail: function(e) {
+        util.hardwareAuth('授权当前位置', '需要获取您的地理位置，请确认授权')
       }
     })
     if (!util.isEmpty(getApp().globalData.locationId) && !util.isEmpty(getApp().globalData.locationName)) {
@@ -148,8 +151,6 @@ Page({
    * @param res 返回结果
    */
   initDataSuccess: function(res) {
-    console.log(res)
-
     this.setData({
       axm: res.data.respData.axm,
       acp: res.data.respData.acp,
@@ -309,6 +310,12 @@ Page({
         }
 
         util.doUpload(util.apiFileUpload, res.tempImagePath, dataString, that.successFileUpload, that.failFileUpload)
+      },
+      fail:function(e){
+        console.log(e)
+      },
+      complete:function(res){
+        console.log(res)
       }
     })
   },
@@ -317,7 +324,6 @@ Page({
    * @param res 返回结果
    */
   successFileUpload: function(res) {
-    console.log(res)
     util.showToast('照片上传成功！')
     this.initData(this.data.id)
   },
@@ -326,7 +332,6 @@ Page({
    * @param res 返回结果
    */
   failFileUpload: function() {
-    console.log('上传失败！')
     util.showToast('照片上传失败！')
   },
   /**
@@ -483,7 +488,7 @@ Page({
   /**
    * 记录滚动位置
    */
-  onPageScroll: function (e) {
+  onPageScroll: function(e) {
     if (!this.data.isShow) {
       this.setData({
         scroll_top: e.scrollTop

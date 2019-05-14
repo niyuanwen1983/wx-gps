@@ -29,7 +29,7 @@ App({
               var objz = {};
               objz.avatarUrl = res.userInfo.avatarUrl;
               objz.nickName = res.userInfo.nickName;
-              //console.log(objz);
+
               wx.setStorageSync('userInfo', objz); //存储userInfo
             }
           });
@@ -37,14 +37,12 @@ App({
           //获取openid
           if (util.isEmpty(wx.getStorageSync('openid'))) {
             let dataString = '{"jsCode":"' + resCode + '"}'
-            console.log('resCode=' + resCode)
+
             util.doApi(util.apiGetOpenid, dataString, function (res) {
-              console.log('res=' + res.data.respData.openid)
+
               wx.setStorageSync('openid', res.data.respData.openid)
             })
           }
-        } else {
-          console.log('获取用户登录态失败！' + res.errMsg)
         }
       }
     }) 
@@ -67,9 +65,9 @@ App({
             }
           })
         }
-        if (res.authSetting['scope.userLocation'] == undefined || res.authSetting['scope.userLocation'] != true) {
+        /*if (res.authSetting['scope.userLocation'] == undefined || res.authSetting['scope.userLocation'] != true) {
           wx.showModal({
-            title: '请求授权当前位置',
+            title: '授权当前位置',
             content: '需要获取您的地理位置，请确认授权',
             success: function(res) {
               if (res.cancel) {
@@ -101,13 +99,11 @@ App({
               }
             }
           })
-        }
+        }*/
       }
     })
   },
   globalData: {
-    userInfo: null,
-    appid: 'wx4e070a913c7f4b22',
-    secret: '592a9796d9832363ad9a4a39849fb926'
+    userInfo: null
   }
 })

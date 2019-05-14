@@ -98,8 +98,6 @@ Page({
    * @param res 返回结果
    */
   initDataSuccess: function(res) {
-    console.log(res)
-
     for (let i = 0; i < this.data.acjqk.length; i++) {
       res.data.respData.asfxx[i].acjqk = this.data.acjqk[i]
     }
@@ -257,7 +255,6 @@ Page({
    * @param res 返回结果
    */
   successFileUpload: function(res) {
-    console.log(res)
     util.showToast('照片上传成功！')
     this.initData(this.data.id)
   },
@@ -266,7 +263,6 @@ Page({
    * @param res 返回结果
    */
   failFileUpload: function() {
-    console.log('上传失败！')
     util.showToast('照片上传失败！')
   },
   /**

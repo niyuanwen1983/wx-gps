@@ -102,6 +102,8 @@ Page({
       showInputStatus: false
     });
 
+    //重新初始化
+    this.initData()
   },
   //搜索
   bindKeyInput: function(e) {
