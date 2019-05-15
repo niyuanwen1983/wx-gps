@@ -41,7 +41,9 @@ Page({
     locationArr: [], //安装位置图片数组
     currentLocationImg: '', //选中的安装位置图片（用于查看安装位置）
 
-    scroll_top: 0 //距离顶部位置（关闭照相机后，需要定位到该位置）
+    scroll_top: 0, //距离顶部位置（关闭照相机后，需要定位到该位置）
+
+    obj: null //详情对象（用于上传/删除图片后，更新图片信息）
   },
   /**
    * 生命周期函数--监听页面加载
@@ -113,7 +115,8 @@ Page({
       athyy: res.data.respData.athyy,
       afjxx: res.data.respData.afjxx,
       asfxx: res.data.respData.asfxx,
-      acjbz: res.data.respData.acjbz
+      acjbz: res.data.respData.acjbz,
+      obj: res.data.respData
     })
 
     //拆机情况只初始化一次
@@ -158,6 +161,19 @@ Page({
     this.setData({
       isInit: false,
       photoArr: photoArrTemp
+    })
+  },
+  /**
+   * 初始化
+   * @param id 工单id
+   */
+  initPhoto: function(id) {
+    let dataString = '{"id":"' + id + '"}'
+    util.doApi(util.apiTaskDetail, dataString, this.initPhotoSuccess)
+  },
+  initPhotoSuccess: function(res) {
+    this.setData({
+      obj: res.data.respData
     })
   },
   /**
@@ -217,7 +233,7 @@ Page({
       success: (res) => {
         that.data.photoArr[that.data.tapIndex][that.data.tapIdx] = res.tempImagePath
 
-        if (that.data.tapIndex > 2 && that.data.tapIndex < 7) {
+        if (that.data.tapIndex > 0 && that.data.tapIndex < 5) {
           that.data.photoArr[that.data.tapIndex].push('/imgs/jia.png')
         }
 
@@ -235,6 +251,7 @@ Page({
 
         let dataString = {
           "id": id,
+          "sqid": that.data.id,
           "asqlx": "1",
           "atplx": atplx
         }
@@ -249,7 +266,18 @@ Page({
    */
   successFileUpload: function(res) {
     util.showToast('照片上传成功！')
-    this.initData(this.data.id)
+
+    let tempArr = this.data.photoArr
+    tempArr[this.data.tapIndex][this.data.tapIdx] = JSON.parse(res.data).respData.showUrl
+    if (this.data.tapIdx >= 1 && this.data.tapIdx <= 4) { //最后一张操作时，不满8张，需要再加一个占位图片
+      tempArr[this.data.tapIndex].push('/imgs/jia.png')
+    }
+
+    this.setData({
+      photoArr: tempArr
+    })
+
+    this.initPhoto(this.data.id)
   },
   /**
    * 图片上传失败回调方法
@@ -265,10 +293,10 @@ Page({
     let that = this
 
     let id = ''
-    for (let i = 0; i < that.data.asfxx.length; i++) {
-      for (let j = 0; j < that.data.asfxx[i].aazzp.length; j++) {
-        if (that.data.asfxx[i].aazzp[j].imageUrl == e.currentTarget.dataset.imgid) {
-          id = that.data.asfxx[i].aazzp[j].id
+    for (let i = 0; i < that.data.obj.asfxx.length; i++) {
+      for (let j = 0; j < that.data.obj.asfxx[i].aazzp.length; j++) {
+        if (that.data.obj.asfxx[i].aazzp[j].imageUrl == e.currentTarget.dataset.imgid) {
+          id = that.data.obj.asfxx[i].aazzp[j].id
           break
         }
       }
@@ -282,6 +310,11 @@ Page({
           if (util.isEmpty(id)) {
 
           } else {
+            that.setData({
+              tapIndex: e.currentTarget.dataset.id,
+              tapIdx: e.currentTarget.dataset.idx
+            })
+
             let dataString = '{"id":"' + id + '"}'
             util.doApi(util.apiDelFile, dataString, that.deleteSuccess)
           }
@@ -296,7 +329,21 @@ Page({
   deleteSuccess: function(res) {
     util.showToast('删除成功！')
 
-    this.initData(this.data.id)
+    let tempArr = this.data.photoArr
+    if (this.data.tapIdx < 1) {
+      tempArr[this.data.tapIndex][this.data.tapIdx] = '/imgs/cammera.png'
+    } else {
+      tempArr[this.data.tapIndex].splice([this.data.tapIdx], 1)
+      if (tempArr[this.data.tapIndex].length == 5 && tempArr[this.data.tapIndex][tempArr[this.data.tapIndex].length - 1] != '/imgs/jia.png') { //需要补一张占位图片
+        tempArr[this.data.tapIndex].push('/imgs/jia.png')
+      }
+    }
+
+    this.setData({
+      photoArr: tempArr
+    })
+
+    this.initPhoto(this.data.id)
   },
   /**
    * 跳转到安装位置选择画面

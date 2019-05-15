@@ -115,6 +115,9 @@ const doApi = (url, param, successFunction, failFunction, isShowLoading = true) 
       if (typeof failFunction == "function") {
         failFunction(res);
       }
+    },
+    complete:function(res){
+      wx.hideLoading()
     }
   })
 }
@@ -127,6 +130,10 @@ const doApi = (url, param, successFunction, failFunction, isShowLoading = true) 
  * @failFunction 失败的回调方法
  */
 const doUpload = (url, filePath, param, successFunction, failFunction) => {
+  wx.showLoading({
+    title: '上传中......'
+  })
+
   //获取openid
   let openid = wx.getStorageSync('openid')
   //获取手机型号
@@ -142,16 +149,22 @@ const doUpload = (url, filePath, param, successFunction, failFunction) => {
     name: 'file',
     formData: param,
     success: function(res) {
+      wx.hideLoading()
+
       if (typeof successFunction == "function") {
         successFunction(res)
       }
     },
     fail: function(res) {
+      wx.hideLoading()
+
       if (typeof failFunction == "function") {
         failFunction(res)
       }
     },
-    complete: function(res) {}
+    complete: function(res) {
+      wx.hideLoading()
+    }
   })
 }
 

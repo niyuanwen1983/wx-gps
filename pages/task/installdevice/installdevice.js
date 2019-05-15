@@ -44,7 +44,9 @@ Page({
     locationArr: [], //安装位置图片数组
     currentLocationImg: '', //选中的安装位置图片（用于查看安装位置）
 
-    scroll_top: 0 //距离顶部位置（关闭照相机后，需要定位到该位置）
+    scroll_top: 0, //距离顶部位置（关闭照相机后，需要定位到该位置）
+
+    obj: null //详情对象（用于上传/删除图片后，更新图片信息）
   },
   /**
    * 生命周期函数--监听页面加载
@@ -161,7 +163,8 @@ Page({
       aazdz: res.data.respData.aazdz,
       athyy: res.data.respData.athyy,
       afjxx: res.data.respData.afjxx,
-      asfxx: res.data.respData.asfxx
+      asfxx: res.data.respData.asfxx,
+      obj: res.data.respData
     })
 
     //安装位置只初始化一次
@@ -217,6 +220,19 @@ Page({
     this.setData({
       isInit: false,
       photoArr: photoArrTemp
+    })
+  },
+  /**
+   * 初始化
+   * @param id 工单id
+   */
+  initPhoto: function(id) {
+    let dataString = '{"id":"' + id + '"}'
+    util.doApi(util.apiTaskDetail, dataString, this.initPhotoSuccess)
+  },
+  initPhotoSuccess: function(res) {
+    this.setData({
+      obj: res.data.respData
     })
   },
   /**
@@ -310,15 +326,14 @@ Page({
 
         let dataString = {
           "id": id,
+          "sqid": that.data.id,
           "asqlx": "1",
           "atplx": atplx
         }
 
         util.doUpload(util.apiFileUpload, res.tempImagePath, dataString, that.successFileUpload, that.failFileUpload)
       },
-      fail: function(e) {
-        console.log(e)
-      },
+      fail: function(e) {},
       complete: function(res) {
         wx.pageScrollTo({
           //scrollTop: that.data.scroll_top,
@@ -333,7 +348,6 @@ Page({
    * @param res 返回结果
    */
   successFileUpload: function(res) {
-    console.log(res)
     util.showToast('照片上传成功！')
 
     let tempArr = this.data.photoArr
@@ -345,6 +359,8 @@ Page({
     this.setData({
       photoArr: tempArr
     })
+
+    this.initPhoto(this.data.id)
   },
   /**
    * 图片上传失败回调方法
@@ -360,10 +376,10 @@ Page({
     let that = this
 
     let id = ''
-    for (let i = 0; i < that.data.asfxx.length; i++) {
-      for (let j = 0; j < that.data.asfxx[i].aazzp.length; j++) {
-        if (that.data.asfxx[i].aazzp[j].imageUrl == e.currentTarget.dataset.imgid) {
-          id = that.data.asfxx[i].aazzp[j].id
+    for (let i = 0; i < that.data.obj.asfxx.length; i++) {
+      for (let j = 0; j < that.data.obj.asfxx[i].aazzp.length; j++) {
+        if (that.data.obj.asfxx[i].aazzp[j].imageUrl == e.currentTarget.dataset.imgid) {
+          id = that.data.obj.asfxx[i].aazzp[j].id
           break
         }
       }
@@ -409,6 +425,8 @@ Page({
     this.setData({
       photoArr: tempArr
     })
+
+    this.initPhoto(this.data.id)
   },
   /**
    * 跳转到安装位置选择画面
