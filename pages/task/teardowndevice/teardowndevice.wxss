@@ -241,3 +241,26 @@
 .location {
   color: #445dfd !important;
 }
+
+.btn-photo {
+  background-color: #445dfd;
+  color: #fff;
+  margin: 20rpx auto 0 auto;
+  padding: 20rpx;
+  font-size: 30rpx;
+  width: 80%;
+}
+
+.btn-close {
+  margin: 20rpx auto 0 auto;
+  padding: 20rpx;
+  font-size: 30rpx;
+  width: 80%;
+}
+
+.btn-auth {
+  margin: 20rpx auto;
+  padding: 20rpx;
+  font-size: 30rpx;
+  width: 80%;
+}

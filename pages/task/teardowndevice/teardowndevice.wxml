@@ -103,9 +103,10 @@
   </view>
 </view>
 <view wx:else>
-  <camera device-position="back" flash="off" binderror="error" style="width: 100%; height: 1000rpx;"></camera>
-  <button bindtap="takePhoto" style="margin:20rpx auto 0 auto;padding:20rpx;font-size:30rpx;width:80%;">拍照</button>
-  <button bindtap="hiddeCarema" style="margin:20rpx auto 0 auto;padding:20rpx;font-size:30rpx;width:80%;">关闭</button>
+  <camera device-position="back" flash="off" binderror="error" style="width: 100%; height: 800rpx;"></camera>
+  <button class="btn-photo" bindtap="takePhoto">拍照</button>
+  <button class="btn-close" bindtap="hiddeCarema">关闭</button>
+  <button class="btn-auth" open-type="openSetting" bindtap="hiddeCarema">若无法拍照，请授权使用摄像头</button>
 </view>
 <modal title="安装位置" hidden="{{modalHidden}}" bindconfirm="modalConfirm" no-cancel="true" confirm-text="关闭">
   <view>
