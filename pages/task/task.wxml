@@ -56,12 +56,12 @@
             </li>
             <li>
               <span class="tit">车牌号码：</span>
-              <span class="des">{{item.acp==null?'无':item.acp}}</span>
+              <span class="des">{{item.acp==null?'':item.acp}}</span>
             </li>
             <li>
               <view class="view-row">
                 <span class="tit">期望安装时间：</span>
-                <span class="des">{{item.dqwazsj==null?'无':item.dqwazsj}}</span>
+                <span class="des">{{item.dqwazsj==null?'':item.dqwazsj}}</span>
               </view>
             </li>
             <li>

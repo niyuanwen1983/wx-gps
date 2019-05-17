@@ -18,7 +18,7 @@
         </li>
         <li style="display:inline-block;width:50%;">
           <span class="tit">车牌号码：</span>
-          <span class="des">{{acp}}</span>
+          <span class="des">{{acp==null?'':acp}}</span>
         </li>
         <li>
           <span class="tit">车架号码：</span>
