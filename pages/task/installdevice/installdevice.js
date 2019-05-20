@@ -458,7 +458,7 @@ Page({
     let that = this
     wx.showModal({
       title: '提示',
-      content: '确定选择该位置进行安装？',
+      content: '确定提交？',
       success: function(res) {
         if (res.confirm) {
           that.taskCommit()
