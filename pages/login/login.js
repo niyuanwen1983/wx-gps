@@ -13,7 +13,7 @@ Page({
     'smscode': '',
     'countdown': 40,
     'countdownText': '获取验证码',
-    'cansend':true
+    'cansend': true
   },
   onLoad: function() {},
   //获取用户输入的手机号
@@ -31,7 +31,11 @@ Page({
   login: function() {
     if (util.isEmpty(this.data.mobileno)) {
       util.showToast('请输入手机号！')
-    } else if (util.isEmpty(this.data.smscode)) {
+    }
+    else if (this.data.mobileno.length != 11){
+      util.showToast('输入的手机号位数不正确！')
+    } 
+    else if (util.isEmpty(this.data.smscode)) {
       util.showToast('请输入验证码！')
     } else {
       let dataJson = {
@@ -52,7 +56,10 @@ Page({
     })
   },
   failLogin: function(res) {
-    util.showToast(res)
+    this.setData({
+      'countdown': 0
+    })
+    util.showToast(res.data.respMsg)
   },
   /**
    * 发送验证码
@@ -62,44 +69,57 @@ Page({
       return false
     }
 
+    let that = this
+
     this.setData({
-      cansend:false
+      cansend: false
     })
 
     if (util.isEmpty(this.data.mobileno)) {
       util.showToast('请输入手机号！')
     } else {
-      let countdown = 40
-      let countdownText = '重新获取' + countdown + 'S'
-      this.setData({
+      //let countdown = 40
+      //let countdownText = '重新获取' + countdown + 'S'
+      /*this.setData({
         countdown: countdown,
         countdownText: countdownText
+      })*/
+      this.setData({
+        countdown: that.data.countdown - 1,
+        countdownText: that.data.countdown == 0 ? '获取验证码' : '重新获取' + that.data.countdown + 'S'
       })
 
       let cansend = false
       let id = setInterval(() => {
-        if (countdown > 1) {
-          countdown--
-          countdownText = '重新获取' + countdown + 'S'
+        if (this.data.countdown > 1) {
+          this.setData({
+            countdown: that.data.countdown - 1,
+            countdownText: that.data.countdown == 0 ? '获取验证码' : '重新获取' + that.data.countdown + 'S'
+          })
+          //countdown--
+          //countdownText = '重新获取' + countdown + 'S'
         } else {
           clearInterval(id)
-          countdownText = '获取验证码'
+          this.setData({
+            countdownText: '获取验证码'
+          })
+          //countdownText = '获取验证码'
           cansend = true
         }
 
         this.setData({
-          countdown: countdown,
-          countdownText: countdownText,
+          //countdown: countdown,
+          //countdownText: countdownText,
           cansend: cansend
         })
-      }, 1000)      
+      }, 1000)
 
       let dataJson = {
         "mobile": this.data.mobileno
       }
       let dataString = '{"mobile":"' + this.data.mobileno + '"}'
 
-      util.doApi(util.apiSendSms, dataString, this.successSendSms)
+      util.doApi(util.apiSendSms, dataString, this.successSendSms, this.failSendSms)
     }
   },
   /**
@@ -107,5 +127,15 @@ Page({
    */
   successSendSms: function(res) {
     util.showToast('验证码已发送！')
+  },
+  /**
+   * 发送验证码失败回调方法
+   */
+  failSendSms: function(res) {
+    this.setData({
+      countdown: 0
+    })
+
+    util.showToast(res.data.respMsg)
   }
 })
