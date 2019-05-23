@@ -95,7 +95,7 @@
         <li>
           <span class="tit">备注：</span>
           <span wx:if="{{currentStatus==0}}" class="des">{{acjbz}}</span>
-          <input wx:else class="des" style="border:solid #EFEFEF 1px;" maxlength='200'>{{acjbz}}</input>
+          <input wx:else class="des" style="border:solid #EFEFEF 1px;" maxlength='200' bindinput="inputRemark">{{acjbz}}</input>
         </li>
       </ul>
     </view>

@@ -390,7 +390,7 @@ Page({
     let that = this
     wx.showModal({
       title: '提示',
-      content: '确定选择该位置进行安装？',
+      content: '确定拆机？',
       success: function(res) {
         if (res.confirm) {
           that.taskCommit()
@@ -437,7 +437,8 @@ Page({
     temp = temp.substr(0, temp.length - 1)
     temp += ']'
 
-    let dataString = '{"asqid":"' + this.data.id + '","asqlx":"1","aazdz":"' + this.data.acjbz + '","gpslist":' + temp + '}'
+    let remark = this.data.acjbz == null ? '' : this.data.acjbz
+    let dataString = '{"asqid":"' + this.data.id + '","asqlx":"2","aazdz":"' + remark + '","gpslist":' + temp + '}'
 
     util.doApi(util.apiGpsSave, dataString, this.successGpsSave, this.failGpsSave)
   },
@@ -492,5 +493,13 @@ Page({
         scroll_top: e.scrollTop
       })
     }
+  },
+  /**
+   * 备注
+   */
+  inputRemark: function(e) {
+    this.setData({
+      acjbz: e.detail.value
+    })
   }
 })
