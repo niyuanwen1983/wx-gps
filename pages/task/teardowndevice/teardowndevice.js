@@ -17,8 +17,11 @@ Page({
     tapIndex: -1, //点击图片的设备序号
     tapIdx: -1, //点击图片的序号
 
-    selectedLocationId: [], //安装位置id
-    selectedLocationValue: [], //安装位置名称
+    selectedLocationId: [], //拆机情况id
+    selectedLocationValue: [], //拆机情况名称
+
+    selectedLocationId2: [], //安装位置id
+    selectedLocationValue2: [], //安装位置名称
 
     axm: '', //姓名
     acp: '', //车牌号码
@@ -32,6 +35,7 @@ Page({
     asfxx: [], //设备列表
     acjbz: '', //备注
     acjqk: [], //拆机情况
+    aazwz: [], //安装位置
 
     photoArr: [], //照片数组
 
@@ -134,6 +138,23 @@ Page({
         selectedLocationId: selectedLocationIdTemp,
         selectedLocationValue: selectedLocationValueTemp,
         acjqk: acjqk
+      })
+
+      let selectedLocationIdTemp2 = []
+      let selectedLocationValueTemp2 = []
+      for (let i = 0; i < res.data.respData.asfxx.length; i++) {
+        //是否有安装位置
+        if (util.isEmpty(res.data.respData.asfxx[i].aazwz)) { //没有安装位置
+          selectedLocationIdTemp2.push('')
+          selectedLocationValueTemp2.push('')
+        } else { //有安装位置
+          selectedLocationIdTemp2.push(res.data.respData.asfxx[i].aazwz)
+          selectedLocationValueTemp2.push(res.data.respData.asfxx[i].aazwz)
+        }
+      }
+      this.setData({
+        selectedLocationId2: selectedLocationIdTemp2,
+        selectedLocationValue2: selectedLocationValueTemp2
       })
     }
 
@@ -349,24 +370,18 @@ Page({
    * 跳转到安装位置选择画面
    */
   gotoLocation: function(e) {
-    if (this.data.currentStatus == 1) {
-      wx.navigateTo({
-        url: '/pages/task/installlocation/installlocation?index=' + e.currentTarget.dataset.index
-      })
-    } else {
-      let imgSrc = ''
-      for (let i = 0; i < this.data.locationArr.length; i++) {
-        if (this.data.locationArr[i].code == e.currentTarget.dataset.id) {
-          imgSrc = this.data.locationArr[i].imageUrl
-          break
-        }
+    let imgSrc = ''
+    for (let i = 0; i < this.data.locationArr.length; i++) {
+      if (this.data.locationArr[i].name == e.currentTarget.dataset.id) {
+        imgSrc = this.data.locationArr[i].imageUrl
+        break
       }
-
-      this.setData({
-        modalHidden: false,
-        currentLocationImg: util.baseUrl + imgSrc
-      })
     }
+
+    this.setData({
+      modalHidden: false,
+      currentLocationImg: util.baseUrl + imgSrc
+    })
   },
   /**
    * 确认提交

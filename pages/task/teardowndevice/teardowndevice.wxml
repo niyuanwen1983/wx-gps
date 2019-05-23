@@ -59,7 +59,7 @@
         </li>
         <li>
           <span class="tit">安装位置：</span>
-          <span class="des location" bindtap="gotoLocation" data-id="{{selectedLocationId[index]}}" data-index="{{index}}">{{selectedLocationValue[index]}}</span>
+          <span class="des location" bindtap="gotoLocation" data-id="{{selectedLocationId2[index]}}" data-index="{{index}}">{{selectedLocationValue2[index]}}</span>
         </li>
         <li>
           <span class="tit">拆机情况：</span>
