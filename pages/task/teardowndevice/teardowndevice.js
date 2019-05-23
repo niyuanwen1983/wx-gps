@@ -254,7 +254,7 @@ Page({
       success: (res) => {
         that.data.photoArr[that.data.tapIndex][that.data.tapIdx] = res.tempImagePath
 
-        if (that.data.tapIndex > 0 && that.data.tapIndex < 5) {
+        if (that.data.tapIdx > 0 && that.data.tapIdx < 5) {
           that.data.photoArr[that.data.tapIndex].push('/imgs/jia.png')
         }
 
@@ -290,7 +290,7 @@ Page({
 
     let tempArr = this.data.photoArr
     tempArr[this.data.tapIndex][this.data.tapIdx] = JSON.parse(res.data).respData.showUrl
-    if (this.data.tapIdx >= 1 && this.data.tapIdx <= 4) { //最后一张操作时，不满8张，需要再加一个占位图片
+    if (this.data.tapIdx == tempArr[this.data.tapIndex].length - 1 && tempArr[this.data.tapIndex].length < 4) { //最后一张操作时，不满8张，需要再加一个占位图片
       tempArr[this.data.tapIndex].push('/imgs/jia.png')
     }
 

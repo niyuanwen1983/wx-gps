@@ -304,7 +304,7 @@ Page({
       success: (res) => {
         that.data.photoArr[that.data.tapIndex][that.data.tapIdx] = res.tempImagePath
 
-        if (that.data.tapIndex > 2 && that.data.tapIndex < 7) {
+        if (that.data.tapIdx > 2 && that.data.tapIdx < 7) {
           that.data.photoArr[that.data.tapIndex].push('/imgs/jia.png')
         }
 
