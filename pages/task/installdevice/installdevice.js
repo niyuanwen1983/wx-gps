@@ -559,5 +559,72 @@ Page({
     this.setData({
       frontBack: !that.data.frontBack
     })
+  },
+  /**
+   * 选择照片
+   */
+  chooseImage(e) {
+    let that = this
+    let index = e.currentTarget.dataset.id
+    let idx = e.currentTarget.dataset.idx
+    this.setData({
+      currentIndex1: index,
+      tapIndex: index,
+      tapIdx: idx
+    })
+
+    if (this.data.photoArr[index][idx] == '/imgs/cammera.png' || this.data.photoArr[index][idx] == '/imgs/jia.png') {
+      wx.chooseImage({
+        count: 1,
+        sizeType: ['original', 'compressed'],
+        sourceType: ['album', 'camera'],
+        success: res => {
+          that.data.photoArr[that.data.tapIndex][that.data.tapIdx] = res.tempImagePath
+
+          if (that.data.tapIdx > 2 && that.data.tapIdx < 7) {
+            that.data.photoArr[that.data.tapIndex].push('/imgs/jia.png')
+          }
+
+          this.setData({
+            photoArr: that.data.photoArr,
+            isShow: false
+          })
+
+          let atplx = '1004'
+          if (that.data.tapIdx == 0) {
+            atplx = '1001'
+          } else if (that.data.tapIdx == 1) {
+            atplx = '1002'
+          } else if (that.data.tapIdx == 2) {
+            atplx = '1003'
+          }
+
+          let id = that.data.asfxx[that.data.tapIndex].id
+
+          let dataString = {
+            "id": id,
+            "sqid": that.data.id,
+            "asqlx": "1",
+            "atplx": atplx
+          }
+
+          util.doUpload(util.apiFileUpload, res.tempFilePaths[0], dataString, that.successFileUpload, that.failFileUpload)
+        }
+      })
+    }
+    else {
+      //过滤掉占位图片
+      let tempArr = this.data.photoArr[index].filter((item) => {
+        return item != '/imgs/cammera.png' && item != '/imgs/jia.png'
+      })
+
+      wx.previewImage({
+        current: this.data.photoArr[index][idx], //当前图片地址
+        urls: tempArr, //所有要预览的图片的地址集合 数组形式
+        success: function (res) { },
+        fail: function (res) { },
+        complete: function (res) { }
+      })
+    }
   }
 })

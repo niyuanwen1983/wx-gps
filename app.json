@@ -10,7 +10,8 @@
     "pages/me/me",
     "pages/me/myincome/myincome",
     "pages/me/messages/messages",
-    "pages/income/income"
+    "pages/income/income",
+    "pages/question-ask"
   ],
   "window": {
     "backgroundTextStyle": "light",
