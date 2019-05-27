@@ -70,7 +70,7 @@ page {
   font-size: 26rpx;
   color: #ff2b2b;
   margin: 48rpx auto 48rpx auto;
-  width:520rpx;
+  width: 520rpx;
 }
 
 .confirmBtn {
@@ -84,7 +84,7 @@ page {
   margin: 0.40rem auto 0.33rem auto;
   font-size: 30rpx;
   color: #fefefe;
-  padding:28rpx 0;
+  padding: 28rpx 0;
 }
 
 .removeBtn {
@@ -98,12 +98,16 @@ page {
   color: #465ffd;
 }
 
-.removeBtn:after{
-  border:none;
+.removeBtn:after {
+  border: none;
 }
 
 .back>image {
   height: 44rpx;
   display: none;
   width: 54rpx;
+}
+
+.everblue {
+  background-color: #00f;
 }

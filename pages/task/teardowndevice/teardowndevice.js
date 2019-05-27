@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    frontBack: true, //摄像头（默认为后置）
     isInit: true,
     id: '',
     isShow: false,
@@ -500,6 +501,16 @@ Page({
   inputRemark: function(e) {
     this.setData({
       acjbz: e.detail.value
+    })
+  },
+  /**
+   * 切换前后摄像头
+   */
+  devicePosition: function (e) {
+    let that = this
+
+    this.setData({
+      frontBack: !that.data.frontBack
     })
   }
 })

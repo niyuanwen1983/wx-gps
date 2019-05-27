@@ -103,13 +103,19 @@
         </li>
       </ul>
     </view>
-    <button wx:if="{{currentStatus==1}}" class="submitBtn" bindtap="firstCommit">提交</button>
+    <button wx:if="{{currentStatus==1}}" class="submitBtn" bindtap="firstCommit" hover-class="everblue">提交</button>
   </view>
 </view>
 <view wx:else>
-  <camera device-position="back" flash="off" binderror="error" style="width: 100%; height: 800rpx;"></camera>
-  <button class="btn-photo" bindtap="takePhoto">拍照</button>
-  <button class="btn-close" bindtap="hiddeCarema">关闭</button>
+  <camera device-position="{{frontBack?'back':'front'}}" flash="off" binderror="error" style="width: 100%; height: 1096rpx;">
+    <cover-view class="cover-1" bindtap="takePhoto">
+      <cover-view class="cover-2">
+        <cover-view class="cover-5"></cover-view>
+      </cover-view>
+    </cover-view>
+    <cover-image class="cover-3" src="/imgs/closecarema.png" style="width:48rpx;height:24rpx;" bindtap="hiddeCarema"></cover-image>
+    <cover-image class="cover-4" src="/imgs/frontback.png" style="width:80rpx;height:60rpx;" bindtap="devicePosition"></cover-image>
+  </camera>
   <button class="btn-auth" open-type="openSetting" bindtap="hiddeCarema">若无法拍照，请授权使用摄像头</button>
 </view>
 <modal title="安装位置" hidden="{{modalHidden}}" bindconfirm="modalConfirm" no-cancel="true" confirm-text="关闭">

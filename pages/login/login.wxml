@@ -16,7 +16,7 @@
         <input type="number" placeholder="请输入验证码" name="smscode" bindinput='smscodeInput'></input>
         <button type="button" name="getcode" class="getcode" bindtap="sendSms">{{countdownText}}</button>
       </view>
-      <button class="loginBtn" bindtap='login'>立即登录</button>
+      <button class="loginBtn" bindtap='login' hover-class="everblue">立即登录</button>
     </view>
   </view>
 </view>

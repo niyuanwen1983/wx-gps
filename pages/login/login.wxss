@@ -119,3 +119,7 @@
 .loginBtn::after {
   border: none;
 }
+
+.everblue {
+  background-color: #00f;
+}

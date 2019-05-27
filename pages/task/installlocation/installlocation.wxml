@@ -22,7 +22,7 @@
         <label style="font-size:32rpx;">{{item.name}}</label>
       </view>
     </view>
-    <button class="finishBtn" bindtap="showModalHtml">完成</button>
+    <button class="finishBtn" bindtap="showModalHtml" hover-class="everblue">完成</button>
     <modal title="安装位置" hidden="{{modalHidden}}" bindconfirm="modalConfirm" no-cancel="true" confirm-text="关闭">
       <view>
         <image class="image" src="/imgs/1.jpg" style="width:572rpx;height:448rpx;"></image>

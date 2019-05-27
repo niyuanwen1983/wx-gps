@@ -47,7 +47,7 @@
       </view>
       <view class="warning">注：安装前请您确认您的客户信息和设备信息是否正确，以免安装审核不通过！</view>
     </view>
-    <button class="confirmBtn" bindtap="gotoDetail">确认</button>
+    <button class="confirmBtn" bindtap="gotoDetail" hover-class="everblue">确认</button>
     <button class="removeBtn" bindtap="backToTask">取消</button>
   </view>
 </view>

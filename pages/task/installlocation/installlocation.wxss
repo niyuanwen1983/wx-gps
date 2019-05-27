@@ -108,3 +108,7 @@ li>image {
   margin:0 0 20rpx 0;
   width: 720rpx;
 }
+
+.everblue {
+  background-color: #00f !important;
+}
