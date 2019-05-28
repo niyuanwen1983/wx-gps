@@ -7,6 +7,7 @@ var template = require('../../template/template.js')
 
 Page({
   data: {
+    isShowStar: true, //是否显示*
     incomed: 0, //本月收入
     income: 0, //待收入
     tasks: 0 //数量
@@ -19,6 +20,20 @@ Page({
 
   onShow: function() {
     this.initData()
+
+    //获取用户信息（是否显示*）
+    this.initAccount()
+  },
+
+  initAccount: function(res) {
+    let dataString = '{}'
+    util.doApi(util.apiGetUserInfo, dataString, this.successAccount)
+  },
+
+  successAccount: function(res) {
+    this.setData({
+      isShowStar: res.data.respData.iyhlx == 0 ? true : false
+    })
   },
 
   initData: function(res) {
@@ -57,7 +72,7 @@ Page({
    */
   gotoIncome: function() {
     wx.navigateTo({
-      url:routes.income
+      url: routes.income
     })
   },
   /**

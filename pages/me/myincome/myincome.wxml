@@ -15,7 +15,7 @@
         </picker>
       </view>
       <view class="range-money">
-        <p class="income-title">收入（元）：{{moneyFormat.thousandMark(incomed)}}</p>
+        <p class="income-title">收入（元）：{{isShowStar?'***':moneyFormat.thousandMark(incomed)}}</p>
       </view>
     </view>
     <view class="content income">
@@ -23,7 +23,7 @@
         <view class="income-left">
           <view>
             <p class="money">
-              {{moneyFormat.thousandMark(item.fje)}}
+              {{isShowStar?'***':moneyFormat.thousandMark(item.fje)}}
             </p>
           </view>
           <view>

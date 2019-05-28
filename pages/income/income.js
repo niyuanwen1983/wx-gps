@@ -3,6 +3,7 @@ const util = require('../../utils/util.js')
 
 Page({
   data: {
+    isShowStar: true, //是否显示*
     title: '',
     incomeArr: []
   },
@@ -24,7 +25,17 @@ Page({
   },
 
   onShow: function() {
-
+    //获取用户信息（是否显示*）
+    this.initAccount()
+  },
+  initAccount: function (res) {
+    let dataString = '{}'
+    util.doApi(util.apiGetUserInfo, dataString, this.successAccount)
+  },
+  successAccount: function (res) {
+    this.setData({
+      isShowStar: res.data.respData.iyhlx == 0 ? true : false
+    })
   },
   /**
    * 初始化

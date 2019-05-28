@@ -8,14 +8,14 @@
   <view class="content">
     <view class="top">
       <view class="income">
-        <span class="money">{{incomed}}</span>
+        <span class="money">{{isShowStar?'***':incomed}}</span>
         <span>本月收入（元）</span>
         <i class="white_arrow" bindtap="gotoMyincome"></i>
       </view>
     </view>
     <view class="middle clearfix">
       <view class="left" bindtap="gotoIncome">
-        <span class="num">{{income}}</span>
+        <span class="num">{{isShowStar?'***':income}}</span>
         <span class="wrd">待收入（元）</span>
       </view>
       <view class="right">

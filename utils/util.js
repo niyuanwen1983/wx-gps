@@ -11,7 +11,7 @@ const _aesKey = '8n64jliKdUfZb0Ar4HzlCnYgGW1FuXS9'
 const _iv = '0102030405060708'
 
 //调试接口地址
-const baseUrl = 'https://www.zhifubank.com.cn:8099/mogo'
+const baseUrl = 'https://gps.zhifubank.com.cn/mogo'
 //小程序版本号
 const version = '1.0.0'
 
@@ -39,6 +39,8 @@ const apiGpsSave = '/api/gps/saveGpsInfo.do'
 const apiDelFile = '/api/gps/delFile.do'
 //获取openid接口
 const apiGetOpenid = '/api/gps/getOpenId.do'
+//获取用户信息（用于是否显示金额）
+const apiGetUserInfo = '/api/gps/getUserInfo.do'
 
 const md5 = require('../assets/js/md5/md5.js')
 
@@ -116,7 +118,7 @@ const doApi = (url, param, successFunction, failFunction, isShowLoading = true) 
         failFunction(res);
       }
     },
-    complete:function(res){
+    complete: function(res) {
       wx.hideLoading()
     }
   })
@@ -311,6 +313,7 @@ module.exports = {
   apiGpsSave: apiGpsSave,
   apiDelFile: apiDelFile,
   apiGetOpenid: apiGetOpenid,
+  apiGetUserInfo: apiGetUserInfo,
   isEmpty: isEmpty,
   isLeapYear: isLeapYear,
   showToast: showToast,

@@ -20,7 +20,7 @@
         </view>
       </view>
       <view class="income-right">
-        <p class="money">+{{moneyFormat.thousandMark(item.fazfy)}}元</p>
+        <p class="money">+{{isShowStar?'***':moneyFormat.thousandMark(item.fazfy)}}元</p>
       </view>
     </view>
   </view>
