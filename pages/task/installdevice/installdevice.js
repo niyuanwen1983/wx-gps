@@ -64,6 +64,10 @@ Page({
     qqmapsdk = new QQMapWX({
       key: util.QQKey
     })
+
+    //获取安装位置图片
+    let dataString = '{}'
+    util.doApi(util.apiConfig, dataString, this.successConfig, undefined, false)
   },
   /**
    * 获取安装图片成功回调方法
@@ -137,9 +141,22 @@ Page({
   },
 
   onShow: function(options) {
-    //获取安装位置图片
-    let dataString = '{}'
-    util.doApi(util.apiConfig, dataString, this.successConfig, undefined, false)
+    if (!util.isEmpty(getApp().globalData.locationId) && !util.isEmpty(getApp().globalData.locationName)) {
+      let tempIdArr = this.data.selectedLocationId
+      tempIdArr[getApp().globalData.locationIndex] = getApp().globalData.locationId
+      let tempValueArr = this.data.selectedLocationValue
+      tempValueArr[getApp().globalData.locationIndex] = getApp().globalData.locationName
+
+      this.setData({
+        locationId: getApp().globalData.locationId,
+        locationName: getApp().globalData.locationName,
+        selectedLocationId: tempIdArr,
+        selectedLocationValue: tempValueArr
+      })
+
+      getApp().globalData.localTempIdArr = tempIdArr
+      getApp().globalData.localTempValueArr = tempValueArr
+    }
   },
   /**
    * 初始化
@@ -196,23 +213,22 @@ Page({
     //初始化照片数组
     let photoArrTemp = []
     for (let ii = 0; ii < res.data.respData.asfxx.length; ii++) {
-      let photos = ['/imgs/cammera.png', '/imgs/cammera.png', '/imgs/cammera.png', '/imgs/jia.png']
-      for (let j = 0; j < res.data.respData.asfxx[ii].aazzp.length; j++) {
-        if (j <= 3) {
-          if (res.data.respData.asfxx[ii].aazzp[j].afjxl == '1001') {
-            photos[0] = res.data.respData.asfxx[ii].aazzp[j].imageUrl
-          } else if (res.data.respData.asfxx[ii].aazzp[j].afjxl == '1002') {
-            photos[1] = res.data.respData.asfxx[ii].aazzp[j].imageUrl
-          } else if (res.data.respData.asfxx[ii].aazzp[j].afjxl == '1003') {
-            photos[2] = res.data.respData.asfxx[ii].aazzp[j].imageUrl
-          } else {
-            photos[3] = res.data.respData.asfxx[ii].aazzp[j].imageUrl
-          }
-        } else {
-          photos.push(res.data.respData.asfxx[ii].aazzp[j].imageUrl)
+      let photos = ['/imgs/cammera.png', '/imgs/cammera.png', '/imgs/cammera.png']
+      for (let jj = 0; jj < res.data.respData.asfxx[ii].aazzp.length; jj++) {
+        if (res.data.respData.asfxx[ii].aazzp[jj].afjxl == '1001') {
+          photos[0] = res.data.respData.asfxx[ii].aazzp[jj].imageUrl
+        } else if (res.data.respData.asfxx[ii].aazzp[jj].afjxl == '1002') {
+          photos[1] = res.data.respData.asfxx[ii].aazzp[jj].imageUrl
+        } else if (res.data.respData.asfxx[ii].aazzp[jj].afjxl == '1003') {
+          photos[2] = res.data.respData.asfxx[ii].aazzp[jj].imageUrl
         }
       }
-      if (photos.length > 3 && photos.length < 8 && photos[photos.length - 1] != '/imgs/jia.png' && this.data.currentStatus == 1) {
+      for (let kk = 0; kk < res.data.respData.asfxx[ii].aazzp.length; kk++) {
+        if (res.data.respData.asfxx[ii].aazzp[kk].afjxl != '1001' && res.data.respData.asfxx[ii].aazzp[kk].afjxl != '1002' && res.data.respData.asfxx[ii].aazzp[kk].afjxl != '1003') {
+          photos.push(res.data.respData.asfxx[ii].aazzp[kk].imageUrl)
+        }
+      }
+      if (photos.length < 8 && photos[photos.length - 1] != '/imgs/jia.png' && this.data.currentStatus == 1) {
         photos.push('/imgs/jia.png')
       }
       photoArrTemp.push(photos)
@@ -579,7 +595,7 @@ Page({
         sizeType: ['original', 'compressed'],
         sourceType: ['album', 'camera'],
         success: res => {
-          that.data.photoArr[that.data.tapIndex][that.data.tapIdx] = res.tempImagePath
+          that.data.photoArr[that.data.tapIndex][that.data.tapIdx] = res.tempFilePaths[0]
 
           if (that.data.tapIdx > 2 && that.data.tapIdx < 7) {
             that.data.photoArr[that.data.tapIndex].push('/imgs/jia.png')
@@ -611,8 +627,7 @@ Page({
           util.doUpload(util.apiFileUpload, res.tempFilePaths[0], dataString, that.successFileUpload, that.failFileUpload)
         }
       })
-    }
-    else {
+    } else {
       //过滤掉占位图片
       let tempArr = this.data.photoArr[index].filter((item) => {
         return item != '/imgs/cammera.png' && item != '/imgs/jia.png'
@@ -621,9 +636,9 @@ Page({
       wx.previewImage({
         current: this.data.photoArr[index][idx], //当前图片地址
         urls: tempArr, //所有要预览的图片的地址集合 数组形式
-        success: function (res) { },
-        fail: function (res) { },
-        complete: function (res) { }
+        success: function(res) {},
+        fail: function(res) {},
+        complete: function(res) {}
       })
     }
   }
