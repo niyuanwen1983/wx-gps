@@ -2,7 +2,6 @@
 const util = require('../../../utils/util.js')
 
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -53,7 +52,6 @@ Page({
    * 点击项目
    */
   checkItem: function(e) {
-
     //点击的序号
     let selectedIndex = e.currentTarget.dataset.index
 

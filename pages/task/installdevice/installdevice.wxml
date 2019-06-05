@@ -79,14 +79,14 @@
           <span class="tit">安装照片：</span>
           <span class="pic clearfix">
             <view class="item" wx:for="{{photoArr[index]}}" wx:for-index="idx" wx:for-item="photo">
-              <i data-id="{{index}}" data-idx="{{idx}}" bindtap="chooseImage">
+              <i data-id="{{index}}" data-idx="{{idx}}" bindtap="chooseImage" style="display:{{(index > 0 && (idx == 1 || idx == 2))?'none':'flex'}}">
                 <image wx:if="{{idx<3}}" src="{{photo}}" alt="" class="{{photo=='/imgs/cammera.png'?'carema':'photo'}}"></image>
                 <image wx:else src="{{photo}}" alt="" class="{{photo=='/imgs/jia.png'?'carema':'photo'}}"></image>
                 <span data-id="{{index}}" data-idx="{{idx}}" data-imgid="{{photo}}" class='cls' catchtap="deletePhoto" wx:if="{{photo!='/imgs/cammera.png' && photo!='/imgs/jia.png' && currentStatus==1}}">X</span>
               </i>
-              <text wx:if="{{idx==0}}">安装位置</text>
-              <text wx:elif="{{idx==1}}">人车合影</text>
-              <text wx:elif="{{idx==2}}">设备车架号合影</text>
+              <text wx:if="{{idx==0}}" >安装位置</text>
+              <text wx:elif="{{idx==1}}" style="display:{{(index > 0 && (idx == 1 || idx == 2))?'none':'block'}}">人车合影</text>
+              <text wx:elif="{{idx==2}}" style="display:{{(index > 0 && (idx == 1 || idx == 2))?'none':'block'}}">设备车架号合影</text>
               <text wx:else>其他{{idx-2}}</text>
             </view>
           </span>

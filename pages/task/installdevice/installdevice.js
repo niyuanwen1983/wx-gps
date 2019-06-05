@@ -504,7 +504,9 @@ Page({
     let isPhoto = true
     for (let i = 0; i < this.data.asfxx.length; i++) {
       for (let j = 0; j < 3; j++) {
-        if (this.data.photoArr[i][j] == '/imgs/cammera.png') {
+        //安装位置都要上传
+        //人车合影和车架号合影只要提交第一行的照片
+        if (this.data.photoArr[i][j] == '/imgs/cammera.png' && (i == 0 || (i > 0 && j == 0))) {
           isPhoto = false
           break;
         }
