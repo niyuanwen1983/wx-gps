@@ -143,14 +143,14 @@ Page({
 
       let selectedLocationIdTemp2 = []
       let selectedLocationValueTemp2 = []
-      for (let i = 0; i < res.data.respData.asfxx.length; i++) {
+      for (let j = 0; j < res.data.respData.asfxx.length; j++) {
         //是否有安装位置
-        if (util.isEmpty(res.data.respData.asfxx[i].aazwz)) { //没有安装位置
+        if (util.isEmpty(res.data.respData.asfxx[j].aazwz)) { //没有安装位置
           selectedLocationIdTemp2.push('')
           selectedLocationValueTemp2.push('')
         } else { //有安装位置
-          selectedLocationIdTemp2.push(res.data.respData.asfxx[i].aazwz)
-          selectedLocationValueTemp2.push(res.data.respData.asfxx[i].aazwz)
+          selectedLocationIdTemp2.push(res.data.respData.asfxx[j].aazwz)
+          selectedLocationValueTemp2.push(res.data.respData.asfxx[j].aazwz + (util.isEmpty(res.data.respData.asfxx[j].aazwzqt) ? '' : res.data.respData.asfxx[j].aazwzqt))
         }
       }
       this.setData({
@@ -379,6 +379,10 @@ Page({
         imgSrc = this.data.locationArr[i].imageUrl
         break
       }
+    }
+
+    if (util.isEmpty(imgSrc)) {
+      return false
     }
 
     this.setData({

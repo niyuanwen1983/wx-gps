@@ -22,6 +22,7 @@
         <label style="font-size:32rpx;">{{item.name}}</label>
       </view>
     </view>
+    <input type="text" bindinput="otherInput" style="border:1rpx #eeeeee solid;border-radius:4rpx;display:{{checkedItem.code=='9999'?'block':'none'}};margin:16rpx 0 0 0;padding:0 4rpx;" placeholder="请输入安装位置描述" value="{{other}}"></input>
     <button class="finishBtn" bindtap="showModalHtml" hover-class="everblue">完成</button>
     <modal title="安装位置" hidden="{{modalHidden}}" bindconfirm="modalConfirm" no-cancel="true" confirm-text="关闭">
       <view>

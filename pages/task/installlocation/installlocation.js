@@ -10,6 +10,7 @@ Page({
     locationArr: [],
     checkedItem: '',
     locationIndex: 0,
+    other: '',
     selectedCode: '', //详情页面传入
     emptyImage: util.baseUrl + '/images/gps/0.jpg' //空图
   },
@@ -19,7 +20,8 @@ Page({
   onLoad: function(options) {
     this.setData({
       locationIndex: options.index,
-      selectedCode: options.code
+      selectedCode: options.code,
+      other: options.other == "undefined" ? '' : options.other
     })
 
     let dataString = '{}'
@@ -89,11 +91,21 @@ Page({
     if (util.isEmpty(this.data.checkedItem.code)) {
       util.showToast('请选择安装位置！')
     } else {
+      if (this.data.checkedItem.code == '9999' && util.isEmpty(this.data.other)) {
+        util.showToast('请输入安装位置描述！')
+        return false
+      }
+
       let that = this
 
       getApp().globalData.locationIndex = this.data.locationIndex
       getApp().globalData.locationId = this.data.checkedItem.code
-      getApp().globalData.locationName = this.data.checkedItem.name
+      if (this.data.checkedItem.code == '9999') {
+        getApp().globalData.locationName = this.data.checkedItem.name + this.data.other
+      } else {
+        getApp().globalData.locationName = this.data.checkedItem.name
+      }
+      getApp().globalData.locationOther = this.data.other
 
       wx.showModal({
         title: '提示',
@@ -116,6 +128,11 @@ Page({
   modalCandel: function() {
     this.setData({
       modalHidden: true
+    })
+  },
+  otherInput: function(e) {
+    this.setData({
+      other: e.detail.value
     })
   }
 })

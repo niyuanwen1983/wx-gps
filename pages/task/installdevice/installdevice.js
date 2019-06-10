@@ -17,6 +17,7 @@ Page({
     currentIndex1: -1,
     locationId: '',
     locationName: '',
+    locationOther: '',
     gpsLocation: '',
 
     tapIndex: -1, //点击图片的设备序号
@@ -24,6 +25,7 @@ Page({
 
     selectedLocationId: [], //安装位置id
     selectedLocationValue: [], //安装位置名称
+    selectedLocationOther: [], //安装位置（选择其他时输入的备注）
 
     axm: '', //姓名
     acp: '', //车牌号码
@@ -120,12 +122,16 @@ Page({
       tempIdArr[getApp().globalData.locationIndex] = getApp().globalData.locationId
       let tempValueArr = this.data.selectedLocationValue
       tempValueArr[getApp().globalData.locationIndex] = getApp().globalData.locationName
+      let tempOtherArr = this.data.selectedLocationOther
+      tempOtherArr[getApp().globalData.locationIndex] = getApp().globalData.locationOther
 
       this.setData({
         locationId: getApp().globalData.locationId,
         locationName: getApp().globalData.locationName,
+        locationOther: getApp().globalData.locationOther,
         selectedLocationId: tempIdArr,
-        selectedLocationValue: tempValueArr
+        selectedLocationValue: tempValueArr,
+        selectedLocationOther: tempOtherArr
       })
 
       getApp().globalData.localTempIdArr = tempIdArr
@@ -146,12 +152,16 @@ Page({
       tempIdArr[getApp().globalData.locationIndex] = getApp().globalData.locationId
       let tempValueArr = this.data.selectedLocationValue
       tempValueArr[getApp().globalData.locationIndex] = getApp().globalData.locationName
+      let tempOtherArr = this.data.selectedLocationOther
+      tempOtherArr[getApp().globalData.locationIndex] = getApp().globalData.locationOther
 
       this.setData({
         locationId: getApp().globalData.locationId,
         locationName: getApp().globalData.locationName,
+        locationOther:getApp().globalData.locationOther,
         selectedLocationId: tempIdArr,
-        selectedLocationValue: tempValueArr
+        selectedLocationValue: tempValueArr,
+        selectedLocationOther: tempOtherArr
       })
 
       getApp().globalData.localTempIdArr = tempIdArr
@@ -189,16 +199,19 @@ Page({
     if (this.data.isInit) {
       let selectedLocationIdTemp = []
       let selectedLocationValueTemp = []
+      let selectedLocationOtherTemp = []
       for (let i = 0; i < res.data.respData.asfxx.length; i++) {
         //是否有安装位置
         if (util.isEmpty(res.data.respData.asfxx[i].aazwz)) { //没有安装位置
           selectedLocationIdTemp.push('')
           selectedLocationValueTemp.push('')
+          selectedLocationOtherTemp.push('')
         } else { //有安装位置
           selectedLocationIdTemp.push(res.data.respData.asfxx[i].aazwz)
           for (let j = 0; j < this.data.locationArr.length; j++) {
             if (this.data.locationArr[j].code == res.data.respData.asfxx[i].aazwz) {
               selectedLocationValueTemp.push(this.data.locationArr[j].name)
+              selectedLocationOtherTemp.push(util.isEmpty(res.data.respData.asfxx[i].aazwzqt) ? '' : res.data.respData.asfxx[i].aazwzqt)
               break
             }
           }
@@ -206,7 +219,8 @@ Page({
       }
       this.setData({
         selectedLocationId: selectedLocationIdTemp,
-        selectedLocationValue: selectedLocationValueTemp
+        selectedLocationValue: selectedLocationValueTemp,
+        selectedLocationOther: selectedLocationOtherTemp
       })
     }
 
@@ -451,7 +465,7 @@ Page({
   gotoLocation: function(e) {
     if (this.data.currentStatus == 1) {
       wx.navigateTo({
-        url: '/pages/task/installlocation/installlocation?index=' + e.currentTarget.dataset.index + '&code=' + e.currentTarget.dataset.id
+        url: '/pages/task/installlocation/installlocation?index=' + e.currentTarget.dataset.index + '&code=' + e.currentTarget.dataset.id + '&other=' + e.currentTarget.dataset.other
       })
     } else {
       let imgSrc = ''
@@ -460,6 +474,10 @@ Page({
           imgSrc = this.data.locationArr[i].imageUrl
           break
         }
+      }
+
+      if (util.isEmpty(imgSrc)){
+        return false
       }
 
       this.setData({
@@ -520,7 +538,12 @@ Page({
     //通过检查，执行提交
     let temp = '['
     for (let i = 0; i < this.data.asfxx.length; i++) {
-      temp += '{"gpsid":"' + this.data.asfxx[i].id + '","aazwz":"' + this.data.selectedLocationId[i] + '"},'
+      if (this.data.selectedLocationId[i] == '9999'){
+        temp += '{"gpsid":"' + this.data.asfxx[i].id + '","aazwz":"' + this.data.selectedLocationId[i] + '","aazwzqt":"' + this.data.selectedLocationOther[i] + '"},'
+      }
+      else{
+        temp += '{"gpsid":"' + this.data.asfxx[i].id + '","aazwz":"' + this.data.selectedLocationId[i] + '"},'
+      }      
     }
     temp = temp.substr(0, temp.length - 1)
     temp += ']'

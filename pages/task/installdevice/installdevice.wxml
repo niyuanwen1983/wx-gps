@@ -73,7 +73,7 @@
         </li>
         <li>
           <span class="tit">安装位置：</span>
-          <span class="des location" bindtap="gotoLocation" data-id="{{selectedLocationId[index]}}" data-index="{{index}}">{{selectedLocationId[index]==''?'请点击选择安装位置序列号':selectedLocationValue[index]}}</span>
+          <span class="des location" bindtap="gotoLocation" data-id="{{selectedLocationId[index]}}" data-index="{{index}}" data-other="{{selectedLocationOther[index]}}">{{selectedLocationId[index]==''?'请点击选择安装位置序列号':selectedLocationValue[index]+selectedLocationOther[index]}}</span>
         </li>
         <li>
           <span class="tit">安装照片：</span>
