@@ -56,6 +56,14 @@ Page({
    */
   onShow: function() {
     this.initData()
+
+    wx.getNetworkType({
+      success: function(res) {
+        if (res.networkType == 'none') {
+          util.showToast('当前没有连接网络！')
+        }
+      }
+    })
   },
   /**
    * 初始化
