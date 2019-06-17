@@ -100,11 +100,11 @@ Page({
 
       getApp().globalData.locationIndex = this.data.locationIndex
       getApp().globalData.locationId = this.data.checkedItem.code
-      if (this.data.checkedItem.code == '9999') {
-        getApp().globalData.locationName = this.data.checkedItem.name + this.data.other
-      } else {
-        getApp().globalData.locationName = this.data.checkedItem.name
-      }
+      //if (this.data.checkedItem.code == '9999') {
+      //getApp().globalData.locationName = this.data.checkedItem.name
+      //} else {
+      getApp().globalData.locationName = this.data.checkedItem.name
+      //}
       getApp().globalData.locationOther = this.data.other
 
       wx.showModal({

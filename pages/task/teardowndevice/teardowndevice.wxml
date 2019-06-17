@@ -55,7 +55,7 @@
         </li>
         <li>
           <span class="tit">SIM卡号：</span>
-          <span class="des">{{item.asimbh}}</span>
+          <span class="des">{{item.asimbh == null?'':item.asimbh}}</span>
         </li>
         <li>
           <span class="tit">安装位置：</span>
