@@ -121,7 +121,7 @@ Page({
       let tempIdArr = this.data.selectedLocationId
       tempIdArr[getApp().globalData.locationIndex] = getApp().globalData.locationId
       let tempValueArr = this.data.selectedLocationValue
-      tempValueArr[getApp().globalData.locationIndex] = getApp().globalData.locationName
+      tempValueArr[getApp().globalData.locationIndex] = getApp().globalData.locationName.replace('其他', '')
       let tempOtherArr = this.data.selectedLocationOther
       tempOtherArr[getApp().globalData.locationIndex] = getApp().globalData.locationOther
 
@@ -151,7 +151,7 @@ Page({
       let tempIdArr = this.data.selectedLocationId
       tempIdArr[getApp().globalData.locationIndex] = getApp().globalData.locationId
       let tempValueArr = this.data.selectedLocationValue
-      tempValueArr[getApp().globalData.locationIndex] = getApp().globalData.locationName
+      tempValueArr[getApp().globalData.locationIndex] = getApp().globalData.locationName.replace('其他', '')
       let tempOtherArr = this.data.selectedLocationOther
       tempOtherArr[getApp().globalData.locationIndex] = getApp().globalData.locationOther
 
