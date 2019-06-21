@@ -38,8 +38,8 @@
             <view></view>
           </li>
           <li>
-            <span class="tit">SIM卡号：</span>
-            <span class="des">{{item.asimbh == null?'':item.asimbh}}</span>
+            <span class="tit">S/N号：</span>
+            <span class="des">{{item.asnbh}}</span>
             <view></view>
           </li>
         </ul>
